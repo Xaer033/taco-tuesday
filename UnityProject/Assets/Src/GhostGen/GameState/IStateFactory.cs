@@ -6,6 +6,6 @@ namespace GhostGen
 {
 	public interface IStateFactory 
 	{
-		IGameState GetState( int stateId );
+		IGameState CreateState( int stateId );
 	}
 }

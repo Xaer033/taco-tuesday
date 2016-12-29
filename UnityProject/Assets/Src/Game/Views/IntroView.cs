@@ -10,10 +10,12 @@ public class IntroView : UIView
     void Awake()
     {
         canvasGroup.alpha = 0.0f;
+        GameObject card = Resources.Load<GameObject>("GUI/CardTemplate");
+        Instantiate<GameObject>(card, transform, false);
     }
     void Start()
     {
-        Tween introTween = canvasGroup.DOFade(1.0f, 1.0f).OnComplete(() => { OnIntroTransitionFinished(); });
+        Tween introTween = canvasGroup.DOFade(1.0f, 1.0f).OnComplete( OnIntroTransitionFinished );
         introTween.SetDelay(0.5f);
     }
 //------------------- Private Implementation -------------------

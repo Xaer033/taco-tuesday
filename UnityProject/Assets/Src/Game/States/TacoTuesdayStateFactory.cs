@@ -12,7 +12,7 @@ public class TacoTuesdayState
 public class TacoTuesdayStateFactory : IStateFactory
 {
 	
-	public IGameState GetState( int stateId )
+	public IGameState CreateState( int stateId )
 	{
 		switch( stateId )
 		{

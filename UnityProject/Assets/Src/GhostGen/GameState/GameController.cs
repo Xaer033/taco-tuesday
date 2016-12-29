@@ -32,7 +32,7 @@ namespace GhostGen
 			if( _currentState != null )
 				_currentState.Exit( this );
 
-			_currentState = _stateFactory.GetState( stateId );
+			_currentState = _stateFactory.CreateState( stateId );
 			_currentState.Init(this);
 		}
 

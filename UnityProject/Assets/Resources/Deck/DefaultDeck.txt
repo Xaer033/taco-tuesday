@@ -1,0 +1,11 @@
+[{
+	"name": "CoolThing",
+	"iconName": "GrossThing",
+	"cardType": 1,
+	"foodValue": 3
+}, {
+	"name": "Nice",
+	"iconName": "VegeThing",
+	"cardType": 2,
+	"foodValue": 1
+}]

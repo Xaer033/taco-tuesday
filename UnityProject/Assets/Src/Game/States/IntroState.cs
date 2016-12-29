@@ -12,8 +12,11 @@ public class IntroState : IGameState
 
         _introView = _controller.GetUI().CreateView(TacoTuesdayViews.IntroMovie, 0);
         _introView.OnIntroTransitionEvent += _introView_OnIntroTransitionEvent;
-		//_backButton = GameObject.Find ("backButton").GetComponent< Button > ();
-		//_backButton.onClick.AddListener( onBackClick );
+        //_backButton = GameObject.Find ("backButton").GetComponent< Button > ();
+        //_backButton.onClick.AddListener( onBackClick );
+
+        CardDeck deck = new CardDeck();
+        deck.LoadDeckFromJson(Resources.Load<TextAsset>("Deck/DefaultDeck").text);
 	}
 
     private void _introView_OnIntroTransitionEvent(UIView p_view)
