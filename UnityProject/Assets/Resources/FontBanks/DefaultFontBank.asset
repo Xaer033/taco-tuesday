@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce12b2f63ff28a4a831f200bac48bfa, type: 3}
+  m_Name: DefaultFontBank
+  m_EditorClassIdentifier: 
+  bigHeaderFont: {fileID: 12800000, guid: 6bd900c0e6db7fb4bb51bedee13a11ab, type: 3}
+  smallHeaderFont: {fileID: 12800000, guid: d88092f3069b5d544b3cef8468f7cbcd, type: 3}
+  normalTextFont: {fileID: 12800000, guid: 259746c7e3ff7b14cadf818f99018590, type: 3}

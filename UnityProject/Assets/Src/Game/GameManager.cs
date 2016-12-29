@@ -2,17 +2,23 @@
 using System.Collections;
 using GhostGen;
 
+[DisallowMultipleComponent]
 public class GameManager : MonoBehaviour
 {
-	
-	public GameController gameController;
+
+    public static FontManager fontManager { get; private set; }
+
+    public GameController gameController;
     public Canvas guiCanvas { get; private set; }
 
     private IViewFactory _viewFactory;
     private IStateFactory _stateFactory;
 
+
 	void Awake()
 	{
+        fontManager = gameObject.AddComponent<FontManager>();
+
         guiCanvas = GetComponentInChildren<Canvas>();
 
 		_viewFactory 	= new TacoTuesdayViewFactory ();

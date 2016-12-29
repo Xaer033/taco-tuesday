@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 259746c7e3ff7b14cadf818f99018590
+timeCreated: 1483010522
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 25
+  forceTextureCase: 0
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Slant
+  fontNames:
+  - Slant
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6bd900c0e6db7fb4bb51bedee13a11ab, type: 3}
+  - {fileID: 12800000, guid: d88092f3069b5d544b3cef8468f7cbcd, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
