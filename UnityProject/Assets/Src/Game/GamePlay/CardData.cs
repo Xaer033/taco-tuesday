@@ -8,7 +8,8 @@ public enum CardType
     None = 0,
     Meat,
     Vegetable,
-    Dish
+    Topping,
+    Customer
 }
 
 
