@@ -32,10 +32,30 @@ public class TacoTuesdayViewFactory : IViewFactory
         view.OnCreationFinishedEvent += onCreateCallback;
         return view;
 	}
-	//------------------- Private Implementation -------------------
-	//--------------------------------------------------------------
-	private Dictionary< int , string > _viewDirectoryMap;
 
+    public UIView CreateView(string viewPath, OnCreationFinishedHandle onCreateCallback)
+    {
+        GameObject viewObj = _createView(viewPath);
+        UIView view = viewObj.GetComponent<UIView>();
+        view.OnCreationFinishedEvent += onCreateCallback;
+        return view;
+    }
+    //------------------- Private Implementation -------------------
+    //--------------------------------------------------------------
+    private Dictionary< int , string > _viewDirectoryMap;
+
+
+    private GameObject _createView(string viewPath)
+    {
+        GameObject viewBase = Resources.Load(viewPath) as GameObject;
+        if (viewBase == null)
+        {
+            Debug.LogError("Error: The view Path: " + viewPath +
+                               " could not be found");
+            return null;
+        }
+        return GameObject.Instantiate(viewBase) as GameObject;
+    }
 
     private GameObject _createView(int viewId)
     {

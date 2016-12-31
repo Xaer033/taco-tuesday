@@ -1,42 +1,85 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public enum CardType
 {
-    None = 0,
+    None = -1,
     Meat,
-    Vegetable,
+    Veggie,
     Topping,
     Customer
 }
 
 
-
-public interface ICardData
+public class CardTypeUtility
 {
-    string      name        { get; set; }
-    string      iconName    { get; set; }
-    CardType    cardType    { get; set; }
+    public static CardType FromString(string cardType)
+    {
+        switch(cardType.ToLower())
+        {
+            case "meat": return CardType.Meat;
+            case "veggie": return CardType.Veggie;
+            case "topping": return CardType.Topping;
+            case "customer": return CardType.Customer;
+        }
+
+        Debug.LogError(string.Format("We don't handle card type: {0}!", cardType));
+        return CardType.None;
+    }
 }
 
-public struct DishCardData : ICardData
+public class BaseCardData
 {
-    public string   name            { get; set; }
-    public string   iconName        { get; set; }
-    public CardType cardType        { get; set; }
-
-    public int      meatRequirement { get; set; }
-    public int      vegeRequirement { get; set; }
-    public int      baseReward      { get; set; }
+    public string      name;
+    public string      iconName;
+    public CardType    cardType;
 }
 
-public struct IngredientCardData : ICardData
+public class CustomerCardData : BaseCardData
 {
-    public string   name        { get; set; }
-    public string   iconName    { get; set; }
-    public CardType cardType    { get; set; }
+    public int      meatRequirement;     
+    public int      veggieRequirement;   
+    public int      toppingRequirement;  
+    public int      baseReward;          
+}
 
-    public int      foodValue   { get; set; }
+public class IngredientCardData : BaseCardData
+{
+    public int      foodValue;
+}
+
+
+public class CardDataFactory
+{
+    public static BaseCardData CreateFromJson(JToken cardToken)
+    {
+        CardType type = CardTypeUtility.FromString(cardToken.Value<string>("cardType"));
+        string name = cardToken.Value<string>("name");
+        string iconName = cardToken.Value<string>("iconName");
+
+        if (type == CardType.Customer)
+        {
+            CustomerCardData cData = new CustomerCardData();
+            cData.cardType = type;
+            cData.name = name;
+            cData.iconName = iconName;
+            cData.baseReward = cardToken.Value<int>("baseReward");
+            cData.meatRequirement = cardToken.Value<int>("meatRequirement");
+            cData.veggieRequirement = cardToken.Value<int>("veggieRequirement");
+            cData.toppingRequirement = cardToken.Value<int>("toppingRequirement");
+            return cData;
+        }
+        else
+        {
+            IngredientCardData iData = new IngredientCardData();
+            iData.cardType = type;
+            iData.name = name;
+            iData.iconName = iconName;
+            iData.foodValue = cardToken.Value<int>("foodValue");
+            return iData;
+        }
+    }
 }

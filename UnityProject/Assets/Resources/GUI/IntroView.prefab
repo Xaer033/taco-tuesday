@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224808760241061522}
   - component: {fileID: 114322735760181618}
   - component: {fileID: 225117089819718696}
+  - component: {fileID: 114826644826674850}
   m_Layer: 0
   m_Name: IntroView
   m_TagString: Untagged
@@ -40,6 +41,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 225117089819718696}
+--- !u!114 &114826644826674850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1402674731026782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: -55
+    m_Right: 0
+    m_Top: -107
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 310.7, y: 437.1}
+  m_Spacing: {x: -131.4, y: -194.13}
+  m_Constraint: 1
+  m_ConstraintCount: 5
 --- !u!224 &224808760241061522
 RectTransform:
   m_ObjectHideFlags: 1

@@ -1,0 +1,487 @@
+fileFormatVersion: 2
+guid: 88b4ff3821b04c647911193e25091935
+timeCreated: 1483180906
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Meat_Art__0000_Pink_Slime
+    21300002: Meat_Art__0001_Chewed_Gum
+    21300004: Meat_Art__0002_Floor_meat
+    21300006: Meat_Art__0003_Pigeon-Meat
+    21300008: Meat_Art__0004_Rat_Meat
+    21300010: Meat_Art__0005_Human-Fingers
+    21300012: Meat_Art__0006_Scab-Meat
+    21300014: Meat_Art__0007_Mystery-meat
+    21300016: Meat_Art__0008_Beef
+    21300018: Meat_Art__0009_Chicken
+    21300020: Meat_Art__0010_Al-Carbon
+    21300022: Meat_Art__0011_shrimp
+    21300024: Meat_Art__0012_Chorizo
+    21300026: Meat_Art__0013_Bacon
+    21300028: Meat_Art__0014_Crab
+    21300030: Meat_Art__0015_Steak
+    21300032: Meat_Art__0016_Al-Pastor
+    21300034: Meat_Art__0017_Salmon
+    21300036: Meat_card_icon
+    21300038: MeatCardBackground
+    21300040: FoodValueBG
+    21300042: Meat_card_title_box
+    21300044: CustomerBG
+    21300046: ToppingIcon
+    21300048: VeggieIcon
+    21300050: ToppingCardBackground
+    21300052: VeggietCardBackground
+    21300054: VeggieCardBackground
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CustomerBG
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1172
+        width: 624
+        height: 875
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FoodValueBG
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 80
+        width: 178
+        height: 161
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0000_Pink_Slime
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 369
+        width: 392
+        height: 460
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0001_Chewed_Gum
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 1724
+        width: 484
+        height: 323
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0002_Floor_meat
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 1554
+        width: 463
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0003_Pigeon-Meat
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 75
+        width: 408
+        height: 292
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0004_Rat_Meat
+      rect:
+        serializedVersion: 2
+        x: 1419
+        y: 318
+        width: 382
+        height: 328
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0005_Human-Fingers
+      rect:
+        serializedVersion: 2
+        x: 1562
+        y: 1045
+        width: 461
+        height: 214
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0006_Scab-Meat
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 243
+        width: 433
+        height: 450
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0007_Mystery-meat
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 1288
+        width: 431
+        height: 311
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0008_Beef
+      rect:
+        serializedVersion: 2
+        x: 1419
+        y: 648
+        width: 431
+        height: 385
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0009_Chicken
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 306
+        width: 410
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0010_Al-Carbon
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 1035
+        width: 465
+        height: 495
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0011_shrimp
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 695
+        width: 478
+        height: 475
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0012_Chorizo
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 628
+        width: 458
+        height: 405
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0013_Bacon
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 1035
+        width: 466
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0014_Crab
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 1261
+        width: 474
+        height: 291
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0015_Steak
+      rect:
+        serializedVersion: 2
+        x: 1505
+        y: 1740
+        width: 458
+        height: 307
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0016_Al-Pastor
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 1532
+        width: 390
+        height: 515
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_Art__0017_Salmon
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 831
+        width: 476
+        height: 202
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_card_icon
+      rect:
+        serializedVersion: 2
+        x: 1803
+        y: 485
+        width: 178
+        height: 161
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_card_title_box
+      rect:
+        serializedVersion: 2
+        x: 1484
+        y: 1601
+        width: 452
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 156, y: -662, z: -14, w: 742}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: MeatCardBackground
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 82
+        width: 181
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 51, y: 51, z: 67, w: 48}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ToppingCardBackground
+      rect:
+        serializedVersion: 2
+        x: 1803
+        y: 324
+        width: 181
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 53, y: 47, z: 63, w: 43}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ToppingIcon
+      rect:
+        serializedVersion: 2
+        x: 1852
+        y: 882
+        width: 178
+        height: 161
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: VeggieCardBackground
+      rect:
+        serializedVersion: 2
+        x: 1803
+        y: 163
+        width: 181
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 48, y: 50, z: 61, w: 45}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: VeggieIcon
+      rect:
+        serializedVersion: 2
+        x: 1852
+        y: 720
+        width: 176
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

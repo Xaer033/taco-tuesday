@@ -1,11 +1,32 @@
-[{
-	"name": "CoolThing",
-	"iconName": "GrossThing",
-	"cardType": 1,
-	"foodValue": 3
-}, {
-	"name": "Nice",
-	"iconName": "VegeThing",
-	"cardType": 2,
-	"foodValue": 1
-}]
+[
+	{
+		"name"		: "CoolThing",
+		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"cardType"	: "meat",
+		"foodValue"	: 3,
+
+		"cardCount"	: 2
+	}, {
+		"name"		: "Nice",
+		"iconName"	: "Meat_Art__0005_Human-Fingers",
+		"cardType"	: "veggie",
+		"foodValue"	: 1
+	}, {
+		"name"		: "Awesome Topping",
+		"iconName"	: "Meat_Art__0006_Scab-Meat",
+		"cardType"	: "topping",
+		"foodValue"	: 2
+	},
+
+	{
+		"name"				: "Angry",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: -2,
+		"meatRequirement"	: 2,
+		"veggieRequirement"	: 3,
+		"toppingRequirement": 3,
+
+		"cardCount"			: 5
+	}
+]

@@ -3,13 +3,17 @@ using System.Collections;
 
 namespace GhostGen
 {
+   
 	public delegate void OnIntroTransitionHandle( UIView p_view );
 	public delegate void OnOutroTransitionHandle( UIView p_view );
     public delegate void OnCreationFinishedHandle(UIView p_view);
-
+    
 
     public class UIView : MonoBehaviour
     {
+        public const string INVALIDATE_ALL = "invalidate_all";
+        public string InvalidateFlag { get; set; }
+        
         public event OnCreationFinishedHandle OnCreationFinishedEvent
         {
             add { _creationFinishedEvent += value; }
@@ -30,6 +34,11 @@ namespace GhostGen
 
         public virtual void OnCreationFinished()
         {
+            if (_creationFinishedEvent != null)
+            {
+                _creationFinishedEvent(this);
+            }
+            OnUpdateView(INVALIDATE_ALL);
         }
 
         public virtual void OnIntroTransitionFinished()
@@ -48,12 +57,27 @@ namespace GhostGen
             }
         }
 
+        protected virtual void OnUpdateView(string invalidateFlag)
+        {
+        }
+
+
         public virtual void OnDispose()
         {
             _introTransitionFinishEvent = null;
             _outroTransitionFinishEvent = null;
         }
 
+        
+        public virtual void Update()
+        {
+            if(InvalidateFlag != null)
+            {
+                OnUpdateView(InvalidateFlag);
+            }
+
+            InvalidateFlag = null;
+        }
 
         //------------------- Private Implementation -------------------
         //--------------------------------------------------------------	

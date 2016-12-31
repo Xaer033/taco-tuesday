@@ -15,9 +15,14 @@ public class IntroState : IGameState
         //_backButton = GameObject.Find ("backButton").GetComponent< Button > ();
         //_backButton.onClick.AddListener( onBackClick );
 
-        CardDeck deck = new CardDeck();
-        deck.LoadDeckFromJson(Resources.Load<TextAsset>("Deck/DefaultDeck").text);
-	}
+        TextAsset deckJson = Resources.Load<TextAsset>("Deck/DefaultDeck");
+        CardDeck deck = CardDeck.FromJson(deckJson.text);
+
+        for (int i = 0; i < deck.cardList.Count; ++i)
+        {
+            GameManager.cardResourceBank.CreateCardView(deck.cardList[i], _introView.transform);
+        }
+    }
 
     private void _introView_OnIntroTransitionEvent(UIView p_view)
     {

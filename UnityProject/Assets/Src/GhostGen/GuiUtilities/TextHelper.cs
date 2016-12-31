@@ -43,7 +43,6 @@ namespace GhostGen
             }
             _dirtyFontType = fontType;
         }
-    }
 #endif
-
+    }
 }

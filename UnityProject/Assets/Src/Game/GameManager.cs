@@ -6,10 +6,14 @@ using GhostGen;
 public class GameManager : MonoBehaviour
 {
 
-    public static FontManager fontManager { get; private set; }
+    public static FontManager       fontManager { get; private set; }
+    
+    public static CardResourceBank  cardResourceBank { get; private set; }
 
-    public GameController gameController;
+    public GameController gameController { get; private set; }
     public Canvas guiCanvas { get; private set; }
+
+    public CardResourceBank _cardResourceBank;
 
     private IViewFactory _viewFactory;
     private IStateFactory _stateFactory;
@@ -17,6 +21,9 @@ public class GameManager : MonoBehaviour
 
 	void Awake()
 	{
+        cardResourceBank = _cardResourceBank;
+        cardResourceBank.Initialize();
+
         fontManager = gameObject.AddComponent<FontManager>();
 
         guiCanvas = GetComponentInChildren<Canvas>();
@@ -25,7 +32,6 @@ public class GameManager : MonoBehaviour
 		_stateFactory 	= new TacoTuesdayStateFactory ();
 
 		gameController  = new GameController( _stateFactory, _viewFactory, guiCanvas );
-
 		gameController.ChangeState( TacoTuesdayState.Intro );
 
 

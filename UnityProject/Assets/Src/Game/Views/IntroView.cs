@@ -10,8 +10,8 @@ public class IntroView : UIView
     void Awake()
     {
         canvasGroup.alpha = 0.0f;
-        GameObject card = Resources.Load<GameObject>("GUI/CardTemplate");
-        Instantiate<GameObject>(card, transform, false);
+       
+        
     }
     void Start()
     {
