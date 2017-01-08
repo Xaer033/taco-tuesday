@@ -4,38 +4,38 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # http://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:50ce6475960e6da584cbad67e1aef8ff:0e60a23f1153740e48c4d1a0c7c1adb3:e0a69d0bd82abedc539f1da7ce15bcea$
+# $TexturePacker:SmartUpdate:ca3482362bc107c6ec3aec6f607999e3:5536129f5532838b3487cca1b0735bd8:e0a69d0bd82abedc539f1da7ce15bcea$
 #
 :format=40300
 :texture=MeatAtlas.png
-:size=2048x2048
+:size=1024x2048
 :pivotpoints=enabled
 :borders=enabled
 
-CustomerBG;1;1172;624;875; 0.5;0.5; 0;0;0;0
-FoodValueBG;184;80;178;161; 0.5;0.5; 0;0;0;0
-Meat_Art__0000_Pink_Slime;481;369;392;460; 0.5;0.5; 0;0;0;0
-Meat_Art__0001_Chewed_Gum;1019;1724;484;323; 0.5;0.5; 0;0;0;0
-Meat_Art__0002_Floor_meat;1019;1554;463;168; 0.5;0.5; 0;0;0;0
-Meat_Art__0003_Pigeon-Meat;436;75;408;292; 0.5;0.5; 0;0;0;0
-Meat_Art__0004_Rat_Meat;1419;318;382;328; 0.5;0.5; 0;0;0;0
-Meat_Art__0005_Human-Fingers;1562;1045;461;214; 0.5;0.5; 0;0;0;0
-Meat_Art__0006_Scab-Meat;1;243;433;450; 0.5;0.5; 0;0;0;0
-Meat_Art__0007_Mystery-meat;1570;1288;431;311; 0.5;0.5; 0;0;0;0
-Meat_Art__0008_Beef;1419;648;431;385; 0.5;0.5; 0;0;0;0
-Meat_Art__0009_Chicken;875;306;410;320; 0.5;0.5; 0;0;0;0
-Meat_Art__0010_Al-Carbon;627;1035;465;495; 0.5;0.5; 0;0;0;0
-Meat_Art__0011_shrimp;1;695;478;475; 0.5;0.5; 0;0;0;0
-Meat_Art__0012_Chorizo;959;628;458;405; 0.5;0.5; 0;0;0;0
-Meat_Art__0013_Bacon;1094;1035;466;224; 0.5;0.5; 0;0;0;0
-Meat_Art__0014_Crab;1094;1261;474;291; 0.5;0.5; 0;0;0;0
-Meat_Art__0015_Steak;1505;1740;458;307; 0.5;0.5; 0;0;0;0
-Meat_Art__0016_Al-Pastor;627;1532;390;515; 0.5;0.5; 0;0;0;0
-Meat_Art__0017_Salmon;481;831;476;202; 0.5;0.5; 0;0;0;0
-Meat_card_icon;1803;485;178;161; 0.5;0.5; 0;0;0;0
-Meat_card_title_box;1484;1601;452;121; 0.5;0.5; 156;-14;742;-662
-MeatCardBackground;1;82;181;159; 0.5;0.5; 51;67;48;51
-ToppingCardBackground;1803;324;181;159; 0.5;0.5; 53;63;43;47
-ToppingIcon;1852;882;178;161; 0.5;0.5; 0;0;0;0
-VeggieCardBackground;1803;163;181;159; 0.5;0.5; 48;61;45;50
-VeggieIcon;1852;720;176;160; 0.5;0.5; 0;0;0;0
+CustomerBG;1;1560;347;487; 0.5;0.5; 0;0;0;0
+FoodValueBG;883;1622;99;89; 0.5;0.5; 0;0;0;0
+Meat_Art__0000_Pink_Slime;729;915;219;256; 0.5;0.5; 0;0;0;0
+Meat_Art__0001_Chewed_Gum;350;1866;270;181; 0.5;0.5; 0;0;0;0
+Meat_Art__0002_Floor_meat;611;1523;258;94; 0.5;0.5; 0;0;0;0
+Meat_Art__0003_Pigeon-Meat;243;930;228;163; 0.5;0.5; 0;0;0;0
+Meat_Art__0004_Rat_Meat;243;745;214;183; 0.5;0.5; 0;0;0;0
+Meat_Art__0005_Human-Fingers;611;1401;257;120; 0.5;0.5; 0;0;0;0
+Meat_Art__0006_Scab-Meat;254;1095;242;250; 0.5;0.5; 0;0;0;0
+Meat_Art__0007_Mystery-meat;1;1141;241;174; 0.5;0.5; 0;0;0;0
+Meat_Art__0008_Beef;1;923;240;216; 0.5;0.5; 0;0;0;0
+Meat_Art__0009_Chicken;498;992;229;179; 0.5;0.5; 0;0;0;0
+Meat_Art__0010_Al-Carbon;350;1347;259;275; 0.5;0.5; 0;0;0;0
+Meat_Art__0011_shrimp;622;1783;267;264; 0.5;0.5; 0;0;0;0
+Meat_Art__0012_Chorizo;611;1173;256;226; 0.5;0.5; 0;0;0;0
+Meat_Art__0013_Bacon;350;1624;260;125; 0.5;0.5; 0;0;0;0
+Meat_Art__0014_Crab;617;1619;264;162; 0.5;0.5; 0;0;0;0
+Meat_Art__0015_Steak;1;1386;256;172; 0.5;0.5; 0;0;0;0
+Meat_Art__0016_Al-Pastor;473;704;218;286; 0.5;0.5; 0;0;0;0
+Meat_Art__0017_Salmon;350;1751;265;113; 0.5;0.5; 0;0;0;0
+Meat_card_icon;883;1531;99;89; 0.5;0.5; 0;0;0;0
+Meat_card_title_box;1;1317;251;67; 0.5;0.5; 87;-7;412;-367
+MeatCardBackground;891;1937;125;110; 0.5;0.5; 34;48;47;37
+ToppingCardBackground;891;1825;125;110; 0.5;0.5; 35;48;47;44
+ToppingIcon;871;1440;99;89; 0.5;0.5; 0;0;0;0
+VeggieCardBackground;891;1713;125;110; 0.5;0.5; 37;58;47;40
+VeggieIcon;870;1349;98;89; 0.5;0.5; 0;0;0;0

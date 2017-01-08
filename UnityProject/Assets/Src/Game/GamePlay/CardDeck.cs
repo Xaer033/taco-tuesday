@@ -13,6 +13,12 @@ public class CardDeck : System.Object
     public List<BaseCardData> cardList { get { return _cardList; } }
 
 
+    public static CardDeck FromFile(string path)
+    {
+        TextAsset ingredientDeckJson = Resources.Load<TextAsset>(path);
+        return CardDeck.FromJson(ingredientDeckJson.text);
+    }
+
     public static CardDeck FromJson(string jsonStr)
     {
         CardDeck    deck        = new CardDeck();
@@ -31,4 +37,44 @@ public class CardDeck : System.Object
 
         return deck;
     }
+
+    public BaseCardData Pop()
+    {
+        BaseCardData card = Top;
+        _cardList.Remove(card);
+
+        return card;
+    }
+
+    public BaseCardData Top
+    {
+        get
+        {
+            if (_cardList.Count == 0)
+            {
+                return null;
+            }
+
+            return _cardList[_cardList.Count - 1];
+        }
+    }
+
+    public BaseCardData Bottom
+    {
+        get
+        {
+            if (_cardList.Count == 0)
+            {
+                return null;
+            }
+
+            return _cardList[0];
+        }
+    }
+
+    public void Shuffle()
+    {
+        _cardList.Sort((a, b) => Guid.NewGuid().CompareTo(Guid.NewGuid()));
+    }
+    
 }

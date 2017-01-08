@@ -6,6 +6,7 @@ using DG.Tweening;
 public class IntroView : UIView
 {
     public CanvasGroup canvasGroup;
+    public Transform cardParent;
 
     void Awake()
     {

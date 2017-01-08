@@ -134,9 +134,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 1172
-        width: 624
-        height: 875
+        y: 1560
+        width: 347
+        height: 487
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,10 +146,10 @@ TextureImporter:
       name: FoodValueBG
       rect:
         serializedVersion: 2
-        x: 184
-        y: 80
-        width: 178
-        height: 161
+        x: 883
+        y: 1622
+        width: 99
+        height: 89
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +159,10 @@ TextureImporter:
       name: Meat_Art__0000_Pink_Slime
       rect:
         serializedVersion: 2
-        x: 481
-        y: 369
-        width: 392
-        height: 460
+        x: 729
+        y: 915
+        width: 219
+        height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +172,10 @@ TextureImporter:
       name: Meat_Art__0001_Chewed_Gum
       rect:
         serializedVersion: 2
-        x: 1019
-        y: 1724
-        width: 484
-        height: 323
+        x: 350
+        y: 1866
+        width: 270
+        height: 181
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,10 +185,10 @@ TextureImporter:
       name: Meat_Art__0002_Floor_meat
       rect:
         serializedVersion: 2
-        x: 1019
-        y: 1554
-        width: 463
-        height: 168
+        x: 611
+        y: 1523
+        width: 258
+        height: 94
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -198,10 +198,10 @@ TextureImporter:
       name: Meat_Art__0003_Pigeon-Meat
       rect:
         serializedVersion: 2
-        x: 436
-        y: 75
-        width: 408
-        height: 292
+        x: 243
+        y: 930
+        width: 228
+        height: 163
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -211,10 +211,10 @@ TextureImporter:
       name: Meat_Art__0004_Rat_Meat
       rect:
         serializedVersion: 2
-        x: 1419
-        y: 318
-        width: 382
-        height: 328
+        x: 243
+        y: 745
+        width: 214
+        height: 183
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,10 +224,10 @@ TextureImporter:
       name: Meat_Art__0005_Human-Fingers
       rect:
         serializedVersion: 2
-        x: 1562
-        y: 1045
-        width: 461
-        height: 214
+        x: 611
+        y: 1401
+        width: 257
+        height: 120
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,10 +237,10 @@ TextureImporter:
       name: Meat_Art__0006_Scab-Meat
       rect:
         serializedVersion: 2
-        x: 1
-        y: 243
-        width: 433
-        height: 450
+        x: 254
+        y: 1095
+        width: 242
+        height: 250
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,10 +250,10 @@ TextureImporter:
       name: Meat_Art__0007_Mystery-meat
       rect:
         serializedVersion: 2
-        x: 1570
-        y: 1288
-        width: 431
-        height: 311
+        x: 1
+        y: 1141
+        width: 241
+        height: 174
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,10 +263,10 @@ TextureImporter:
       name: Meat_Art__0008_Beef
       rect:
         serializedVersion: 2
-        x: 1419
-        y: 648
-        width: 431
-        height: 385
+        x: 1
+        y: 923
+        width: 240
+        height: 216
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -276,10 +276,10 @@ TextureImporter:
       name: Meat_Art__0009_Chicken
       rect:
         serializedVersion: 2
-        x: 875
-        y: 306
-        width: 410
-        height: 320
+        x: 498
+        y: 992
+        width: 229
+        height: 179
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -289,10 +289,10 @@ TextureImporter:
       name: Meat_Art__0010_Al-Carbon
       rect:
         serializedVersion: 2
-        x: 627
-        y: 1035
-        width: 465
-        height: 495
+        x: 350
+        y: 1347
+        width: 259
+        height: 275
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,10 +302,10 @@ TextureImporter:
       name: Meat_Art__0011_shrimp
       rect:
         serializedVersion: 2
-        x: 1
-        y: 695
-        width: 478
-        height: 475
+        x: 622
+        y: 1783
+        width: 267
+        height: 264
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -315,10 +315,10 @@ TextureImporter:
       name: Meat_Art__0012_Chorizo
       rect:
         serializedVersion: 2
-        x: 959
-        y: 628
-        width: 458
-        height: 405
+        x: 611
+        y: 1173
+        width: 256
+        height: 226
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,10 +328,10 @@ TextureImporter:
       name: Meat_Art__0013_Bacon
       rect:
         serializedVersion: 2
-        x: 1094
-        y: 1035
-        width: 466
-        height: 224
+        x: 350
+        y: 1624
+        width: 260
+        height: 125
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,10 +341,10 @@ TextureImporter:
       name: Meat_Art__0014_Crab
       rect:
         serializedVersion: 2
-        x: 1094
-        y: 1261
-        width: 474
-        height: 291
+        x: 617
+        y: 1619
+        width: 264
+        height: 162
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -354,10 +354,10 @@ TextureImporter:
       name: Meat_Art__0015_Steak
       rect:
         serializedVersion: 2
-        x: 1505
-        y: 1740
-        width: 458
-        height: 307
+        x: 1
+        y: 1386
+        width: 256
+        height: 172
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -367,10 +367,10 @@ TextureImporter:
       name: Meat_Art__0016_Al-Pastor
       rect:
         serializedVersion: 2
-        x: 627
-        y: 1532
-        width: 390
-        height: 515
+        x: 473
+        y: 704
+        width: 218
+        height: 286
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -380,10 +380,10 @@ TextureImporter:
       name: Meat_Art__0017_Salmon
       rect:
         serializedVersion: 2
-        x: 481
-        y: 831
-        width: 476
-        height: 202
+        x: 350
+        y: 1751
+        width: 265
+        height: 113
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -393,10 +393,10 @@ TextureImporter:
       name: Meat_card_icon
       rect:
         serializedVersion: 2
-        x: 1803
-        y: 485
-        width: 178
-        height: 161
+        x: 883
+        y: 1531
+        width: 99
+        height: 89
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -406,49 +406,49 @@ TextureImporter:
       name: Meat_card_title_box
       rect:
         serializedVersion: 2
-        x: 1484
-        y: 1601
-        width: 452
-        height: 121
+        x: 1
+        y: 1317
+        width: 251
+        height: 67
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 156, y: -662, z: -14, w: 742}
+      border: {x: 87, y: -367, z: -7, w: 412}
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
       name: MeatCardBackground
       rect:
         serializedVersion: 2
-        x: 1
-        y: 82
-        width: 181
-        height: 159
+        x: 891
+        y: 1937
+        width: 125
+        height: 110
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 51, y: 51, z: 67, w: 48}
+      border: {x: 34, y: 37, z: 48, w: 47}
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
       name: ToppingCardBackground
       rect:
         serializedVersion: 2
-        x: 1803
-        y: 324
-        width: 181
-        height: 159
+        x: 891
+        y: 1825
+        width: 125
+        height: 110
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 53, y: 47, z: 63, w: 43}
+      border: {x: 35, y: 44, z: 48, w: 47}
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
       name: ToppingIcon
       rect:
         serializedVersion: 2
-        x: 1852
-        y: 882
-        width: 178
-        height: 161
+        x: 871
+        y: 1440
+        width: 99
+        height: 89
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -458,23 +458,23 @@ TextureImporter:
       name: VeggieCardBackground
       rect:
         serializedVersion: 2
-        x: 1803
-        y: 163
-        width: 181
-        height: 159
+        x: 891
+        y: 1713
+        width: 125
+        height: 110
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 48, y: 50, z: 61, w: 45}
+      border: {x: 37, y: 40, z: 58, w: 47}
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
       name: VeggieIcon
       rect:
         serializedVersion: 2
-        x: 1852
-        y: 720
-        width: 176
-        height: 160
+        x: 870
+        y: 1349
+        width: 98
+        height: 89
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

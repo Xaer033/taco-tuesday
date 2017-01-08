@@ -10,17 +10,26 @@ public class IntroState : IGameState
 		Debug.Log ("Entering In Intro State");
 		_controller = p_gameManager;
 
-        _introView = _controller.GetUI().CreateView(TacoTuesdayViews.IntroMovie, 0);
+        _introView = _controller.GetUI().CreateView(TacoTuesdayViews.IntroMovie, 0) as IntroView;
         _introView.OnIntroTransitionEvent += _introView_OnIntroTransitionEvent;
         //_backButton = GameObject.Find ("backButton").GetComponent< Button > ();
         //_backButton.onClick.AddListener( onBackClick );
 
-        TextAsset deckJson = Resources.Load<TextAsset>("Deck/DefaultDeck");
-        CardDeck deck = CardDeck.FromJson(deckJson.text);
+        CardDeck customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
+        customerDeck.Shuffle();
 
-        for (int i = 0; i < deck.cardList.Count; ++i)
+        for (int i = 0; i < customerDeck.cardList.Count; ++i)
         {
-            GameManager.cardResourceBank.CreateCardView(deck.cardList[i], _introView.transform);
+            GameManager.cardResourceBank.CreateCardView(customerDeck.cardList[i], _introView.cardParent);
+        }
+
+
+        CardDeck ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
+        ingredientDeck.Shuffle();
+
+        for (int i = 0; i < ingredientDeck.cardList.Count; ++i)
+        {
+            GameManager.cardResourceBank.CreateCardView(ingredientDeck.cardList[i], _introView.cardParent);
         }
     }
 
@@ -36,6 +45,10 @@ public class IntroState : IGameState
 			_controller.ChangeState (TacoTuesdayState.Intro);
 			_gotoSplash = false;
 		}
+
+        //Transform camTransform = Camera.main.transform;
+        //Vector3 lookPos = camTransform.position + camTransform.forward * 10.0f;
+        //Camera.main.transform.LookAt(lookPos, -Input.gyro.gravity.normalized);
 	}
 		
 	public void Exit( GameController p_gameManager )
@@ -50,7 +63,7 @@ public class IntroState : IGameState
 //------------------- Private Implementation -------------------
 //--------------------------------------------------------------
 	private Button 			_backButton;
-	private UIView 			_introView;
+	private IntroView		_introView;
 	private GameController 	_controller;
 
 	private bool _gotoSplash = false;

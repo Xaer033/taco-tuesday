@@ -33,7 +33,8 @@ public class CardTypeUtility
 
 public class BaseCardData
 {
-    public string      name;
+    public string      id;
+    public string      titleKey;
     public string      iconName;
     public CardType    cardType;
 }
@@ -57,14 +58,16 @@ public class CardDataFactory
     public static BaseCardData CreateFromJson(JToken cardToken)
     {
         CardType type = CardTypeUtility.FromString(cardToken.Value<string>("cardType"));
-        string name = cardToken.Value<string>("name");
+        string id = cardToken.Value<string>("id");
+        string titleKey = cardToken.Value<string>("titleKey");
         string iconName = cardToken.Value<string>("iconName");
 
         if (type == CardType.Customer)
         {
             CustomerCardData cData = new CustomerCardData();
             cData.cardType = type;
-            cData.name = name;
+            cData.id = id;
+            cData.titleKey = titleKey;
             cData.iconName = iconName;
             cData.baseReward = cardToken.Value<int>("baseReward");
             cData.meatRequirement = cardToken.Value<int>("meatRequirement");
@@ -76,7 +79,8 @@ public class CardDataFactory
         {
             IngredientCardData iData = new IngredientCardData();
             iData.cardType = type;
-            iData.name = name;
+            iData.id = id;
+            iData.titleKey = titleKey;
             iData.iconName = iconName;
             iData.foodValue = cardToken.Value<int>("foodValue");
             return iData;

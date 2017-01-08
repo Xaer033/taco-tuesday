@@ -173,7 +173,8 @@
     <Compile Include="Assets\Src\Editor\ScriptableObjectUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Resources\Deck\DefaultDeck.txt" />
+    <None Include="Assets\Resources\Decks\CustomerDeck.txt" />
+    <None Include="Assets\Resources\Decks\IngredientDeck.txt" />
     <None Include="Assets\ThirdParty\DOTween\DOTween.XML" />
     <None Include="Assets\ThirdParty\DOTween\DOTween43.xml" />
     <None Include="Assets\ThirdParty\DOTween\DOTween46.xml" />

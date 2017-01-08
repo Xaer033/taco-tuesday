@@ -1,0 +1,168 @@
+[
+
+	{
+		"id"				: "angry_1",
+		"titleKey"			: "Angry",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: -2,
+		"meatRequirement"	: 2,
+		"veggieRequirement"	: 0,
+		"toppingRequirement": 2
+	},
+	{
+		"id"				: "angry_2",
+		"titleKey"			: "Angry",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: -2,
+		"meatRequirement"	: 1,
+		"veggieRequirement"	: 2,
+		"toppingRequirement": 1
+	},
+	{
+		"id"				: "carnivore_1",
+		"titleKey"			: "Carnivore",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: 4,
+		"meatRequirement"	: 3,
+		"veggieRequirement"	: 0,
+		"toppingRequirement": 0
+	},
+	{
+		"id"				: "carnivore_2",
+		"titleKey"			: "Carnivore",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: 4,
+		"meatRequirement"	: 2,
+		"veggieRequirement"	: 0,
+		"toppingRequirement": 0
+	},
+	{
+		"id"				: "food_critic_1",
+		"titleKey"			: "Food Critic",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"modifier"			: "multiplier",
+		"baseReward"		: 2,
+		"meatRequirement"	: 2,
+		"veggieRequirement"	: 0,
+		"toppingRequirement": 2
+	},
+	{
+		"id"				: "food_critic_2",
+		"titleKey"			: "Food Critic",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"modifier"			: "multiplier",
+		"baseReward"		: 2,
+		"meatRequirement"	: 1,
+		"veggieRequirement"	: 0,
+		"toppingRequirement": 2
+	},
+	{
+		"id"				: "fat_1",
+		"titleKey"			: "Fat",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"modifier"			: "multiplier",
+		"baseReward"		: 6,
+		"meatRequirement"	: 0,
+		"veggieRequirement"	: 3,
+		"toppingRequirement": 1
+	},
+	{
+		"id"				: "fat_2",
+		"titleKey"			: "Fat",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"modifier"			: "multiplier",
+		"baseReward"		: 6,
+		"meatRequirement"	: 1,
+		"veggieRequirement"	: 1,
+		"toppingRequirement": 2
+	},
+	{
+		"id"				: "fat_3",
+		"titleKey"			: "Fat",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"modifier"			: "multiplier",
+		"baseReward"		: 6,
+		"meatRequirement"	: 2,
+		"veggieRequirement"	: 1,
+		"toppingRequirement": 3
+	},
+	{
+		"id"				: "regular_1",
+		"titleKey"			: "The Regular",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: 0,
+		"meatRequirement"	: 0,
+		"veggieRequirement"	: 1,
+		"toppingRequirement": 2
+	},
+	{
+		"id"				: "regular_2",
+		"titleKey"			: "The Regular",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: 0,
+		"meatRequirement"	: 1,
+		"veggieRequirement"	: 1,
+		"toppingRequirement": 1
+	},
+	{
+		"id"				: "to_go",
+		"titleKey"			: "To-Go",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: 2,
+		"meatRequirement"	: 1,
+		"veggieRequirement"	: 1,
+		"toppingRequirement": 0
+	},
+	{
+		"id"				: "to_go",
+		"titleKey"			: "To-Go",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: 2,
+		"meatRequirement"	: 0,
+		"veggieRequirement"	: 1,
+		"toppingRequirement": 1
+	},
+	{
+		"id"				: "to_go",
+		"titleKey"			: "To-Go",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: 2,
+		"meatRequirement"	: 1,
+		"veggieRequirement"	: 0,
+		"toppingRequirement": 1
+	},
+	{
+		"id"				: "vegetarian",
+		"titleKey"			: "Vegetarian",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: 4,
+		"meatRequirement"	: 0,
+		"veggieRequirement"	: 3,
+		"toppingRequirement": 0
+	},
+	{
+		"id"				: "vegetarian",
+		"titleKey"			: "Vegetarian",
+		"iconName"			: "angry_customer",
+		"cardType"			: "customer",
+		"baseReward"		: 4,
+		"meatRequirement"	: 0,
+		"veggieRequirement"	: 2,
+		"toppingRequirement": 0
+	}
+]

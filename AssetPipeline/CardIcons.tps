@@ -258,9 +258,9 @@
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
-                <false/>
+                <true/>
                 <key>scale9Borders</key>
-                <rect>108,101,136,129</rect>
+                <rect>129,177,167,101</rect>
                 <key>scale9Paddings</key>
                 <rect>97,85,193,170</rect>
                 <key>scale9FromFile</key>
@@ -299,7 +299,7 @@
                 <key>scale9Enabled</key>
                 <true/>
                 <key>scale9Borders</key>
-                <rect>111,91,141,147</rect>
+                <rect>134,179,161,75</rect>
                 <key>scale9Paddings</key>
                 <rect>97,85,193,170</rect>
                 <key>scale9FromFile</key>
@@ -312,7 +312,7 @@
                 <key>scale9Enabled</key>
                 <true/>
                 <key>scale9Borders</key>
-                <rect>102,96,153,136</rect>
+                <rect>140,180,115,90</rect>
                 <key>scale9Paddings</key>
                 <rect>97,85,193,170</rect>
                 <key>scale9FromFile</key>

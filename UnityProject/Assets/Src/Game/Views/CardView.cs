@@ -55,7 +55,7 @@ public class CardView : UIView
             (invalidateFlag == UIView.INVALIDATE_ALL ||
             invalidateFlag == INVALIDATE_DATA) )
         {
-            _titleLbl.text = _cardData.name; // TODO: Localize!
+            _titleLbl.text = _cardData.titleKey; // TODO: Localize!
             _cardIcon.name = _cardData.iconName;
             
             if(_cardData.cardType == CardType.Customer)
@@ -80,9 +80,33 @@ public class CardView : UIView
 
     private void _setCustomerCard(CustomerCardData customerData)
     {
-        _meatReqLbl.text = string.Format("x{0}", customerData.meatRequirement);
-        _veggieReqLbl.text = string.Format("x{0}", customerData.veggieRequirement);
-        _toppingReqLbl.text = string.Format("x{0}", customerData.toppingRequirement);
+        if(customerData.meatRequirement == 0)
+        {
+            _meatReqObj.SetActive(false);
+        }
+        else
+        {
+            _meatReqLbl.text = string.Format("x{0}", customerData.meatRequirement);
+        }
+
+        if(customerData.veggieRequirement == 0)
+        {
+            _veggieReqObj.SetActive(false);
+        }
+        else
+        {
+            _veggieReqLbl.text = string.Format("x{0}", customerData.veggieRequirement);
+        }
+
+        if(customerData.toppingRequirement == 0)
+        {
+            _toppingReqObj.SetActive(false);
+        }
+        else
+        {
+            _toppingReqLbl.text = string.Format("x{0}", customerData.toppingRequirement);
+        }
+
         _foodValueLbl.text = string.Format("{0}", customerData.baseReward);
     }
 }
