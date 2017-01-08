@@ -46,12 +46,12 @@ public class IntroState : IGameState
 			_gotoSplash = false;
 		}
 
-        //Transform camTransform = Camera.main.transform;
-        //Vector3 lookPos = camTransform.position + camTransform.forward * 10.0f;
-        //Camera.main.transform.LookAt(lookPos, -Input.gyro.gravity.normalized);
-	}
-		
-	public void Exit( GameController p_gameManager )
+        Transform camTransform = Camera.main.transform;
+        Vector3 lookPos = camTransform.position + camTransform.forward * 10.0f;
+        Camera.main.transform.LookAt(lookPos, -Input.gyro.gravity.normalized);
+    }
+
+    public void Exit( GameController p_gameManager )
 	{
 	//	_controller.getUI().rem
 		Debug.Log ("Exiting In Intro State");
