@@ -31,6 +31,8 @@ public class IntroState : IGameState
         {
             GameManager.cardResourceBank.CreateCardView(ingredientDeck.cardList[i], _introView.cardParent);
         }
+
+        Input.gyro.enabled = true;
     }
 
     private void _introView_OnIntroTransitionEvent(UIView p_view)

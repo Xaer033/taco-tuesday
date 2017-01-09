@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>unity-texture2d</string>
         <key>textureFileName</key>
-        <filename>../UnityProject/Assets/Art/Cards/Meat/MeatAtlas.png</filename>
+        <filename>../UnityProject/Assets/Resources/Atlases/MeatAtlas.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -150,7 +150,7 @@
             <key>datafile</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../UnityProject/Assets/Art/Cards/Meat/MeatAtlas.tpsheet</filename>
+                <filename>../UnityProject/Assets/Resources/Atlases/MeatAtlas.tpsheet</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -260,7 +260,7 @@
                 <key>scale9Enabled</key>
                 <true/>
                 <key>scale9Borders</key>
-                <rect>129,177,167,101</rect>
+                <rect>298,366,333,224</rect>
                 <key>scale9Paddings</key>
                 <rect>97,85,193,170</rect>
                 <key>scale9FromFile</key>
@@ -299,7 +299,7 @@
                 <key>scale9Enabled</key>
                 <true/>
                 <key>scale9Borders</key>
-                <rect>134,179,161,75</rect>
+                <rect>282,352,339,231</rect>
                 <key>scale9Paddings</key>
                 <rect>97,85,193,170</rect>
                 <key>scale9FromFile</key>
@@ -312,9 +312,39 @@
                 <key>scale9Enabled</key>
                 <true/>
                 <key>scale9Borders</key>
-                <rect>140,180,115,90</rect>
+                <rect>282,364,344,217</rect>
                 <key>scale9Paddings</key>
                 <rect>97,85,193,170</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0000_Finger_Nails.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0001_Spit.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0002_Hair.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0003_Ear_wax.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0004_Skin-shavings.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0005_Toe-Fungus.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0006_boogers.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0007_blood.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0008_cheese.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0009_sour-cream.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0010_Salsa-Verde.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0011_Lime-Juice.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0012_Salsa-Roja.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0013_Mild-Salsa.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0014_Guacamole.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0015_Salsa-Chipotle.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0016_Hot-Sauce.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0017_Extreme-Sauce.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>338,312,677,624</rect>
+                <key>scale9Paddings</key>
+                <rect>338,312,677,624</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -341,6 +371,36 @@
                 <rect>61,56,123,112</rect>
                 <key>scale9Paddings</key>
                 <rect>61,56,123,112</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0000_tomato.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0001_Lettuce.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0002_Onion.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0003_Jalapeno.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0004_Cilantro.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0005_Beans.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0006_Rice.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0007_Avocado.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0008_Habanero.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0009_Corn.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0010_Bloody_Bandages.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0011_fly_eggs.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0012_Lice.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0013_Maggots.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0014_Spider_Legs.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0015_Broken_Glass.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0016_Roaches.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0017_Mold.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>331,280,662,561</rect>
+                <key>scale9Paddings</key>
+                <rect>331,280,662,561</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -374,6 +434,42 @@
             <filename>../RawAssets/Veggies/VeggieIcon.png</filename>
             <filename>../RawAssets/Meats/Card_Layout/ToppingCardBackground.png</filename>
             <filename>../RawAssets/Meats/Card_Layout/VeggieCardBackground.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0000_Finger_Nails.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0001_Spit.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0002_Hair.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0003_Ear_wax.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0004_Skin-shavings.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0005_Toe-Fungus.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0006_boogers.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0007_blood.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0008_cheese.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0009_sour-cream.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0010_Salsa-Verde.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0011_Lime-Juice.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0012_Salsa-Roja.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0013_Mild-Salsa.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0014_Guacamole.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0015_Salsa-Chipotle.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0016_Hot-Sauce.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0017_Extreme-Sauce.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0000_tomato.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0001_Lettuce.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0002_Onion.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0003_Jalapeno.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0004_Cilantro.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0005_Beans.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0006_Rice.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0007_Avocado.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0008_Habanero.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0009_Corn.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0010_Bloody_Bandages.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0011_fly_eggs.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0012_Lice.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0013_Maggots.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0014_Spider_Legs.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0015_Broken_Glass.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0016_Roaches.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0017_Mold.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
