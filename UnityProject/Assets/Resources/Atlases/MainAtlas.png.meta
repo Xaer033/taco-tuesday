@@ -1,0 +1,1050 @@
+fileFormatVersion: 2
+guid: 88b4ff3821b04c647911193e25091935
+timeCreated: 1483180906
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Meat_Art__0000_Pink_Slime
+    21300002: Meat_Art__0001_Chewed_Gum
+    21300004: Meat_Art__0002_Floor_meat
+    21300006: Meat_Art__0003_Pigeon-Meat
+    21300008: Meat_Art__0004_Rat_Meat
+    21300010: Meat_Art__0005_Human-Fingers
+    21300012: Meat_Art__0006_Scab-Meat
+    21300014: Meat_Art__0007_Mystery-meat
+    21300016: Meat_Art__0008_Beef
+    21300018: Meat_Art__0009_Chicken
+    21300020: Meat_Art__0010_Al-Carbon
+    21300022: Meat_Art__0011_shrimp
+    21300024: Meat_Art__0012_Chorizo
+    21300026: Meat_Art__0013_Bacon
+    21300028: Meat_Art__0014_Crab
+    21300030: Meat_Art__0015_Steak
+    21300032: Meat_Art__0016_Al-Pastor
+    21300034: Meat_Art__0017_Salmon
+    21300036: Meat_card_icon
+    21300038: MeatCardBackground
+    21300040: FoodValueBG
+    21300042: Meat_card_title_box
+    21300044: CustomerBG
+    21300046: ToppingIcon
+    21300048: VeggieIcon
+    21300050: ToppingCardBackground
+    21300052: VeggietCardBackground
+    21300054: VeggieCardBackground
+    21300056: Topping_art_0000_Finger_Nails
+    21300058: Topping_art_0001_Spit
+    21300060: Topping_art_0002_Hair
+    21300062: Topping_art_0003_Ear_wax
+    21300064: Topping_art_0004_Skin-shavings
+    21300066: Topping_art_0005_Toe-Fungus
+    21300068: Topping_art_0006_boogers
+    21300070: Topping_art_0007_blood
+    21300072: Topping_art_0008_cheese
+    21300074: Topping_art_0009_sour-cream
+    21300076: Topping_art_0010_Salsa-Verde
+    21300078: Topping_art_0011_Lime-Juice
+    21300080: Topping_art_0012_Salsa-Roja
+    21300082: Topping_art_0013_Mild-Salsa
+    21300084: Topping_art_0014_Guacamole
+    21300086: Topping_art_0015_Salsa-Chipotle
+    21300088: Topping_art_0016_Hot-Sauce
+    21300090: Topping_art_0017_Extreme-Sauce
+    21300092: Veggie_art_0000_tomato
+    21300094: Veggie_art_0001_Lettuce
+    21300096: Veggie_art_0002_Onion
+    21300098: Veggie_art_0003_Jalapeno
+    21300100: Veggie_art_0004_Cilantro
+    21300102: Veggie_art_0005_Beans
+    21300104: Veggie_art_0006_Rice
+    21300106: Veggie_art_0007_Avocado
+    21300108: Veggie_art_0008_Habanero
+    21300110: Veggie_art_0009_Corn
+    21300112: Veggie_art_0010_Bloody_Bandages
+    21300114: Veggie_art_0011_fly_eggs
+    21300116: Veggie_art_0012_Lice
+    21300118: Veggie_art_0013_Maggots
+    21300120: Veggie_art_0014_Spider_Legs
+    21300122: Veggie_art_0015_Broken_Glass
+    21300124: Veggie_art_0016_Roaches
+    21300126: Veggie_art_0017_Mold
+    21300128: Al_Carbon
+    21300130: Al_Pastor
+    21300132: Avocado
+    21300134: Bacon
+    21300136: Beans
+    21300138: Beef
+    21300140: Blood
+    21300142: Bloody_Bandages
+    21300144: Boogers
+    21300146: Broken_Glass
+    21300148: Cheese
+    21300150: Chewed_Gum
+    21300152: Chicken
+    21300154: Chorizo
+    21300156: Cilantro
+    21300158: Corn
+    21300160: Crab
+    21300162: Ear_wax
+    21300164: Extreme_Sauce
+    21300166: Finger_Nails
+    21300168: Floor_meat
+    21300170: Fly_Eggs
+    21300172: Guacamole
+    21300174: Habanero
+    21300176: Hair
+    21300178: Hot_Sauce
+    21300180: Human_Fingers
+    21300182: Jalapeno
+    21300184: Lettuce
+    21300186: Lice
+    21300188: Lime_Juice
+    21300190: Maggots
+    21300192: Mild_Salsa
+    21300194: Mold
+    21300196: Mystery_Meat
+    21300198: Onion
+    21300200: Pigeon_Meat
+    21300202: Pink_Slime
+    21300204: Rat_Meat
+    21300206: Rice
+    21300208: Roaches
+    21300210: Salmon
+    21300212: Salsa_Chipotle
+    21300214: Salsa_Roja
+    21300216: Salsa_Verde
+    21300218: Scab_Meat
+    21300220: Shrimp
+    21300222: Skin_Shavings
+    21300224: Sour_Cream
+    21300226: Spider_Legs
+    21300228: Spit
+    21300230: Steak
+    21300232: Toe_Fungus
+    21300234: Tomato
+    21300236: Bloody_Bandaid
+    21300238: Pigdeon_Meat
+    21300240: Ear_Wax
+    21300242: Pidgeon_Meat
+    21300244: Floor_Meat
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Al_Carbon
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 1312
+        width: 249
+        height: 265
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Al_Pastor
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1004
+        width: 210
+        height: 276
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Avocado
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 1809
+        width: 252
+        height: 238
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bacon
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 754
+        width: 250
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Beans
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 758
+        width: 256
+        height: 137
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Beef
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 1132
+        width: 231
+        height: 207
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Blood
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 255
+        width: 179
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bloody_Bandaid
+      rect:
+        serializedVersion: 2
+        x: 1335
+        y: 1335
+        width: 256
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Boogers
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 1582
+        width: 262
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Broken_Glass
+      rect:
+        serializedVersion: 2
+        x: 1297
+        y: 1760
+        width: 247
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Cheese
+      rect:
+        serializedVersion: 2
+        x: 1546
+        y: 1830
+        width: 211
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Chewed_Gum
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 1874
+        width: 259
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Chicken
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 1240
+        width: 220
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Chorizo
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 84
+        width: 245
+        height: 218
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Cilantro
+      rect:
+        serializedVersion: 2
+        x: 1111
+        y: 1153
+        width: 255
+        height: 149
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Corn
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 1304
+        width: 244
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Crab
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 1715
+        width: 255
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: CustomerBG
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1579
+        width: 333
+        height: 468
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Ear_Wax
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 1414
+        width: 248
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Extreme_Sauce
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1282
+        width: 119
+        height: 295
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Finger_Nails
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 1467
+        width: 251
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Floor_Meat
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 750
+        width: 249
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Fly_Eggs
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 1314
+        width: 206
+        height: 149
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FoodValueBG
+      rect:
+        serializedVersion: 2
+        x: 1038
+        y: 899
+        width: 95
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Guacamole
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 3
+        width: 259
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Habanero
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 843
+        width: 201
+        height: 218
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Hair
+      rect:
+        serializedVersion: 2
+        x: 1124
+        y: 1891
+        width: 253
+        height: 156
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Hot_Sauce
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 748
+        width: 118
+        height: 254
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Human_Fingers
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 1931
+        width: 247
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Jalapeno
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 1585
+        width: 245
+        height: 198
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Lettuce
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 741
+        width: 204
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Lice
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 1785
+        width: 271
+        height: 262
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Lime_Juice
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 18
+        width: 180
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Maggots
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 1631
+        width: 197
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_card_icon
+      rect:
+        serializedVersion: 2
+        x: 1135
+        y: 899
+        width: 95
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Meat_card_title_box
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 1065
+        width: 241
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 83, y: -353, z: -8, w: 396}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: MeatCardBackground
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 33
+        width: 250
+        height: 220
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 75, y: 72, z: 92, w: 92}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Mild_Salsa
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 248
+        width: 166
+        height: 235
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Mold
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 535
+        width: 256
+        height: 213
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Mystery_Meat
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 897
+        width: 232
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Onion
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 1465
+        width: 273
+        height: 164
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Pidgeon_Meat
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 1144
+        width: 219
+        height: 158
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Pink_Slime
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 1063
+        width: 211
+        height: 247
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Rat_Meat
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 575
+        width: 205
+        height: 177
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Rice
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 877
+        width: 272
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Roaches
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 107
+        width: 267
+        height: 211
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Salmon
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 1471
+        width: 255
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Salsa_Chipotle
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 1649
+        width: 239
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Salsa_Roja
+      rect:
+        serializedVersion: 2
+        x: 1274
+        y: 1009
+        width: 228
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Salsa_Verde
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 1067
+        width: 219
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Scab_Meat
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 1341
+        width: 233
+        height: 242
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Shrimp
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 485
+        width: 256
+        height: 254
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Skin_Shavings
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 401
+        width: 231
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Sour_Cream
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 760
+        width: 227
+        height: 137
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Spider_Legs
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 1592
+        width: 256
+        height: 191
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Spit
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 5
+        width: 258
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Steak
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 591
+        width: 245
+        height: 165
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Toe_Fungus
+      rect:
+        serializedVersion: 2
+        x: 602
+        y: 320
+        width: 214
+        height: 213
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Tomato
+      rect:
+        serializedVersion: 2
+        x: 1038
+        y: 987
+        width: 234
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ToppingCardBackground
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 526
+        width: 250
+        height: 220
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 71, y: 74, z: 94, w: 88}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ToppingIcon
+      rect:
+        serializedVersion: 2
+        x: 1232
+        y: 899
+        width: 95
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: VeggieCardBackground
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 304
+        width: 250
+        height: 220
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 71, y: 74, z: 93, w: 91}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: VeggieIcon
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 1961
+        width: 94
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
