@@ -3,126 +3,126 @@
 	{
 		"id"		: "bacon",
 		"titleKey"	: "Bacon",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Bacon",
 		"cardType"	: "meat",
 		"foodValue"	: 3
 	},
 	{
 		"id"		: "beef",
 		"titleKey"	: "Beef",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Beef",
 		"cardType"	: "meat",
 		"foodValue"	: 1
 	},
 	{
 		"id"		: "al_carbon",
 		"titleKey"	: "Al Carbon",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Al_Carbon",
 		"cardType"	: "meat",
 		"foodValue"	: 2
 	},
 	{
 		"id"		: "chicken",
 		"titleKey"	: "Chicken",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Chicken",
 		"cardType"	: "meat",
 		"foodValue"	: 3
 	},
 	{
-		"id"		: "churizo",
-		"titleKey"	: "Churizo",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"id"		: "chorizo",
+		"titleKey"	: "Chorizo",
+		"iconName"	: "Chorizo",
 		"cardType"	: "meat",
 		"foodValue"	: 2
 	},
 	{
 		"id"		: "crab",
 		"titleKey"	: "Crab",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Crab",
 		"cardType"	: "meat",
 		"foodValue"	: 3
 	},
 	{
-		"id"		: "human_finger",
-		"titleKey"	: "Human Finger",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"id"		: "human_fingers",
+		"titleKey"	: "Human Fingers",
+		"iconName"	: "Human_Fingers",
 		"cardType"	: "meat",
 		"foodValue"	: 3
 	},
 	{
 		"id"		: "floor_meat",
 		"titleKey"	: "Floor Meat",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Floor_Meat",
 		"cardType"	: "meat",
 		"foodValue"	: -2
 	},
 	{
 		"id"		: "chewed_gum",
 		"titleKey"	: "Chewed Gum",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Chewed_Gum",
 		"cardType"	: "meat",
 		"foodValue"	: -1
 	},
 	{
 		"id"		: "mystery_meat",
 		"titleKey"	: "Myster Meat",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Mystery_Meat",
 		"cardType"	: "meat",
 		"foodValue"	: -4
 	},
 	{
 		"id"		: "al_pastor",
 		"titleKey"	: "Al Pastor",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Al_Pastor",
 		"cardType"	: "meat",
 		"foodValue"	: 4
 	},
 	{
 		"id"		: "pidgeon_meat",
 		"titleKey"	: "Pidgeon Meat",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Pidgeon_Meat",
 		"cardType"	: "meat",
 		"foodValue"	: -3
 	},
 	{
 		"id"		: "pink_slime",
 		"titleKey"	: "Pink Slime",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Pink_Slime",
 		"cardType"	: "meat",
 		"foodValue"	: -2
 	},
 	{
 		"id"		: "rat_meat",
 		"titleKey"	: "Rat Meat",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Rat_Meat",
 		"cardType"	: "meat",
 		"foodValue"	: -3
 	},
 	{
 		"id"		: "salmon",
 		"titleKey"	: "Salmon",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Salmon",
 		"cardType"	: "meat",
 		"foodValue"	: 4
 	},
 	{
 		"id"		: "scab_meat",
 		"titleKey"	: "Scab Meat",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Scab_Meat",
 		"cardType"	: "meat",
 		"foodValue"	: -4
 	},
 	{
 		"id"		: "shrimp",
 		"titleKey"	: "Shrimp",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Shrimp",
 		"cardType"	: "meat",
 		"foodValue"	: 2
 	},
 	{
 		"id"		: "steak",
 		"titleKey"	: "Steak",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Steak",
 		"cardType"	: "meat",
 		"foodValue"	: 4
 	},
@@ -131,126 +131,126 @@
 	{
 		"id"		: "avocado",
 		"titleKey"	: "Avocado",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Avocado",
 		"cardType"	: "veggie",
 		"foodValue"	: 4
 	},	
 	{
 		"id"		: "bloody_bandaid",
 		"titleKey"	: "Bloody Bandaid",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Bloody_Bandaid",
 		"cardType"	: "veggie",
 		"foodValue"	: -2
 	},
 	{
 		"id"		: "beans",
 		"titleKey"	: "Beans",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Beans",
 		"cardType"	: "veggie",
 		"foodValue"	: 3
 	},
 	{
 		"id"		: "cilantro",
 		"titleKey"	: "Cilantro",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Cilantro",
 		"cardType"	: "veggie",
 		"foodValue"	: 2
 	},
 	{
 		"id"		: "corn",
 		"titleKey"	: "Corn",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Corn",
 		"cardType"	: "veggie",
 		"foodValue"	: 4
 	},
 	{
 		"id"		: "fly_eggs",
 		"titleKey"	: "Fly Eggs",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Fly_Eggs",
 		"cardType"	: "veggie",
 		"foodValue"	: -2
 	},
 	{
 		"id"		: "broken_glass",
 		"titleKey"	: "Broken Glass",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Broken_Glass",
 		"cardType"	: "veggie",
 		"foodValue"	: -4
 	},
 	{
 		"id"		: "habanero",
 		"titleKey"	: "Habanero",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Habanero",
 		"cardType"	: "veggie",
 		"foodValue"	: 4
 	},
 	{
 		"id"		: "jalapeno",
 		"titleKey"	: "Jalapeno",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Jalapeno",
 		"cardType"	: "veggie",
 		"foodValue"	: 2
 	},
 	{
 		"id"		: "lettuce",
 		"titleKey"	: "Lettuce",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Lettuce",
 		"cardType"	: "veggie",
 		"foodValue"	: 1
 	},
 	{
 		"id"		: "lice",
 		"titleKey"	: "Lice",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Lice",
 		"cardType"	: "veggie",
 		"foodValue"	: -2
 	},
 	{
 		"id"		: "maggots",
 		"titleKey"	: "Maggots",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Maggots",
 		"cardType"	: "veggie",
 		"foodValue"	: -3
 	},
 	{
 		"id"		: "mold",
 		"titleKey"	: "Mold",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Mold",
 		"cardType"	: "veggie",
 		"foodValue"	: -4
 	},
 	{
 		"id"		: "onion",
 		"titleKey"	: "Onion",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Onion",
 		"cardType"	: "veggie",
 		"foodValue"	: 2
 	},
 	{
 		"id"		: "rice",
 		"titleKey"	: "Rice",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Rice",
 		"cardType"	: "veggie",
 		"foodValue"	: 3
 	},
 	{
 		"id"		: "roaches",
 		"titleKey"	: "Roaches",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Roaches",
 		"cardType"	: "veggie",
 		"foodValue"	: -4
 	},
 	{
 		"id"		: "spider_legs",
 		"titleKey"	: "Spider Legs",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Spider_Legs",
 		"cardType"	: "veggie",
 		"foodValue"	: -3
 	},
 	{
 		"id"		: "tomato",
 		"titleKey"	: "Tomato",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Tomato",
 		"cardType"	: "veggie",
 		"foodValue"	: 1
 	},
@@ -260,119 +260,119 @@
 	{
 		"id"		: "blood",
 		"titleKey"	: "Blood",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Blood",
 		"cardType"	: "topping",
 		"foodValue"	: -4
 	},
 	{
 		"id"		: "boogers",
 		"titleKey"	: "Boogers",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Boogers",
 		"cardType"	: "topping",
 		"foodValue"	: -4
 	},
 	{
 		"id"		: "cheese",
 		"titleKey"	: "Cheese",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Cheese",
 		"cardType"	: "topping",
 		"foodValue"	: 1
 	},
 	{
 		"id"		: "salsa_chipotle",
 		"titleKey"	: "Salsa Chipotle",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Salsa_Chipotle",
 		"cardType"	: "topping",
 		"foodValue"	: 3
 	},
 	{
 		"id"		: "ear_wax",
 		"titleKey"	: "Ear Wax",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Ear_Wax",
 		"cardType"	: "topping",
 		"foodValue"	: -3
 	},
 	{
 		"id"		: "extreme_sauce",
 		"titleKey"	: "Extreme Sauce",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Extreme_Sauce",
 		"cardType"	: "topping",
 		"foodValue"	: 4
 	},
 	{
 		"id"		: "finger_nails",
 		"titleKey"	: "Finger Nails",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Finger_Nails",
 		"cardType"	: "topping",
 		"foodValue"	: -2
 	},
 	{
 		"id"		: "guacamole",
-		"titleKey"	: "Guacamoole",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"titleKey"	: "Guacamole",
+		"iconName"	: "Guacamole",
 		"cardType"	: "topping",
 		"foodValue"	: 4
 	},
 	{
 		"id"		: "hair",
 		"titleKey"	: "Hair",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Hair",
 		"cardType"	: "topping",
 		"foodValue"	: -2
 	},
 	{
 		"id"		: "hot_sauce",
 		"titleKey"	: "Hot Sauce",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Hot_Sauce",
 		"cardType"	: "topping",
 		"foodValue"	: 4
 	},
 	{
 		"id"		: "lime_juice",
 		"titleKey"	: "Lime Juice",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Lime_Juice",
 		"cardType"	: "topping",
 		"foodValue"	: 2
 	},
 	{
-		"id"		: "mild_sauce",
-		"titleKey"	: "Mild Sauce",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"id"		: "mild_salsa",
+		"titleKey"	: "Mild Salsa",
+		"iconName"	: "Mild_Salsa",
 		"cardType"	: "topping",
 		"foodValue"	: 3
 	},
 	{
 		"id"		: "salsa_roja",
 		"titleKey"	: "Salsa Roja",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Salsa_Roja",
 		"cardType"	: "topping",
 		"foodValue"	: 2
 	},
 	{
 		"id"		: "skin_shavings",
 		"titleKey"	: "Skin Shavings",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Skin_Shavings",
 		"cardType"	: "topping",
 		"foodValue"	: -3
 	},
 	{
 		"id"		: "spit",
 		"titleKey"	: "Spit",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Spit",
 		"cardType"	: "topping",
 		"foodValue"	: -2
 	},
 	{
 		"id"		: "toe_fungus",
 		"titleKey"	: "Toe Fungus",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Toe_Fungus",
 		"cardType"	: "topping",
 		"foodValue"	: -4
 	},
 	{
 		"id"		: "salsa_verde",
 		"titleKey"	: "Salsa Verde",
-		"iconName"	: "Meat_Art__0000_Pink_Slime",
+		"iconName"	: "Salsa_Verde",
 		"cardType"	: "topping",
 		"foodValue"	: 2
 	}

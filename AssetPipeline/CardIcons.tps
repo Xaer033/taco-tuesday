@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>unity-texture2d</string>
         <key>textureFileName</key>
-        <filename>../UnityProject/Assets/Resources/Atlases/MeatAtlas.png</filename>
+        <filename>../UnityProject/Assets/Resources/Atlases/MainAtlas.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -150,7 +150,7 @@
             <key>datafile</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../UnityProject/Assets/Resources/Atlases/MeatAtlas.tpsheet</filename>
+                <filename>../UnityProject/Assets/Resources/Atlases/MainAtlas.tpsheet</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -175,7 +175,7 @@
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
-            <double>0.26</double>
+            <double>0.25</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
@@ -210,24 +210,24 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0000_Pink_Slime.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0001_Chewed_Gum.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0002_Floor_meat.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0003_Pigeon-Meat.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0004_Rat_Meat.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0005_Human-Fingers.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0006_Scab-Meat.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0007_Mystery-meat.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0008_Beef.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0009_Chicken.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0010_Al-Carbon.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0011_shrimp.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0012_Chorizo.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0013_Bacon.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0014_Crab.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0015_Steak.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0016_Al-Pastor.png</key>
-            <key type="filename">../RawAssets/Meats/Art_pngs/Meat_Art__0017_Salmon.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Al_Carbon.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Al_Pastor.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Bacon.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Beef.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Chewed_Gum.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Chicken.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Chorizo.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Crab.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Floor_Meat.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Human_Fingers.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Mystery_Meat.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Pidgeon_Meat.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Pink_Slime.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Rat_Meat.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Salmon.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Scab_Meat.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Shrimp.png</key>
+            <key type="filename">../RawAssets/Meats/Art_pngs/Steak.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -318,24 +318,24 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0000_Finger_Nails.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0001_Spit.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0002_Hair.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0003_Ear_wax.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0004_Skin-shavings.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0005_Toe-Fungus.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0006_boogers.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0007_blood.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0008_cheese.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0009_sour-cream.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0010_Salsa-Verde.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0011_Lime-Juice.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0012_Salsa-Roja.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0013_Mild-Salsa.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0014_Guacamole.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0015_Salsa-Chipotle.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0016_Hot-Sauce.png</key>
-            <key type="filename">../RawAssets/Toppings/Art_pngs/Topping_art_0017_Extreme-Sauce.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Blood.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Boogers.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Cheese.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Ear_Wax.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Extreme_Sauce.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Finger_Nails.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Guacamole.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Hair.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Hot_Sauce.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Lime_Juice.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Mild_Salsa.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Salsa_Chipotle.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Salsa_Roja.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Salsa_Verde.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Skin_Shavings.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Sour_Cream.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Spit.png</key>
+            <key type="filename">../RawAssets/Toppings/Art_pngs/Toe_Fungus.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -374,24 +374,24 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0000_tomato.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0001_Lettuce.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0002_Onion.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0003_Jalapeno.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0004_Cilantro.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0005_Beans.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0006_Rice.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0007_Avocado.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0008_Habanero.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0009_Corn.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0010_Bloody_Bandages.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0011_fly_eggs.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0012_Lice.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0013_Maggots.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0014_Spider_Legs.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0015_Broken_Glass.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0016_Roaches.png</key>
-            <key type="filename">../RawAssets/Veggies/art_pngs/Veggie_art_0017_Mold.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Avocado.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Beans.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Bloody_Bandaid.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Broken_Glass.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Cilantro.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Corn.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Fly_Eggs.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Habanero.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Jalapeno.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Lettuce.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Lice.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Maggots.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Mold.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Onion.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Rice.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Roaches.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Spider_Legs.png</key>
+            <key type="filename">../RawAssets/Veggies/art_pngs/Tomato.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -407,24 +407,6 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0000_Pink_Slime.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0001_Chewed_Gum.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0002_Floor_meat.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0003_Pigeon-Meat.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0004_Rat_Meat.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0005_Human-Fingers.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0006_Scab-Meat.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0007_Mystery-meat.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0008_Beef.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0009_Chicken.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0010_Al-Carbon.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0011_shrimp.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0012_Chorizo.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0013_Bacon.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0014_Crab.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0015_Steak.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0016_Al-Pastor.png</filename>
-            <filename>../RawAssets/Meats/Art_pngs/Meat_Art__0017_Salmon.png</filename>
             <filename>../RawAssets/Meats/Card_Layout/Meat_card_icon.png</filename>
             <filename>../RawAssets/Meats/Card_Layout/MeatCardBackground.png</filename>
             <filename>../RawAssets/Meats/Card_Layout/FoodValueBG.png</filename>
@@ -434,42 +416,60 @@
             <filename>../RawAssets/Veggies/VeggieIcon.png</filename>
             <filename>../RawAssets/Meats/Card_Layout/ToppingCardBackground.png</filename>
             <filename>../RawAssets/Meats/Card_Layout/VeggieCardBackground.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0000_Finger_Nails.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0001_Spit.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0002_Hair.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0003_Ear_wax.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0004_Skin-shavings.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0005_Toe-Fungus.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0006_boogers.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0007_blood.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0008_cheese.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0009_sour-cream.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0010_Salsa-Verde.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0011_Lime-Juice.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0012_Salsa-Roja.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0013_Mild-Salsa.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0014_Guacamole.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0015_Salsa-Chipotle.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0016_Hot-Sauce.png</filename>
-            <filename>../RawAssets/Toppings/Art_pngs/Topping_art_0017_Extreme-Sauce.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0000_tomato.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0001_Lettuce.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0002_Onion.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0003_Jalapeno.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0004_Cilantro.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0005_Beans.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0006_Rice.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0007_Avocado.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0008_Habanero.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0009_Corn.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0010_Bloody_Bandages.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0011_fly_eggs.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0012_Lice.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0013_Maggots.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0014_Spider_Legs.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0015_Broken_Glass.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0016_Roaches.png</filename>
-            <filename>../RawAssets/Veggies/art_pngs/Veggie_art_0017_Mold.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Bacon.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Beef.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Chewed_Gum.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Chicken.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Chorizo.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Crab.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Human_Fingers.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Mystery_Meat.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Pink_Slime.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Rat_Meat.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Salmon.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Scab_Meat.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Shrimp.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Steak.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Al_Carbon.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Al_Pastor.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Salsa_Roja.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Salsa_Verde.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Skin_Shavings.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Sour_Cream.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Spit.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Toe_Fungus.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Blood.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Boogers.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Cheese.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Extreme_Sauce.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Finger_Nails.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Guacamole.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Hair.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Hot_Sauce.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Lime_Juice.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Mild_Salsa.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Salsa_Chipotle.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Jalapeno.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Lettuce.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Lice.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Maggots.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Mold.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Onion.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Rice.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Roaches.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Spider_Legs.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Tomato.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Avocado.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Beans.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Broken_Glass.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Cilantro.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Corn.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Fly_Eggs.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Habanero.png</filename>
+            <filename>../RawAssets/Veggies/art_pngs/Bloody_Bandaid.png</filename>
+            <filename>../RawAssets/Toppings/Art_pngs/Ear_Wax.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Pidgeon_Meat.png</filename>
+            <filename>../RawAssets/Meats/Art_pngs/Floor_Meat.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

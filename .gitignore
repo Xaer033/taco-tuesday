@@ -8,3 +8,5 @@ UnityProject/UnityProject.csproj
 UnityProject/UnityProject.sln
 UnityProject/Builds/
 UnityProject/UnityProject.Editor.csproj
+UnityProject/UnityProject.Plugins.csproj
+UnityProject/UnityProject.VC.db

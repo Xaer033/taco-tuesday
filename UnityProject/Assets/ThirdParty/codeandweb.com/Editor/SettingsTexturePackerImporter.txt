@@ -2,7 +2,7 @@ version: 2
 importPivots: 1
 tpsheetFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.tpsheet
-- Assets/Resources/Atlases/MeatAtlas.tpsheet
+- Assets/Resources/Atlases/MainAtlas.tpsheet
 textureFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.png
 - Assets/Resources/Atlases/MeatAtlas.png
