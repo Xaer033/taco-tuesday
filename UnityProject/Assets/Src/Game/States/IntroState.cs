@@ -32,7 +32,8 @@ public class IntroState : IGameState
             GameManager.cardResourceBank.CreateCardView(ingredientDeck.cardList[i], _introView.cardParent);
         }
 
-        Input.gyro.enabled = true;
+        //Input.gyro.enabled = true;
+        //Input.gyro.updateInterval = 0.008f;
     }
 
     private void _introView_OnIntroTransitionEvent(UIView p_view)
@@ -48,9 +49,12 @@ public class IntroState : IGameState
 			_gotoSplash = false;
 		}
 
-        Transform camTransform = Camera.main.transform;
-        Vector3 lookPos = camTransform.position + camTransform.forward * 10.0f;
-        Camera.main.transform.LookAt(lookPos, -Input.gyro.gravity.normalized);
+        //Transform camTransform = Camera.main.transform;
+        //Vector3 lookPos = camTransform.position + camTransform.forward * 10.0f;
+
+        //Vector3 grav = -Input.gyro.gravity;
+        //grav.x = -grav.x;
+        //Camera.main.transform.LookAt(lookPos, grav.normalized);
     }
 
     public void Exit( GameController p_gameManager )
