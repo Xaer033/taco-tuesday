@@ -5,7 +5,7 @@ tpsheetFileNames:
 - Assets/Resources/Atlases/MainAtlas.tpsheet
 textureFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.png
-- Assets/Resources/Atlases/MeatAtlas.png
+- Assets/Resources/Atlases/MainAtlas.png
 normalmapFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
 - 

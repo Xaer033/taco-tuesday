@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a32625590e359469edf9539112fc71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontType: 1
+  fontType: 2
 --- !u!114 &114334559393899570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -249,8 +249,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6bd900c0e6db7fb4bb51bedee13a11ab, type: 3}
-    m_FontSize: 80
+    m_Font: {fileID: 12800000, guid: d88092f3069b5d544b3cef8468f7cbcd, type: 3}
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -261,7 +261,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: -4
+  m_Text: 2
 --- !u!114 &114788039967554948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -390,15 +390,15 @@ RectTransform:
   m_GameObject: {fileID: 1722047427176920}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8161376, y: 0.81613773, z: 0.81613773}
+  m_LocalScale: {x: 1.4309658, y: 1.4309659, z: 1.4309659}
   m_Children: []
   m_Father: {fileID: 224814859760228712}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50.150017, y: -45.399994}
-  m_SizeDelta: {x: 82, y: 90.8}
+  m_AnchoredPosition: {x: -45.1, y: -42.4}
+  m_SizeDelta: {x: 48, y: 50.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224498392829924572
 RectTransform:
@@ -415,8 +415,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 9.75}
-  m_SizeDelta: {x: -70, y: -177.49997}
+  m_AnchoredPosition: {x: -0.0000014454, y: 0}
+  m_SizeDelta: {x: -110.4, y: -218.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224707310541268010
 RectTransform:
@@ -456,7 +456,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 445.4904, y: -259.8696}
+  m_AnchoredPosition: {x: 441.4, y: -257.3}
   m_SizeDelta: {x: 329.3, y: 437.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224861450816028336

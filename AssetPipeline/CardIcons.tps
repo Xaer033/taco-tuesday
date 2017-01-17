@@ -160,7 +160,7 @@
         <key>outputFormat</key>
         <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
         <key>alphaHandling</key>
-        <enum type="SettingsBase::AlphaHandling">KeepTransparentPixels</enum>
+        <enum type="SettingsBase::AlphaHandling">PremultiplyAlpha</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
@@ -207,6 +207,19 @@
                 <rect>356,475,712,950</rect>
                 <key>scale9Paddings</key>
                 <rect>356,475,712,950</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../RawAssets/Customers/cardBack.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <true/>
+                <key>scale9Borders</key>
+                <rect>331,371,662,513</rect>
+                <key>scale9Paddings</key>
+                <rect>331,318,662,635</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -470,6 +483,7 @@
             <filename>../RawAssets/Toppings/Art_pngs/Ear_Wax.png</filename>
             <filename>../RawAssets/Meats/Art_pngs/Pidgeon_Meat.png</filename>
             <filename>../RawAssets/Meats/Art_pngs/Floor_Meat.png</filename>
+            <filename>../RawAssets/Customers/cardBack.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
