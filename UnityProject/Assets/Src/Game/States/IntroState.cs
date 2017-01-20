@@ -8,9 +8,9 @@ public class IntroState : IGameState
 	public void Init( GameController p_gameManager )
 	{
 		Debug.Log ("Entering In Intro State");
-		_controller = p_gameManager;
+		_gameController = p_gameManager;
 
-        _introView = _controller.GetUI().CreateView(TacoTuesdayViews.IntroMovie, 0) as IntroView;
+        _introView = _gameController.GetUI().CreateView(TacoTuesdayViews.IntroMovie, 0) as IntroView;
         _introView.OnIntroTransitionEvent += _introView_OnIntroTransitionEvent;
         //_backButton = GameObject.Find ("backButton").GetComponent< Button > ();
         //_backButton.onClick.AddListener( onBackClick );
@@ -45,7 +45,7 @@ public class IntroState : IGameState
 	{
 		if (_gotoSplash) 
 		{
-			_controller.ChangeState (TacoTuesdayState.Intro);
+			_gameController.ChangeState (TacoTuesdayState.Intro);
 			_gotoSplash = false;
 		}
 
@@ -70,7 +70,8 @@ public class IntroState : IGameState
 //--------------------------------------------------------------
 	private Button 			_backButton;
 	private IntroView		_introView;
-	private GameController 	_controller;
+	private GameController 	_gameController;
+    private CustomerController _customerController;
 
 	private bool _gotoSplash = false;
 

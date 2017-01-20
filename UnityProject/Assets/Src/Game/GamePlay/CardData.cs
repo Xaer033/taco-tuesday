@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 public enum CardType
@@ -31,7 +29,7 @@ public class CardTypeUtility
     }
 }
 
-public class BaseCardData
+public abstract class BaseCardData
 {
     public string      id;
     public string      titleKey;

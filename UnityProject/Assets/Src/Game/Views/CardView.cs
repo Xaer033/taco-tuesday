@@ -7,7 +7,8 @@ using GhostGen;
 [System.Serializable]
 public class CardView : UIView
 {
-    protected const string INVALIDATE_DATA = "invalidate_data";
+    protected const string INVALIDATE_STATIC_DATA   = "invalidate_static_data";
+    protected const string INVALIDATE_DYNAMIC_DATA  = "invalidate_dynamic_data";
 
     public Image _backgroundImg;
     public Image _cardIcon;
@@ -24,28 +25,41 @@ public class CardView : UIView
     private Text _toppingReqLbl;
 
     private BaseCardData _cardData = null;
+    private CustomerCardState _cardState = null;
 
     private void Awake()
     {
         if(_meatReqObj != null)
             _meatReqLbl     = _meatReqObj.GetComponentInChildren<Text>();
 
-
         if (_veggieReqObj != null)
             _veggieReqLbl   = _veggieReqObj.GetComponentInChildren<Text>();
 
-
         if (_toppingReqObj != null)
             _toppingReqLbl  = _toppingReqObj.GetComponentInChildren<Text>();
-
     }
 
     public BaseCardData cardData
     {
         set
         {
-            _cardData = value;
-            InvalidateFlag = INVALIDATE_DATA;
+            if(_cardData != value)
+            {
+                _cardData = value;
+                InvalidateFlag = INVALIDATE_STATIC_DATA;
+            }
+        }
+    }
+
+    public CustomerCardState cardState
+    {
+        set
+        {
+            if(_cardState != value)
+            {
+                _cardState = value;
+                InvalidateFlag = INVALIDATE_DYNAMIC_DATA;
+            }
         }
     }
 
@@ -53,7 +67,7 @@ public class CardView : UIView
     {
         if( _cardData != null && 
             (invalidateFlag == UIView.INVALIDATE_ALL ||
-            invalidateFlag == INVALIDATE_DATA) )
+            invalidateFlag == INVALIDATE_STATIC_DATA) )
         {
             _titleLbl.text = _cardData.titleKey; // TODO: Localize!
             _cardIcon.name = _cardData.iconName;
@@ -66,6 +80,15 @@ public class CardView : UIView
             {
                 _setIngredientCard((IngredientCardData)_cardData);
             }
+        }
+
+        if( _cardState != null &&
+            (invalidateFlag == UIView.INVALIDATE_ALL ||
+            invalidateFlag == INVALIDATE_DYNAMIC_DATA) )
+        {
+            _meatReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Meat));
+            _veggieReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Veggie));
+            _toppingReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Topping));
         }
     }
 
