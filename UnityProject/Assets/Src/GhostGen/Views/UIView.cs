@@ -3,45 +3,39 @@ using System.Collections;
 
 namespace GhostGen
 {
-   
 	public delegate void OnIntroTransitionHandle( UIView p_view );
 	public delegate void OnOutroTransitionHandle( UIView p_view );
-    public delegate void OnCreationFinishedHandle(UIView p_view);
-    
+    public delegate void OnViewRemoved();
 
     public class UIView : MonoBehaviour
     {
         public const string INVALIDATE_ALL = "invalidate_all";
-        public string InvalidateFlag { get; set; }
-        
-        public event OnCreationFinishedHandle OnCreationFinishedEvent
-        {
-            add { _creationFinishedEvent += value; }
-            remove { _creationFinishedEvent -= value; }
-        }
+        protected const string INVALIDATE_STATIC_DATA = "invalidate_static_data";
+        protected const string INVALIDATE_DYNAMIC_DATA = "invalidate_dynamic_data";
 
-        public event OnIntroTransitionHandle OnIntroTransitionEvent
+        private string _invalidateFlag = INVALIDATE_ALL; // Default to invalidating everything
+
+        public string invalidateFlag
+        {
+            get { return _invalidateFlag; }
+            set { _invalidateFlag = value; }
+        }
+        
+
+        public event OnIntroTransitionHandle onIntroFinishedEvent
         {
             add { _introTransitionFinishEvent += value; }
             remove { _introTransitionFinishEvent -= value; }
         }
 
-        public event OnOutroTransitionHandle OnOutroTransitionEvent
+        public event OnOutroTransitionHandle onOutroTransitionEvent
         {
             add { _outroTransitionFinishEvent += value; }
             remove { _outroTransitionFinishEvent -= value; }
         }
 
-        public virtual void OnCreationFinished()
-        {
-            if (_creationFinishedEvent != null)
-            {
-                _creationFinishedEvent(this);
-            }
-            OnUpdateView(INVALIDATE_ALL);
-        }
 
-        public virtual void OnIntroTransitionFinished()
+        protected void OnIntroTransitionFinished()
         {
             if(_introTransitionFinishEvent != null)
             {
@@ -49,7 +43,7 @@ namespace GhostGen
             }
         }
 
-        public virtual void OnOutroTransitionFinished()
+        protected void OnOutroTransitionFinished()
         {
             if (_outroTransitionFinishEvent != null)
             {
@@ -57,32 +51,53 @@ namespace GhostGen
             }
         }
 
-        protected virtual void OnUpdateView(string invalidateFlag)
+        protected virtual void OnViewUpdate()
         {
         }
 
 
-        public virtual void OnDispose()
+        public virtual void OnViewOutro(bool immediately, OnViewRemoved removedCallback)
         {
+            OnDisposeView(removedCallback);
+        }
+
+        protected virtual void OnDisposeView(OnViewRemoved removedCallback)
+        {
+            OnOutroTransitionFinished();
+            
             _introTransitionFinishEvent = null;
             _outroTransitionFinishEvent = null;
+
+            if (removedCallback != null)
+            {
+                removedCallback();
+            }
         }
 
-        
+        protected virtual bool IsInvalid(string validateStr)
+        {
+            if (validateStr == INVALIDATE_ALL) { return true; }
+
+            return _invalidateFlag == validateStr;         
+        }
+
+
+
+
+
         public virtual void Update()
         {
-            if(InvalidateFlag != null)
+            if(invalidateFlag != null)
             {
-                OnUpdateView(InvalidateFlag);
+                OnViewUpdate();
             }
 
-            InvalidateFlag = null;
+            invalidateFlag = null;
         }
 
         //------------------- Private Implementation -------------------
-        //--------------------------------------------------------------	
+        //--------------------------------------------------------------
         private event OnIntroTransitionHandle _introTransitionFinishEvent;
         private event OnOutroTransitionHandle _outroTransitionFinishEvent;
-        private event OnCreationFinishedHandle _creationFinishedEvent;
     }
 }

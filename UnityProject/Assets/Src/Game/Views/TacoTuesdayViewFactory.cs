@@ -25,43 +25,47 @@ public class TacoTuesdayViewFactory : IViewFactory
 		return _viewDirectoryMap;
 	}
 
-	public UIView CreateView( int viewId, OnCreationFinishedHandle onCreateCallback )
+	public UIView CreateView( int viewId )
 	{
-        GameObject viewObj = _createView(viewId);
-        UIView view = viewObj.GetComponent<UIView>();
-        view.OnCreationFinishedEvent += onCreateCallback;
-        return view;
+        return _createView(viewId);
 	}
 
-    public UIView CreateView(string viewPath, OnCreationFinishedHandle onCreateCallback)
+    public UIView CreateView(string viewPath)
     {
-        GameObject viewObj = _createView(viewPath);
-        UIView view = viewObj.GetComponent<UIView>();
-        view.OnCreationFinishedEvent += onCreateCallback;
-        return view;
+        return _createView(viewPath);
     }
+
+    public void RemoveView(UIView view)
+    {
+        if (view == null)
+            return;
+        
+        view.OnViewOutro(false, ()=> GameObject.Destroy(view));
+    }
+
+
     //------------------- Private Implementation -------------------
     //--------------------------------------------------------------
     private Dictionary< int , string > _viewDirectoryMap;
+    
 
-
-    private GameObject _createView(string viewPath)
+    private UIView _createView(string viewPath)
     {
-        GameObject viewBase = Resources.Load(viewPath) as GameObject;
+        UIView viewBase = Resources.Load< UIView>(viewPath);
         if (viewBase == null)
         {
             Debug.LogError("Error: The view Path: " + viewPath +
                                " could not be found");
             return null;
         }
-        return GameObject.Instantiate(viewBase) as GameObject;
+        return GameObject.Instantiate<UIView>(viewBase);
     }
 
-    private GameObject _createView(int viewId)
+    private UIView   _createView(int viewId)
     {
         Debug.Assert(_viewDirectoryMap.ContainsKey(viewId));
 
-        GameObject canvasBase = Resources.Load(_viewDirectoryMap[viewId]) as GameObject;
+        UIView canvasBase = Resources.Load<UIView>(_viewDirectoryMap[viewId]);
         if (canvasBase == null)
         {
 
@@ -70,7 +74,7 @@ public class TacoTuesdayViewFactory : IViewFactory
                                _viewDirectoryMap[viewId]);
             return null;
         }
-        return GameObject.Instantiate(canvasBase) as GameObject;
+        return GameObject.Instantiate<UIView>(canvasBase);
     }
 
     private void _setupViewDirectories()

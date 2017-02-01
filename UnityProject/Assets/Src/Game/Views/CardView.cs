@@ -7,9 +7,6 @@ using GhostGen;
 [System.Serializable]
 public class CardView : UIView
 {
-    protected const string INVALIDATE_STATIC_DATA   = "invalidate_static_data";
-    protected const string INVALIDATE_DYNAMIC_DATA  = "invalidate_dynamic_data";
-
     public Image _backgroundImg;
     public Image _cardIcon;
     public Image _cardTypeIcon;
@@ -39,6 +36,11 @@ public class CardView : UIView
             _toppingReqLbl  = _toppingReqObj.GetComponentInChildren<Text>();
     }
 
+    void Start()
+    {
+        OnIntroTransitionFinished();
+    }
+
     public BaseCardData cardData
     {
         set
@@ -46,8 +48,13 @@ public class CardView : UIView
             if(_cardData != value)
             {
                 _cardData = value;
-                InvalidateFlag = INVALIDATE_STATIC_DATA;
+                invalidateFlag = INVALIDATE_STATIC_DATA;
             }
+        }
+
+        get
+        {
+            return _cardData;
         }
     }
 
@@ -58,16 +65,14 @@ public class CardView : UIView
             if(_cardState != value)
             {
                 _cardState = value;
-                InvalidateFlag = INVALIDATE_DYNAMIC_DATA;
+                invalidateFlag = INVALIDATE_DYNAMIC_DATA;
             }
         }
     }
 
-    protected override void OnUpdateView(string invalidateFlag)
+    protected override void OnViewUpdate()
     {
-        if( _cardData != null && 
-            (invalidateFlag == UIView.INVALIDATE_ALL ||
-            invalidateFlag == INVALIDATE_STATIC_DATA) )
+        if( _cardData != null && IsInvalid(INVALIDATE_STATIC_DATA) )
         {
             _titleLbl.text = _cardData.titleKey; // TODO: Localize!
             _cardIcon.name = _cardData.iconName;
@@ -83,8 +88,7 @@ public class CardView : UIView
         }
 
         if( _cardState != null &&
-            (invalidateFlag == UIView.INVALIDATE_ALL ||
-            invalidateFlag == INVALIDATE_DYNAMIC_DATA) )
+            IsInvalid(INVALIDATE_DYNAMIC_DATA) )
         {
             _meatReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Meat));
             _veggieReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Veggie));

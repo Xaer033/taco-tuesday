@@ -1,46 +1,29 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using System.Collections.Generic;
 using GhostGen;
 
 public class IntroState : IGameState
 {
+    private PlayFieldController _playFieldController = new PlayFieldController();
+    private List<PlayerState> _playerList = new List<PlayerState>(4);
+
+
 	public void Init( GameController p_gameManager )
 	{
 		Debug.Log ("Entering In Intro State");
 		_gameController = p_gameManager;
 
-        _introView = _gameController.GetUI().CreateView(TacoTuesdayViews.IntroMovie, 0) as IntroView;
-        _introView.OnIntroTransitionEvent += _introView_OnIntroTransitionEvent;
-        //_backButton = GameObject.Find ("backButton").GetComponent< Button > ();
-        //_backButton.onClick.AddListener( onBackClick );
+        _playerList.Add(PlayerState.Create(0, "John"));
+        _playerList.Add(PlayerState.Create(1, "Poop"));
+        _playerList.Add(PlayerState.Create(2, "Adith"));
+        _playerList.Add(PlayerState.Create(3, "Maud'Dib"));
 
-        CardDeck customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
-        customerDeck.Shuffle();
-
-        for (int i = 0; i < customerDeck.cardList.Count; ++i)
-        {
-            GameManager.cardResourceBank.CreateCardView(customerDeck.cardList[i], _introView.cardParent);
-        }
-
-
-        CardDeck ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
-        ingredientDeck.Shuffle();
-
-        for (int i = 0; i < ingredientDeck.cardList.Count; ++i)
-        {
-            GameManager.cardResourceBank.CreateCardView(ingredientDeck.cardList[i], _introView.cardParent);
-        }
-
-        //Input.gyro.enabled = true;
-        //Input.gyro.updateInterval = 0.008f;
+        _playFieldController.Start(_playerList);
+       
     }
 
-    private void _introView_OnIntroTransitionEvent(UIView p_view)
-    {
-        Debug.Log(string.Format("View {0} has fininished intro", p_view.name));
-    }
-
+    
     public void Step( float p_deltaTime )
 	{
 		if (_gotoSplash) 
@@ -69,7 +52,7 @@ public class IntroState : IGameState
 //------------------- Private Implementation -------------------
 //--------------------------------------------------------------
 	private Button 			_backButton;
-	private IntroView		_introView;
+	private PlayFieldView		_introView;
 	private GameController 	_gameController;
     private CustomerController _customerController;
 

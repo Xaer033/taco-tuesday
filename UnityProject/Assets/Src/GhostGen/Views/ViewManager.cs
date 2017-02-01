@@ -20,12 +20,12 @@ namespace GhostGen
 		public ViewManager( IViewFactory p_viewFactory, Canvas mainCanvas )
 		{
 			_viewFactory 	= p_viewFactory;
-			_gameViewPaths = _viewFactory.GetGameViewMap ();
+			//_gameViewPaths = _viewFactory.GetGameViewMap ();
 
 			_currentViews 	= new Dictionary< int, LayerContainer >();
-			_transitionList = new List< LayerContainer > ();
+			//_transitionList = new List< LayerContainer > ();
 
-			_mainCamera = Camera.main;
+			//_mainCamera = Camera.main;
             _mainCanvas = mainCanvas;
 
         }
@@ -37,17 +37,16 @@ namespace GhostGen
 		}
 
 
-		public UIView CreateView( int viewId, int layer = 0, OnCreationFinishedHandle createCallback = null)
+		public UIView CreateView( int viewId, int layer = 0)
 		{
 			LayerContainer newLayer = new LayerContainer ();
 			newLayer.layer 	= layer;
 			newLayer.viewId = viewId;
-            newLayer.view   = _createView(viewId, createCallback);
+            newLayer.view   = _createView(viewId);
             newLayer.rootObject = newLayer.view.gameObject;
 
 			_clearLayer (layer);
 			_currentViews.Add (layer, newLayer);
-            newLayer.view.OnCreationFinished();
 
 			return newLayer.view;
 		}
@@ -92,12 +91,12 @@ namespace GhostGen
 //------------------- Private Implementation -------------------
 //--------------------------------------------------------------
 		private Dictionary< int, LayerContainer > _currentViews;
-		private List<LayerContainer> _transitionList;
+		//private List<LayerContainer> _transitionList;
 
 		private IViewFactory _viewFactory;
 		private Dictionary< int, string > _gameViewPaths;
 
-		private Camera _mainCamera;
+		//private Camera _mainCamera;
         private Canvas _mainCanvas;
 
 		private LayerContainer _findContainer( int viewId )
@@ -120,7 +119,7 @@ namespace GhostGen
 		private void _removeLayerContainer( LayerContainer p_container )
 		{
 			//Clean up/start transition if it has one
-			p_container.view.OnDispose ();
+			p_container.view.OnViewOutro(true, null);
 
 			//Enter transition if one exists
 			//if( p_container.view.hasTransition )
@@ -141,9 +140,9 @@ namespace GhostGen
 
 		
 
-		private UIView _createView( int p_view, OnCreationFinishedHandle createCallback )
+		private UIView _createView( int p_view )
 		{
-			UIView v = _viewFactory.CreateView( p_view, createCallback );
+			UIView v = _viewFactory.CreateView( p_view );
             v.transform.SetParent(_mainCanvas.transform, false);
             return v;
 		}

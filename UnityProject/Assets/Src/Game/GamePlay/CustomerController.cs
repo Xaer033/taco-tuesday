@@ -1,53 +1,67 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GhostGen;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
-public class CustomerController
+
+public class CustomerController : BaseController
 {
-    const int kMaxSlots = 4;
+    public const int kMaxActiveCustomers = 4;
+
+
+    private ActiveCustomersView _activeCustomers;
+
+    public void Start(Action callback, Transform parent = null)
+    {
+        if(_activeCustomers != null)
+        {
+            viewFactory.RemoveView(_activeCustomers, true);
+        }
+
+        viewFactory.CreateAsync<ActiveCustomersView>(
+            "ActiveCustomersView", 
+            (view)=>
+            {
+                _activeCustomers = (ActiveCustomersView)view;
+                callback();
+            }, parent
+        );
+    }
 
     public bool IsSlotActive(int slotIndex)
     {
-        if (!_boundsCheck(slotIndex))
-            return false;
-
+        _boundsCheck(slotIndex);
         return _activeCustomerList[slotIndex] != null;
     }
 
     public CustomerCardState GetCustomerAtSlot(int slotIndex)
     {
-        if (_boundsCheck(slotIndex))
-            return null;
-
+        _boundsCheck(slotIndex);
         return _activeCustomerList[slotIndex];
     }
 
     public void SetCustomerAtSlot(int slotIndex, CustomerCardState cardState)
     {
-        if (!_boundsCheck(slotIndex))
-            return;
-
+        _boundsCheck(slotIndex);
         _activeCustomerList[slotIndex] = cardState;
+
+        _activeCustomers.SetCardByIndex(slotIndex, cardState);
     }
 
 
 // ------------------------ Private Impl --------------------------
 
-    private CustomerCardState[] _activeCustomerList = new CustomerCardState[kMaxSlots];
+    private CustomerCardState[] _activeCustomerList = new CustomerCardState[kMaxActiveCustomers];
 
 
-    private bool _boundsCheck(int slotIndex)
+    private void _boundsCheck(int slotIndex)
     {
-        if (slotIndex >= kMaxSlots || slotIndex < 0)
-        {
-            Debug.LogError(string.Format("Slot id: {0} is outside of bounds", slotIndex));
-            return false;
-        }
-        return true;
+        Debug.Assert(slotIndex < kMaxActiveCustomers, string.Format("{0} out of range", slotIndex));
+        Debug.Assert(slotIndex >= 0);
     }
 
 }

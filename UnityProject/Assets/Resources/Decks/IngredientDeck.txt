@@ -65,7 +65,7 @@
 	},
 	{
 		"id"		: "mystery_meat",
-		"titleKey"	: "Myster Meat",
+		"titleKey"	: "Mystery Meat",
 		"iconName"	: "Mystery_Meat",
 		"cardType"	: "meat",
 		"foodValue"	: -4

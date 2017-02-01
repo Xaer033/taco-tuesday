@@ -15,12 +15,28 @@ public class GameManager : MonoBehaviour
 
     public CardResourceBank _cardResourceBank;
 
-    private IViewFactory _viewFactory;
+    //private IViewFactory _viewFactory;
     private IStateFactory _stateFactory;
 
+    private ViewFactory _viewFactory;
+
+    public ViewFactory viewFactory
+    {
+        get { return _viewFactory; }
+        private set { _viewFactory = value; }
+    }
+
+    public static GameManager Get()
+    {
+        Debug.Assert(_instance != null, "Game Manager not initialized yet, race condition detected!");
+        return _instance;
+    }
+
+    private static GameManager _instance;
 
 	void Awake()
 	{
+        _instance = this;
         cardResourceBank = _cardResourceBank;
         cardResourceBank.Initialize();
 
@@ -28,10 +44,10 @@ public class GameManager : MonoBehaviour
 
         guiCanvas = GetComponentInChildren<Canvas>();
 
-		_viewFactory 	= new TacoTuesdayViewFactory ();
+        _viewFactory    = new ViewFactory(guiCanvas);
 		_stateFactory 	= new TacoTuesdayStateFactory ();
 
-		gameController  = new GameController( _stateFactory, _viewFactory, guiCanvas );
+		gameController  = new GameController( _stateFactory, null, guiCanvas );
 		gameController.ChangeState( TacoTuesdayState.Intro );
 
 
@@ -41,5 +57,6 @@ public class GameManager : MonoBehaviour
 	void Update () 
 	{
 		gameController.Step(Time.deltaTime);
+        viewFactory.Step();
 	}
 }
