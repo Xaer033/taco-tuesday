@@ -8,13 +8,13 @@ public class PlayerHandView : UIView
 
     public Transform[] cardSlotList;
 
-    private CardView[] _cardViewList;
+    private IngredientCardView[] _cardViewList;
     private IngredientCardData[] _cardDataList;
 
     void Awake()
     {
         _cardDataList = new IngredientCardData[PlayerState.kHandSize];
-        _cardViewList = new CardView[PlayerState.kHandSize];
+        _cardViewList = new IngredientCardView[PlayerState.kHandSize];
     }
     
     void Start()
@@ -45,7 +45,7 @@ public class PlayerHandView : UIView
             for(int i = 0; i < _cardDataList.Length; ++i)
             {
                 IngredientCardData cardData = _cardDataList[i];
-                CardView cardView = _cardViewList[i];
+                IngredientCardView cardView = _cardViewList[i];
                 Transform cardParent = cardSlotList[i];
 
                 if (cardData == null)
@@ -60,7 +60,7 @@ public class PlayerHandView : UIView
                 
                 if(cardView == null)
                 {
-                    _cardViewList[i] = GameManager.cardResourceBank.CreateCardView(cardData, cardParent);
+                    _cardViewList[i] = (IngredientCardView)GameManager.cardResourceBank.CreateCardView(cardData, cardParent);
                     _cardViewList[i].transform.localPosition = Vector3.zero;
                 }
                 else if(cardData.id != cardView.cardData.id)

@@ -20,8 +20,8 @@ MonoBehaviour:
   toppingSprites:
     background: {fileID: 21300050, guid: 88b4ff3821b04c647911193e25091935, type: 3}
     icon: {fileID: 21300046, guid: 88b4ff3821b04c647911193e25091935, type: 3}
-  customerCardView: {fileID: 114839938081623034, guid: 5f60e459c05e0e14db88cb4dbb08e331,
+  customerCardView: {fileID: 114972711118070078, guid: 5f60e459c05e0e14db88cb4dbb08e331,
     type: 2}
-  ingredientCardView: {fileID: 114960522917269530, guid: 66095b26e5c779947af727a989c7db3d,
+  ingredientCardView: {fileID: 114550063531769214, guid: 66095b26e5c779947af727a989c7db3d,
     type: 2}
   iconAtlas: {fileID: 2800000, guid: 88b4ff3821b04c647911193e25091935, type: 3}

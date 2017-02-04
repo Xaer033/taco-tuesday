@@ -36,7 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224814859760228712}
-  - component: {fileID: 114960522917269530}
+  - component: {fileID: 114550063531769214}
+  - component: {fileID: 114271455125135504}
   m_Layer: 0
   m_Name: IngredientCardTemplate
   m_TagString: Untagged
@@ -128,6 +129,70 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fontType: 2
+--- !u!114 &114271455125135504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1210210220546898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 13
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114550063531769214}
+          m_MethodName: onCardBeginDrag
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 14
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114550063531769214}
+          m_MethodName: onCardEndDrag
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 5
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114550063531769214}
+          m_MethodName: onCardDrag
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &114334559393899570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,6 +294,22 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114550063531769214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1210210220546898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81cdf759eb12b8d4f8fbf73f54096029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _backgroundImg: {fileID: 114548572619022714}
+  _cardIcon: {fileID: 114788039967554948}
+  _cardTypeIcon: {fileID: 114518345830997122}
+  _titleLbl: {fileID: 114334559393899570}
+  _foodValueLbl: {fileID: 114769950998311986}
 --- !u!114 &114769950998311986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -315,25 +396,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fontType: 2
---- !u!114 &114960522917269530
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1210210220546898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 842552c321ccec84598df071ecfda787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _backgroundImg: {fileID: 114548572619022714}
-  _cardIcon: {fileID: 114788039967554948}
-  _cardTypeIcon: {fileID: 114518345830997122}
-  _titleLbl: {fileID: 114334559393899570}
-  _foodValueLbl: {fileID: 114769950998311986}
-  _meatReqObj: {fileID: 0}
-  _veggieReqObj: {fileID: 0}
-  _toppingReqObj: {fileID: 0}
 --- !u!222 &222190516913493434
 CanvasRenderer:
   m_ObjectHideFlags: 1

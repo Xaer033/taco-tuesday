@@ -18,8 +18,8 @@ public class CardResourceBank : ScriptableObject
     public IngredientCardSprites veggieSprites;
     public IngredientCardSprites toppingSprites;
 
-    public CardView customerCardView;
-    public CardView ingredientCardView;
+    public BaseCardView customerCardView;
+    public BaseCardView ingredientCardView;
 
     public Texture2D iconAtlas;
 
@@ -72,15 +72,14 @@ public class CardResourceBank : ScriptableObject
         return null;
     }
 
-    public CardView CreateCardView(BaseCardData cardData, Transform cParent)
+    public BaseCardView CreateCardView(BaseCardData cardData, Transform cParent)
     {
-        CardView prefab = (cardData.cardType == CardType.Customer) ?
+        BaseCardView prefab = (cardData.cardType == CardType.Customer) ?
                            customerCardView : ingredientCardView;
-        
-        CardView view = Instantiate<CardView>(prefab, cParent, false);
+
+        BaseCardView view = Instantiate<BaseCardView>(prefab, cParent, false);
         view.cardData = cardData;
 
         return view;
     }
-
 }

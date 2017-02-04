@@ -182,7 +182,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224230651355127386}
-  - component: {fileID: 114839938081623034}
+  - component: {fileID: 114972711118070078}
+  - component: {fileID: 114027837022204244}
   m_Layer: 0
   m_Name: CustomerCardTemplate
   m_TagString: Untagged
@@ -245,6 +246,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114027837022204244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546611416767028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 6
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114972711118070078}
+          m_MethodName: onCardDrop
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &114058119397368908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -695,25 +726,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
---- !u!114 &114839938081623034
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1546611416767028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 842552c321ccec84598df071ecfda787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _backgroundImg: {fileID: 114742657826152482}
-  _cardIcon: {fileID: 114408323087806726}
-  _cardTypeIcon: {fileID: 114469189690789370}
-  _titleLbl: {fileID: 114423311521288524}
-  _foodValueLbl: {fileID: 114257400331258662}
-  _meatReqObj: {fileID: 1274530220074538}
-  _veggieReqObj: {fileID: 1384313562682804}
-  _toppingReqObj: {fileID: 1506112086728378}
 --- !u!114 &114878431359361586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -813,6 +825,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fontType: 1
+--- !u!114 &114972711118070078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546611416767028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930e5f9bb3e1bfa45be51aa0865c0ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _backgroundImg: {fileID: 114742657826152482}
+  _cardIcon: {fileID: 114408323087806726}
+  _cardTypeIcon: {fileID: 114469189690789370}
+  _titleLbl: {fileID: 114423311521288524}
+  _foodValueLbl: {fileID: 114257400331258662}
+  _meatReqObj: {fileID: 1274530220074538}
+  _veggieReqObj: {fileID: 1384313562682804}
+  _toppingReqObj: {fileID: 1506112086728378}
 --- !u!222 &222344352356763266
 CanvasRenderer:
   m_ObjectHideFlags: 1

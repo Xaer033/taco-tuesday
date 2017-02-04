@@ -10,7 +10,7 @@ public class ActiveCustomersView : UIView
     public Transform[] _activeSlotList;
 
 
-    private CardView[] _cardViewList = new CardView[CustomerController.kMaxActiveCustomers];
+    private CustomerCardView[] _cardViewList = new CustomerCardView[CustomerController.kMaxActiveCustomers];
 
     void Awake()
     {
@@ -25,20 +25,20 @@ public class ActiveCustomersView : UIView
     {
         _boundsCheck(index);
 
-        CardView cardView = _cardViewList[index];
+        CustomerCardView cardView = _cardViewList[index];
         if (cardView != null)
         {
             _cardViewList[index].cardState = cardState;
         }
         else
         {
-            cardView = GameManager.cardResourceBank.CreateCardView(cardState.cardData, _activeSlotList[index]);
+            cardView = (CustomerCardView)GameManager.cardResourceBank.CreateCardView(cardState.cardData, _activeSlotList[index]);
         }
         _moveCardToSlot(index, cardView);
     }
 
 
-    private void _moveCardToSlot(int index, CardView cardView)
+    private void _moveCardToSlot(int index, CustomerCardView cardView)
     {
         cardView.transform.position = _activeSlotList[index].position;
     }

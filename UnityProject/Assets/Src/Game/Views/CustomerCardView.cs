@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using GhostGen;
+using UnityEngine.EventSystems;
 
 [System.Serializable]
-public class CardView : UIView
+[RequireComponent(typeof(EventTrigger))]
+public sealed class CustomerCardView : BaseCardView
 {
-    public Image _backgroundImg;
-    public Image _cardIcon;
-    public Image _cardTypeIcon;
-    public Text _titleLbl;
-    public Text _foodValueLbl;
-
     public GameObject _meatReqObj;
     public GameObject _veggieReqObj;
     public GameObject _toppingReqObj;
@@ -20,12 +16,15 @@ public class CardView : UIView
     private Text _meatReqLbl;
     private Text _veggieReqLbl;
     private Text _toppingReqLbl;
-
-    private BaseCardData _cardData = null;
+    
     private CustomerCardState _cardState = null;
+
+    private EventTrigger _eventTrigger;
 
     private void Awake()
     {
+        _setupEvents();
+
         if(_meatReqObj != null)
             _meatReqLbl     = _meatReqObj.GetComponentInChildren<Text>();
 
@@ -39,23 +38,6 @@ public class CardView : UIView
     void Start()
     {
         OnIntroTransitionFinished();
-    }
-
-    public BaseCardData cardData
-    {
-        set
-        {
-            if(_cardData != value)
-            {
-                _cardData = value;
-                invalidateFlag = INVALIDATE_STATIC_DATA;
-            }
-        }
-
-        get
-        {
-            return _cardData;
-        }
     }
 
     public CustomerCardState cardState
@@ -72,37 +54,24 @@ public class CardView : UIView
 
     protected override void OnViewUpdate()
     {
-        if( _cardData != null && IsInvalid(INVALIDATE_STATIC_DATA) )
+        base.OnViewUpdate();
+
+        if(_cardData == null)
         {
-            _titleLbl.text = _cardData.titleKey; // TODO: Localize!
-            _cardIcon.name = _cardData.iconName;
-            
-            if(_cardData.cardType == CardType.Customer)
-            {
-                _setCustomerCard((CustomerCardData)_cardData);
-            }
-            else
-            {
-                _setIngredientCard((IngredientCardData)_cardData);
-            }
+            return;
         }
 
-        if( _cardState != null &&
-            IsInvalid(INVALIDATE_DYNAMIC_DATA) )
+        if(IsInvalid(INVALIDATE_STATIC_DATA) )
+        {       
+            _setCustomerCard((CustomerCardData)_cardData);          
+        }
+
+        if(IsInvalid(INVALIDATE_DYNAMIC_DATA) )
         {
             _meatReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Meat));
             _veggieReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Veggie));
             _toppingReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Topping));
         }
-    }
-
-    private void _setIngredientCard(IngredientCardData ingredientData)
-    {
-        CardResourceBank cardBank = GameManager.cardResourceBank;
-        _backgroundImg.sprite = cardBank.GetIngredientBG(ingredientData.cardType);
-        _cardTypeIcon.sprite = cardBank.GetIngredientTypeIcon(ingredientData.cardType);
-        _foodValueLbl.text = string.Format("{0}", ingredientData.foodValue);
-        _cardIcon.sprite = cardBank.GetMainIcon(ingredientData.iconName);
     }
 
     private void _setCustomerCard(CustomerCardData customerData)
@@ -135,5 +104,19 @@ public class CardView : UIView
         }
 
         _foodValueLbl.text = string.Format("{0}", customerData.baseReward);
+    }
+
+    private void _setupEvents()
+    { 
+        _eventTrigger = GetComponent<EventTrigger>();
+        EventTrigger.Entry e = new EventTrigger.Entry();
+        e.eventID = EventTriggerType.Drop;
+        e.callback.AddListener(onCardDrop);
+    }
+
+    public void onCardDrop(BaseEventData e)
+    {
+        PointerEventData eventData = (PointerEventData)e;
+        Debug.LogFormat("Dropped: {0} onto Customer: {1}", eventData.pointerDrag.name, gameObject.name);
     }
 }
