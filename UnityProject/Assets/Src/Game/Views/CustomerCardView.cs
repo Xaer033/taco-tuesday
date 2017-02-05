@@ -23,7 +23,6 @@ public sealed class CustomerCardView : BaseCardView
 
     private void Awake()
     {
-        _setupEvents();
 
         if(_meatReqObj != null)
             _meatReqLbl     = _meatReqObj.GetComponentInChildren<Text>();
@@ -106,17 +105,15 @@ public sealed class CustomerCardView : BaseCardView
         _foodValueLbl.text = string.Format("{0}", customerData.baseReward);
     }
 
-    private void _setupEvents()
-    { 
-        _eventTrigger = GetComponent<EventTrigger>();
-        EventTrigger.Entry e = new EventTrigger.Entry();
-        e.eventID = EventTriggerType.Drop;
-        e.callback.AddListener(onCardDrop);
-    }
-
     public void onCardDrop(BaseEventData e)
     {
         PointerEventData eventData = (PointerEventData)e;
-        Debug.LogFormat("Dropped: {0} onto Customer: {1}", eventData.pointerDrag.name, gameObject.name);
+        IngredientCardView ingredient = eventData.pointerDrag.GetComponent<IngredientCardView>();
+        if (ingredient == null)
+        {
+            Debug.LogFormat("Drag Object: {0}", eventData.pointerDrag.name);
+            return;
+        }
+        Debug.LogFormat("Dropped: {0} onto Customer: {1}", ingredient.cardData.id, cardData.id);
     }
 }

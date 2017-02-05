@@ -33,10 +33,9 @@ public class PlayFieldController : BaseController
             _playfieldView = view as PlayFieldView;
             _playfieldView.onIntroFinishedEvent += _playfieldView_OnIntroTransitionEvent;
 
-            _setupLocalPlayerHandView(0, _playfieldView.transform);
-            _setupCustomers(_playfieldView.transform);
+            _setupCustomers(_playfieldView.staticCardLayer);
+            _setupLocalPlayerHandView(0, _playfieldView.staticCardLayer);
         });
-
     }
 
     private void _playfieldView_OnIntroTransitionEvent(UIView p_view)

@@ -7,6 +7,8 @@ public class PlayFieldView : UIView
 {
     public CanvasGroup canvasGroup;
 
+    public Transform staticCardLayer;
+
     void Awake()
     {
         canvasGroup.alpha = 0.0f;

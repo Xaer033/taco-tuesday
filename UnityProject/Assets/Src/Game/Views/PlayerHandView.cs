@@ -8,6 +8,10 @@ public class PlayerHandView : UIView
 
     public Transform[] cardSlotList;
 
+    public CanvasGroup canvasGroup;
+    public Transform dragCardLayer;
+
+
     private IngredientCardView[] _cardViewList;
     private IngredientCardData[] _cardDataList;
 
@@ -60,16 +64,24 @@ public class PlayerHandView : UIView
                 
                 if(cardView == null)
                 {
-                    _cardViewList[i] = (IngredientCardView)GameManager.cardResourceBank.CreateCardView(cardData, cardParent);
-                    _cardViewList[i].transform.localPosition = Vector3.zero;
+                    _cardViewList[i] = _createCardView(cardData, cardParent);
                 }
                 else if(cardData.id != cardView.cardData.id)
                 {
                     _cardViewList[i].cardData = cardData;
                 }
-                
             }
         }
+    }
+
+    private IngredientCardView _createCardView(IngredientCardData cardData, Transform cardParent)
+    {
+        IngredientCardView cardView = (IngredientCardView)GameManager.cardResourceBank.CreateCardView(cardData, cardParent);
+        cardView.transform.localPosition = Vector3.zero;
+        cardView.handView = this;
+        cardView.handSlot = cardParent;
+        cardView.dragLayer = dragCardLayer;
+        return cardView;
     }
 }
 

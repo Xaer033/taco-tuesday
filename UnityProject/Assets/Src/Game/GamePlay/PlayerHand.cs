@@ -11,7 +11,6 @@ public class PlayerHand
     const int kDefaultHandSize = 5;
 
     private IngredientCardData[] _cards;
-
     private int _handSize;
 
     public static PlayerHand Create(int handSize)

@@ -5,15 +5,20 @@ using UnityEngine.UI;
 using GhostGen;
 using UnityEngine.EventSystems;
 
+using DG.Tweening;
+
 [System.Serializable]
 [RequireComponent(typeof(EventTrigger))]
 public sealed class IngredientCardView : BaseCardView
 {
     private EventTrigger _eventTrigger;
-    private Vector2 _inputOffset;
+    private Vector3 _inputOffset;
     private RectTransform _rectXform;
+    private Tween _resetTween;
 
+    public PlayerHandView handView { get; set; }
     public Transform handSlot { get; set; }
+    public Transform dragLayer { get; set; }
 
     void Awake()
     {
@@ -54,21 +59,40 @@ public sealed class IngredientCardView : BaseCardView
     public void onCardBeginDrag(BaseEventData e)
     {
         PointerEventData eventData = (PointerEventData)e;
-        Debug.LogFormat("Begin Drag: {0}", cardData.id);
-        _inputOffset = _rectXform.anchoredPosition - eventData.pressPosition;
+
+        transform.SetParent(dragLayer);
+
+        Vector3 mPos = Input.mousePosition;
+        mPos.z = GameManager.Get().guiCanvas.planeDistance;
+
+        _inputOffset = _rectXform.position - Camera.main.ScreenToWorldPoint(mPos);
+        if (_resetTween != null)
+        {
+            _resetTween.Kill(true);
+        }
+
+        handView.canvasGroup.blocksRaycasts = false;
     }
 
     public void onCardDrag(BaseEventData e)
     {
         PointerEventData eventData = (PointerEventData)e;
-        _rectXform.anchoredPosition = eventData.position + _inputOffset;
+        Vector3 mPos = Input.mousePosition;
+        mPos.z = GameManager.Get().guiCanvas.planeDistance;
+        _rectXform.position = Camera.main.ScreenToWorldPoint(mPos) + _inputOffset;
     }
 
     public void onCardEndDrag(BaseEventData e)
     {
         PointerEventData eventData = (PointerEventData)e;
-        Debug.LogFormat("End Drag: {0}", cardData.id);
+        handView.canvasGroup.blocksRaycasts = true;
 
-        transform.position = transform.parent.position;
+        _resetTween = transform.DOMove(handSlot.position, 0.532f);
+        _resetTween.SetEase(Ease.OutCubic);
+        _resetTween.OnComplete(() =>
+        {
+            _resetTween = null;
+            transform.SetParent(handSlot);
+        });
     }
 }
