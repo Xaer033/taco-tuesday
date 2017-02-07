@@ -11,16 +11,22 @@ using DG.Tweening;
 [RequireComponent(typeof(EventTrigger))]
 public sealed class IngredientCardView : BaseCardView
 {
-    const int kMaxSmoothFrame = 35;
+    const int kMaxSmoothFrame = 5;
+    const float kDragScale = 1.2f;
 
     private EventTrigger _eventTrigger;
     private Vector3 _inputOffset;
     private RectTransform _rectXform;
     private Tween _resetTween;
+
     private Vector3 _prevDragPosition;
     private Vector2[] _averageDelta = new Vector2[kMaxSmoothFrame];
     private int _deltaIndex = 0;
+    private bool _isDragging = false;
+    private Vector2 _dragDelta;
 
+    private Vector3 _originalScale;
+    private Tween _scaleTween;
 
     public PlayerHandView handView { get; set; }
     public Transform handSlot { get; set; }
@@ -29,7 +35,7 @@ public sealed class IngredientCardView : BaseCardView
     void Awake()
     {
         _rectXform = (RectTransform)transform;
-        _setupEvents();
+        _setup();
 
         for(int i = 0; i < kMaxSmoothFrame; ++i)
         {
@@ -42,6 +48,16 @@ public sealed class IngredientCardView : BaseCardView
         OnIntroTransitionFinished();
     }
     
+    public override void Update()
+    {
+        base.Update();
+
+        if(_isDragging)
+        {
+            _updateDragRotation();
+        }
+    }
+
     protected override void OnViewUpdate()
     {
         base.OnViewUpdate();
@@ -61,29 +77,31 @@ public sealed class IngredientCardView : BaseCardView
         _cardIcon.sprite = cardBank.GetMainIcon(ingredientData.iconName);
     }
 
-    private void _setupEvents()
+    private void _setup()
     {
         _eventTrigger = GetComponent<EventTrigger>();
-        
+        _originalScale = transform.localScale;
     }
 
     public void onCardBeginDrag(BaseEventData e)
     {
         PointerEventData eventData = (PointerEventData)e;
 
-        if (_resetTween != null)
-        {
-            _resetTween.Kill(true);
-        }
+        if(_resetTween != null) { _resetTween.Kill(true); }
+
+        if (_scaleTween != null) { _scaleTween.Kill(); }
+        _scaleTween = transform.DOScale(_originalScale * kDragScale, 0.82f);
+        _scaleTween.SetEase(Ease.OutBack);
+        _scaleTween.OnComplete(() => _scaleTween = null);
 
         transform.SetParent(dragLayer);
 
         Vector3 mPos = Input.mousePosition;
         mPos.z = GameManager.Get().guiCanvas.planeDistance;
-
         _inputOffset = _rectXform.position - Camera.main.ScreenToWorldPoint(mPos);
        
         handView.canvasGroup.blocksRaycasts = false;
+        _isDragging = true;
     }
 
     public void onCardDrag(BaseEventData e)
@@ -92,34 +110,35 @@ public sealed class IngredientCardView : BaseCardView
         Vector3 mPos = Input.mousePosition;
         mPos.z = GameManager.Get().guiCanvas.planeDistance;
         _rectXform.position = Camera.main.ScreenToWorldPoint(mPos) + _inputOffset;
+        _rectXform.position = _rectXform.position + (Camera.main.transform.position - _rectXform.position) * 0.1f;
+        const float kScaleFactor = 2.0f;
 
-        Vector2 smoothDelta = _updateSmoothDelta(eventData.delta);
-        smoothDelta = Vector2.Max(smoothDelta, -Vector2.one * 5.0f);
-        smoothDelta = Vector2.Min(smoothDelta, Vector2.one * 5.0f);
-        transform.localRotation = Quaternion.Slerp(Quaternion.Euler(-smoothDelta.y, smoothDelta.x, 0), transform.localRotation, Time.deltaTime);
+        _dragDelta = -eventData.delta * kScaleFactor;
     }
 
-    private Vector2 _updateSmoothDelta(Vector2 delta)
+    private void _updateDragRotation()
     {
-        const float kScaleFactor = 1.0f;
-        
-        int index = _deltaIndex % kMaxSmoothFrame;
-        _averageDelta[index] = delta * kScaleFactor;
+        int index = _deltaIndex++ % kMaxSmoothFrame;
+        _averageDelta[index] = _dragDelta;
 
         Vector2 smoothDelta = Vector2.zero;
         for(int i = 0; i < kMaxSmoothFrame; ++i)
         {
-            smoothDelta += _averageDelta[index];
+            smoothDelta += _averageDelta[i];
         }
+
         smoothDelta /= kMaxSmoothFrame;
-        
-        _deltaIndex++;
-        return smoothDelta;
+        smoothDelta = Vector2.Max(smoothDelta, -Vector2.one * 15.0f);
+        smoothDelta = Vector2.Min(smoothDelta, Vector2.one * 15.0f);
+        transform.localRotation = Quaternion.Slerp(Quaternion.Euler(-smoothDelta.y, smoothDelta.x, 0), transform.localRotation, Time.deltaTime);
+        _dragDelta = Vector2.zero;
     }
+
     public void onCardEndDrag(BaseEventData e)
     {
         PointerEventData eventData = (PointerEventData)e;
         handView.canvasGroup.blocksRaycasts = true;
+        _isDragging = false;
 
         for (int i = 0; i < kMaxSmoothFrame; ++i)
         {
@@ -137,5 +156,9 @@ public sealed class IngredientCardView : BaseCardView
         });
 
         transform.DOLocalRotateQuaternion(Quaternion.identity, kTweenDuration * 0.6f);
+        
+        if(_scaleTween != null) { _scaleTween.Kill(true); }
+        _scaleTween = transform.DOScale(_originalScale, kTweenDuration * 0.756f);
+        _scaleTween.OnComplete(() => _scaleTween = null);
     }
 }
