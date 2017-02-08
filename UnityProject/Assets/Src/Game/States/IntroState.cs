@@ -54,7 +54,7 @@ public class IntroState : IGameState
 	private Button 			_backButton;
 	private PlayFieldView		_introView;
 	private GameController 	_gameController;
-    private CustomerController _customerController;
+    private ActiveCustomerSet _customerController;
 
 	private bool _gotoSplash = false;
 

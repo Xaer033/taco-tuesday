@@ -8,29 +8,11 @@ using Newtonsoft.Json.Linq;
 using System;
 
 
-public class CustomerController : BaseController
+public class ActiveCustomerSet
 {
     public const int kMaxActiveCustomers = 4;
 
-
-    private ActiveCustomersView _activeCustomers;
-
-    public void Start(Action callback, Transform parent = null)
-    {
-        if(_activeCustomers != null)
-        {
-            viewFactory.RemoveView(_activeCustomers, true);
-        }
-
-        viewFactory.CreateAsync<ActiveCustomersView>(
-            "ActiveCustomersView", 
-            (view)=>
-            {
-                _activeCustomers = (ActiveCustomersView)view;
-                callback();
-            }, parent
-        );
-    }
+    private CustomerCardState[] _activeCustomerList = new CustomerCardState[kMaxActiveCustomers];
 
     public bool IsSlotActive(int slotIndex)
     {
@@ -48,16 +30,9 @@ public class CustomerController : BaseController
     {
         _boundsCheck(slotIndex);
         _activeCustomerList[slotIndex] = cardState;
-
-        _activeCustomers.SetCardByIndex(slotIndex, cardState);
     }
 
-
-// ------------------------ Private Impl --------------------------
-
-    private CustomerCardState[] _activeCustomerList = new CustomerCardState[kMaxActiveCustomers];
-
-
+    
     private void _boundsCheck(int slotIndex)
     {
         Debug.Assert(slotIndex < kMaxActiveCustomers, string.Format("{0} out of range", slotIndex));

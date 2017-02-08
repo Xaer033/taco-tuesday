@@ -11,10 +11,15 @@ public enum CardType
     Customer
 }
 
-
-public class CardTypeUtility
+public enum PointModifier
 {
-    public static CardType FromString(string cardType)
+    None = 0,
+    x2
+}
+
+public class CardUtility
+{
+    public static CardType TypeFromString(string cardType)
     {
         switch(cardType.ToLower())
         {
@@ -26,6 +31,30 @@ public class CardTypeUtility
 
         Debug.LogError(string.Format("We don't handle card type: {0}!", cardType));
         return CardType.None;
+    }
+
+    public static PointModifier ModifierFromString(string modifier)
+    {
+        if(string.IsNullOrEmpty(modifier))
+        {
+            return PointModifier.None;
+        }
+
+        switch(modifier.ToLower())
+        {
+            case "x2": return PointModifier.x2;
+        }
+        return PointModifier.None;
+    }
+
+    public static int ApplyModifier(PointModifier mod, int originalScore)
+    {
+        switch(mod)
+        {
+            case PointModifier.x2: return originalScore * 2;
+        }
+
+        return originalScore;
     }
 }
 
@@ -42,7 +71,9 @@ public class CustomerCardData : BaseCardData
     public int      meatRequirement;     
     public int      veggieRequirement;   
     public int      toppingRequirement;  
-    public int      baseReward;          
+    public int      baseReward;
+    public PointModifier modifier;
+            
 }
 
 public class IngredientCardData : BaseCardData
@@ -55,7 +86,7 @@ public class CardDataFactory
 {
     public static BaseCardData CreateFromJson(JToken cardToken)
     {
-        CardType type = CardTypeUtility.FromString(cardToken.Value<string>("cardType"));
+        CardType type = CardUtility.TypeFromString(cardToken.Value<string>("cardType"));
         string id = cardToken.Value<string>("id");
         string titleKey = cardToken.Value<string>("titleKey");
         string iconName = cardToken.Value<string>("iconName");
@@ -71,6 +102,7 @@ public class CardDataFactory
             cData.meatRequirement = cardToken.Value<int>("meatRequirement");
             cData.veggieRequirement = cardToken.Value<int>("veggieRequirement");
             cData.toppingRequirement = cardToken.Value<int>("toppingRequirement");
+            cData.modifier = CardUtility.ModifierFromString(cardToken.Value<string>("modifier"));
             return cData;
         }
         else

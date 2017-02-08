@@ -15,7 +15,7 @@ public class PlayFieldController : BaseController
     private List<PlayerState> _playerList;
     private PlayerHandView _playerHandView;
 
-    private CustomerController _customerController = new CustomerController();
+    private ActiveCustomerSet _customerController = new ActiveCustomerSet();
     private PlayFieldView _playfieldView;
     
     public void Start(List<PlayerState> playerList)
@@ -45,15 +45,21 @@ public class PlayFieldController : BaseController
 
     private void _setupCustomers(Transform parent)
     {
-        _customerController.Start(()=>
-        {
-            for(int i = 0; i < CustomerController.kMaxActiveCustomers; ++i)
+        viewFactory.CreateAsync<ActiveCustomersView>(
+            "ActiveCustomersView",
+            (view) =>
             {
-                CustomerCardData card = _customerDeck.Pop() as CustomerCardData;
-                CustomerCardState state = CustomerCardState.Create(card);
-                _customerController.SetCustomerAtSlot(i, state);
-            }
-        }, parent);
+                ActiveCustomersView customersView = (ActiveCustomersView)view;
+                for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
+                {
+                    CustomerCardData card = _customerDeck.Pop() as CustomerCardData;
+                    CustomerCardState state = CustomerCardState.Create(card);
+
+                    customersView.SetCardByIndex(i, state);
+                }
+            }, parent
+        );
+        
     }
 
     private void _setupPlayers(List<PlayerState> playerList)

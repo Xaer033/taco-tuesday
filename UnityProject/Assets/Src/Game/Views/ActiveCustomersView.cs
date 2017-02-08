@@ -10,11 +10,11 @@ public class ActiveCustomersView : UIView
     public Transform[] _activeSlotList;
 
 
-    private CustomerCardView[] _cardViewList = new CustomerCardView[CustomerController.kMaxActiveCustomers];
+    private CustomerCardView[] _cardViewList = new CustomerCardView[ActiveCustomerSet.kMaxActiveCustomers];
 
     void Awake()
     {
-        Debug.Assert(_activeSlotList.Length == CustomerController.kMaxActiveCustomers);
+        Debug.Assert(_activeSlotList.Length == ActiveCustomerSet.kMaxActiveCustomers);
         foreach(Transform t in _activeSlotList)
         {
             Debug.Assert(t != null);
@@ -46,6 +46,6 @@ public class ActiveCustomersView : UIView
     private void _boundsCheck(int index)
     {
         Debug.Assert(index >= 0, "Index is less than 0!");
-        Debug.Assert(index < CustomerController.kMaxActiveCustomers, "Index is greater than slot container size");
+        Debug.Assert(index < ActiveCustomerSet.kMaxActiveCustomers, "Index is greater than slot container size");
     }
 }

@@ -8,6 +8,32 @@ public class CustomerCardState
     public int lastPlayerIndex { get; set; }
     public CustomerCardData cardData { get; private set; }
 
+    public bool isComplete
+    {
+        get
+        {
+            return GetIngredientReqLeft(CardType.Meat) == 0 &&
+                    GetIngredientReqLeft(CardType.Veggie) == 0 &&
+                    GetIngredientReqLeft(CardType.Topping) == 0;
+        }
+    }
+
+    public int totalScore
+    {
+        get
+        {
+            int ingredientScore = 0;
+            for(int i = 0; i < _ingredientList.Count; ++i)
+            {
+                ingredientScore += _ingredientList[i].foodValue;
+            }
+
+            int preModifierScore = ingredientScore + cardData.baseReward;
+            return CardUtility.ApplyModifier(cardData.modifier, preModifierScore);
+        }
+    }
+
+
     public static CustomerCardState Create(CustomerCardData cardData)
     {
         CustomerCardState state = new CustomerCardState();
@@ -39,7 +65,6 @@ public class CustomerCardState
         lastPlayerIndex = playerIndex;
         return true;
     }
-
 
 
 //------------------- Private Implementation -------------------
