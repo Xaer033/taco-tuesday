@@ -18,6 +18,8 @@ public class GameLogic
     private CardDeck _customerDeck;
     private CardDeck _ingredientDeck;
 
+    private CommandFactory _commandFactory = new CommandFactory();
+
 
     public static GameLogic Create(List<PlayerState> playerList)
     {
@@ -33,18 +35,31 @@ public class GameLogic
     }
 
     
-    public bool PlayCardOnCustomer(IngredientCardData ingredientData, int playerIndex, int customerSlotId)
+    public bool PlayCardOnCustomer(
+        IngredientCardData ingredientData, 
+        int playerIndex, 
+        int customerSlotId)
     {
-        if (!activeCustomerSet.IsSlotActive(customerSlotId))
-        {
-            return false;
-        }
+        if (!activeCustomerSet.IsSlotActive(customerSlotId)) { return false; }
 
         CustomerCardState cardState = activeCustomerSet.GetCustomerAtSlot(customerSlotId);
-        return cardState.AddIngredient(ingredientData, playerIndex);
+        if(!cardState.CanAcceptCard(ingredientData)) { return false; }
+
+        PlayCardCommand command = PlayCardCommand.Create(
+            cardState, 
+            ingredientData, 
+            playerIndex);
+
+        _commandFactory.Execute(command);
+        return true;
     }
 
-    public void ResolveCustomerCards()
+    public bool UndoLastAction()
+    {
+        return _commandFactory.Undo();
+    }
+
+    public void ResolveCustomerCards() // TODO: turn into command
     {
         for(int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
         {
@@ -52,7 +67,7 @@ public class GameLogic
             if(customerState.isComplete)
             {
                 playerList[customerState.lastPlayerIndex].points += customerState.totalScore;
-
+                
                 CustomerCardData card = _customerDeck.Pop() as CustomerCardData;
                 CustomerCardState state = CustomerCardState.Create(card);
                 activeCustomerSet.SetCustomerAtSlot(i, state);

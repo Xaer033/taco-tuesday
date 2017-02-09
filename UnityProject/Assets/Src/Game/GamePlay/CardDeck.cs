@@ -46,6 +46,11 @@ public class CardDeck : System.Object
         return card;
     }
 
+    public void Push(BaseCardData card)
+    {
+        _cardList.Add(card);
+    }
+
     public BaseCardData Top
     {
         get

@@ -54,9 +54,13 @@ public class CustomerCardState
         return _getIngredientReq(type) - value;
     }
     
+    public bool CanAcceptCard(IngredientCardData card)
+    {
+        return GetIngredientReqLeft(card.cardType) <= 0;
+    }
     public bool AddIngredient(IngredientCardData card, int playerIndex)
     {
-        if (GetIngredientReqLeft(card.cardType) <= 0)
+        if (!CanAcceptCard(card))
         {
             return false;
         }
@@ -66,9 +70,15 @@ public class CustomerCardState
         return true;
     }
 
+    public void RemoveIngredient(IngredientCardData card, int playerIndex)
+    {   
+        _ingredientList.Remove(card);
+        lastPlayerIndex = playerIndex;
+    }
 
-//------------------- Private Implementation -------------------
-//--------------------------------------------------------------
+
+    //------------------- Private Implementation -------------------
+    //--------------------------------------------------------------
     private List<IngredientCardData> _ingredientList = new List<IngredientCardData>();
 
 
