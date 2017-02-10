@@ -14,8 +14,7 @@ public class PlayFieldController : BaseController
 
     private List<PlayerState> _playerList;
     private PlayerHandView _playerHandView;
-
-    private ActiveCustomerSet _customerController = new ActiveCustomerSet();
+    
     private PlayFieldView _playfieldView;
     
     public void Start(List<PlayerState> playerList)

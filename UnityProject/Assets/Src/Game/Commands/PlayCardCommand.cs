@@ -25,6 +25,11 @@ public class PlayCardCommand : ICommand
 
     private PlayCardCommand() { }
 
+    public bool isLinked
+    {
+        get { return false; }
+    }
+
     public void Execute()
     {
         Assert.IsNotNull(_customer);

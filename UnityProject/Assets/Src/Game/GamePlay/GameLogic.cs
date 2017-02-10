@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class GameLogic
 {
@@ -42,15 +43,23 @@ public class GameLogic
     {
         if (!activeCustomerSet.IsSlotActive(customerSlotId)) { return false; }
 
-        CustomerCardState cardState = activeCustomerSet.GetCustomerAtSlot(customerSlotId);
-        if(!cardState.CanAcceptCard(ingredientData)) { return false; }
+        CustomerCardState customerState = activeCustomerSet.GetCustomerAtSlot(customerSlotId);
+        if(!customerState.CanAcceptCard(ingredientData)) { return false; }
+        PlayerState player = playerList[playerIndex];
+        Assert.IsNotNull(player);
 
         PlayCardCommand command = PlayCardCommand.Create(
-            cardState, 
+            customerState, 
             ingredientData, 
             playerIndex);
 
         _commandFactory.Execute(command);
+
+        if(_resolveCustomerCard(customerState, player))
+        {
+            _createNewCustomer(customerSlotId);
+        }
+
         return true;
     }
 
@@ -59,19 +68,25 @@ public class GameLogic
         return _commandFactory.Undo();
     }
 
-    public void ResolveCustomerCards() // TODO: turn into command
+    private bool _resolveCustomerCard(
+        CustomerCardState customer,
+        PlayerState player)
     {
-        for(int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
+        if(customer.isComplete)
         {
-            CustomerCardState customerState = activeCustomerSet.GetCustomerAtSlot(i);
-            if(customerState.isComplete)
-            {
-                playerList[customerState.lastPlayerIndex].points += customerState.totalScore;
-                
-                CustomerCardData card = _customerDeck.Pop() as CustomerCardData;
-                CustomerCardState state = CustomerCardState.Create(card);
-                activeCustomerSet.SetCustomerAtSlot(i, state);
-            }
+            ResolveScoreCommand resolve = ResolveScoreCommand.Create(player, customer);
+            _commandFactory.Execute(resolve);
+            return true;
         }
+        return false;
+    }
+
+    private void _createNewCustomer(int customerSlotId)
+    {
+        CreateActiveCustomerCommand command = CreateActiveCustomerCommand.Create(
+            customerSlotId,
+            _customerDeck,
+            activeCustomerSet);
+        _commandFactory.Execute(command);
     }
 }

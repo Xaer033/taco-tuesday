@@ -20,8 +20,13 @@ public class CommandFactory
             return false;
         }
 
-        ICommand command = _undoStack.Pop();
-        command.Undo();
+        ICommand command;
+        do
+        {
+            command = _undoStack.Pop();
+            command.Undo();
+        }
+        while (command.isLinked);
         //Maybe save this command into another stack for re-do's
         return true;
     }
