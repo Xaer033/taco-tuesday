@@ -13,6 +13,13 @@ public class ActiveCustomerSet
     public const int kMaxActiveCustomers = 4;
 
     private CustomerCardState[] _activeCustomerList = new CustomerCardState[kMaxActiveCustomers];
+    private ActiveCustomerSet() { }
+
+    public static ActiveCustomerSet Create()
+    {
+        return new ActiveCustomerSet();
+    }
+
 
     public bool IsSlotActive(int slotIndex)
     {

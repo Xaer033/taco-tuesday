@@ -8,6 +8,7 @@ public class CommandFactory
 
     public void Execute(ICommand command)
     {
+        Debug.Log("Executing command: " + command.GetType().ToString());
         command.Execute();
         _undoStack.Push(command);
     }
@@ -24,6 +25,7 @@ public class CommandFactory
         do
         {
             command = _undoStack.Pop();
+            Debug.Log("Undoing command: " + command.GetType().ToString());
             command.Undo();
         }
         while (command.isLinked);
