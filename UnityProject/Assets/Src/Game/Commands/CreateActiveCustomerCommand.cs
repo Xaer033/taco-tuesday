@@ -5,7 +5,6 @@ using UnityEngine;
 public class CreateActiveCustomerCommand : ICommand
 {
     private CardDeck _customerDeck;
-    private CustomerCardData _customerCard;
     private ActiveCustomerSet _customerSet;
     private int _slotIndex;
 
@@ -35,7 +34,7 @@ public class CreateActiveCustomerCommand : ICommand
 
     public void Execute()
     {
-        _savedCustomerState = _customerSet.GetCustomeByIndex(_slotIndex);
+        _savedCustomerState = _customerSet.GetCustomerByIndex(_slotIndex);
 
         CustomerCardData card = _customerDeck.Pop() as CustomerCardData;
         CustomerCardState newState = CustomerCardState.Create(card);
@@ -44,7 +43,7 @@ public class CreateActiveCustomerCommand : ICommand
 
     public void Undo()
     {
-        CustomerCardState undoState = _customerSet.GetCustomeByIndex(_slotIndex);
+        CustomerCardState undoState = _customerSet.GetCustomerByIndex(_slotIndex);
         _customerDeck.Push(undoState.cardData);
         _customerSet.SetCustomerAtIndex(_slotIndex, _savedCustomerState);
     }

@@ -67,7 +67,7 @@ public class GameLogic
 
         PlayerState playerState = playerGroup.GetPlayer(playerIndex);
         IngredientCardData ingredientData = playerState.hand.GetCard(handIndex);
-        CustomerCardState customerState = activeCustomerSet.GetCustomeByIndex(customerIndex);
+        CustomerCardState customerState = activeCustomerSet.GetCustomerByIndex(customerIndex);
 
         if (!customerState.CanAcceptCard(ingredientData)) { return false; }
         
@@ -80,7 +80,7 @@ public class GameLogic
     {
         PlayerState player = playerGroup.GetPlayer(playerIndex);
         Assert.IsNotNull(player);
-        CustomerCardState customerState = activeCustomerSet.GetCustomeByIndex(customerSlotIndex);
+        CustomerCardState customerState = activeCustomerSet.GetCustomerByIndex(customerSlotIndex);
 
         bool result = _resolveCustomerCard(customerState, player);
         if(result)

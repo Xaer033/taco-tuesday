@@ -64,7 +64,7 @@ public sealed class PlayFieldController : BaseController
                 _activeCustomersView = (ActiveCustomersView)view;
                 for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
                 {
-                    CustomerCardState state = _gameLogic.activeCustomerSet.GetCustomeByIndex(i);
+                    CustomerCardState state = _gameLogic.activeCustomerSet.GetCustomerByIndex(i);
                     _setupCustomerView(i, state);
                 }
             }, parent
@@ -156,7 +156,7 @@ public sealed class PlayFieldController : BaseController
         bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, kLocalPlayerIndex);
         if (customerFinished)
         {
-            CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomeByIndex(customerIndex);
+            CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
             if (newState == null)
             {
                 CustomerCardView view = _activeCustomersView.GetCardByIndex(customerIndex);
@@ -272,12 +272,7 @@ public sealed class PlayFieldController : BaseController
 
         for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
         {
-            CustomerCardView view = _activeCustomersView.GetCardByIndex(i);
-            //if (view != null)
-            //{
-            //    Singleton.instance.viewFactory.RemoveView(view, true);
-            //}
-            _setupCustomerView(i, _gameLogic.activeCustomerSet.GetCustomeByIndex(i));
+            _setupCustomerView(i, _gameLogic.activeCustomerSet.GetCustomerByIndex(i));
         }
     }
 }

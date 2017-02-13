@@ -27,7 +27,7 @@ public class ActiveCustomerSet
         return _activeCustomerList[slotIndex] != null;
     }
 
-    public CustomerCardState GetCustomeByIndex(int slotIndex)
+    public CustomerCardState GetCustomerByIndex(int slotIndex)
     {
         _boundsCheck(slotIndex);
         return _activeCustomerList[slotIndex];
