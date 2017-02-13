@@ -46,17 +46,13 @@ public class PlayerHand
         return tmpCard;
     }
 
-    public bool ReplaceEmptyCard(IngredientCardData card)
+    public IngredientCardData ReplaceCard(int index, IngredientCardData newCard)
     {
-        for(int i = 0; i < _handSize; ++i)
-        {
-            if(_cards[i] == null)
-            {
-                _cards[i] = card;
-                return true;
-            }
-        }
-        return false;
+        _boundsCheck(index);
+
+        IngredientCardData oldCard = _cards[index];
+        _cards[index] = newCard;
+        return oldCard;
     }
 
     public IngredientCardData GetCard(int index)

@@ -11,6 +11,8 @@ using System;
 
 public sealed class PlayFieldController : BaseController
 {
+    const int kLocalPlayerIndex = 0; // TODO: Temporary until we have real multiplayer
+
     private PlayerHandView _playerHandView;
     private ActiveCustomersView _activeCustomersView;
 
@@ -22,8 +24,7 @@ public sealed class PlayFieldController : BaseController
 
     public void Start(GameLogic gameLogic)
     {
-        const int kLocalPlayerIndex = 0; // TODO: Temporary until we have real multiplayer
-        _gameLogic = gameLogic;
+         _gameLogic = gameLogic;
 
         _setupHoverFX();
 
@@ -63,7 +64,7 @@ public sealed class PlayFieldController : BaseController
                 _activeCustomersView = (ActiveCustomersView)view;
                 for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
                 {
-                    CustomerCardState state = _gameLogic.activeCustomerSet.GetCustomerAtSlot(i);
+                    CustomerCardState state = _gameLogic.activeCustomerSet.GetCustomeByIndex(i);
                     _setupCustomerView(i, state);
                 }
             }, parent
@@ -73,33 +74,53 @@ public sealed class PlayFieldController : BaseController
 
     private void _setupCustomerView(int customerSlot, CustomerCardState cardState)
     {
-        _activeCustomersView.SetCardByIndex(customerSlot, cardState);
+        if (cardState == null)
+        {
+            Debug.LogWarning("Card State is null!");
+            return;
+        }
+
         CustomerCardView view = _activeCustomersView.GetCardByIndex(customerSlot);
+        if (view == null)
+        {
+            view = (CustomerCardView)Singleton.instance.cardResourceBank.CreateCardView(
+             cardState.cardData,
+             _activeCustomersView._activeSlotList[customerSlot]);
+        }
+
+        view.cardState = cardState;
 
         view.eventTrigger.triggers.Clear();
-        EventTrigger.Entry OnDop = new EventTrigger.Entry();
-        OnDop.eventID = EventTriggerType.Drop;
-        OnDop.callback.AddListener((e)=>_handleIngredientCardDrop((PointerEventData)e, view));
-        view.eventTrigger.triggers.Add(OnDop);
+        EventTrigger.Entry OnDrop = new EventTrigger.Entry();
+        OnDrop.eventID = EventTriggerType.Drop;
+        OnDrop.callback.AddListener((e)=>_handleIngredientCardDrop((PointerEventData)e, view));
+        view.eventTrigger.triggers.Add(OnDrop);
 
-        EventTrigger.Entry OnHover = new EventTrigger.Entry();
-        OnHover.eventID = EventTriggerType.PointerEnter;
-        OnHover.callback.AddListener((e) => _handleIngredientCardHover(view));
-        view.eventTrigger.triggers.Add(OnHover);
+        EventTrigger.Entry OnHoverBegin = new EventTrigger.Entry();
+        OnHoverBegin.eventID = EventTriggerType.PointerEnter;
+        OnHoverBegin.callback.AddListener((e) => _handleIngredientCardHover(view));
+        view.eventTrigger.triggers.Add(OnHoverBegin);
 
         EventTrigger.Entry OnHoverEnd = new EventTrigger.Entry();
         OnHoverEnd.eventID = EventTriggerType.PointerExit;
         OnHoverEnd.callback.AddListener((e) => _deactiveHoverFX());
         view.eventTrigger.triggers.Add(OnHoverEnd);
 
+        _activeCustomersView.SetCardByIndex(customerSlot, view);
     }
 
     private void _setupIngredientView(int handSlot, IngredientCardData cardData)
     {
-        _playerHandView.SetCardAtIndex(handSlot, cardData);
-        _playerHandView.Validate();
+        if(cardData == null)
+        {
+            Debug.LogWarning("Card Data is null!");
+            return;
+        }
+        IngredientCardView view = Singleton.instance.cardResourceBank.CreateCardView(
+            cardData, 
+            _playerHandView.cardSlotList[handSlot]) as IngredientCardView;
 
-        IngredientCardView view = _playerHandView.GetCardAtIndex(handSlot);
+        view.eventTrigger.triggers.Clear();
         EventTrigger.Entry OnBeginDrag = new EventTrigger.Entry();
         OnBeginDrag.eventID = EventTriggerType.BeginDrag;
         OnBeginDrag.callback.AddListener((e) => _handleIngredientCardBeginDrag((PointerEventData)e, view));
@@ -109,23 +130,43 @@ public sealed class PlayFieldController : BaseController
         OnEndDrag.eventID = EventTriggerType.EndDrag;
         OnEndDrag.callback.AddListener((e) => _handleEndDrag());
         view.eventTrigger.triggers.Add(OnEndDrag);
+
+        _playerHandView.SetCardAtIndex(handSlot, view);
     }
 
     private void _handleIngredientCardDrop(PointerEventData e, CustomerCardView customerView)
     {
         Debug.Log("PlayField Received drop of: " + customerView.cardData.titleKey);
-        Assert.IsNotNull(_draggedIngredient);
+        if (_draggedIngredient == null) { return; }
+
         CustomerCardState customerState = customerView.cardState;
         IngredientCardData ingredientData = _draggedIngredient.cardData as IngredientCardData;
 
-        if (customerState.CanAcceptCard(ingredientData))
+        if (!customerState.CanAcceptCard(ingredientData)) { return; }
+        
+        int customerIndex = customerState.slotIndex;
+
+        _draggedIngredient.isDropSuccessfull = _gameLogic.PlayCardOnCustomer(
+            kLocalPlayerIndex,
+            _draggedIngredient.handIndex, 
+            customerIndex);
+
+        customerView.invalidateFlag |= UIView.InvalidationFlag.DYNAMIC_DATA;
+
+        bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, kLocalPlayerIndex);
+        if (customerFinished)
         {
-            int currentPlayer = _gameLogic.playerGroup.activePlayer.index; // TODO: this line feels unnessisary...
-            _draggedIngredient.isDropSuccessfull = _gameLogic.PlayCardOnCustomer(
-                ingredientData, 
-                currentPlayer, 
-                customerState.slotIndex);           
-        }
+            CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomeByIndex(customerIndex);
+            if (newState == null)
+            {
+                CustomerCardView view = _activeCustomersView.GetCardByIndex(customerIndex);
+                Singleton.instance.viewFactory.RemoveView(view, true);
+            }
+            else
+            { 
+                _setupCustomerView(customerIndex, newState);
+            }
+        } 
     }
 
     private void _handleIngredientCardHover(CustomerCardView customerView)
@@ -161,9 +202,17 @@ public sealed class PlayFieldController : BaseController
 
         if(_draggedIngredient.isDropSuccessfull)
         {
+            int handIndex = _draggedIngredient.handIndex;
             Singleton.instance.viewFactory.RemoveView(_draggedIngredient, true);
+            _setupIngredientView(handIndex, localPlayer.hand.GetCard(handIndex));
         }
+
         _draggedIngredient = null;
+    }
+
+    private PlayerState localPlayer
+    {
+        get { return _gameLogic.playerGroup.GetPlayer(kLocalPlayerIndex); }
     }
 
     private void _activeHoverFX(Vector3 position)
@@ -205,6 +254,30 @@ public sealed class PlayFieldController : BaseController
 
     private void _onUndoButton()
     {
-        _gameLogic.UndoLastAction();
+        bool didUndo = _gameLogic.UndoLastAction();
+        if (!didUndo) { return; }
+
+        _playerHandView.invalidateFlag = UIView.InvalidationFlag.ALL;
+        _activeCustomersView.invalidateFlag = UIView.InvalidationFlag.ALL;
+
+        for(int i = 0; i < PlayerState.kHandSize; ++i)
+        {
+            IngredientCardView view = _playerHandView.GetCardAtIndex(i);
+            if(view != null)
+            {
+                Singleton.instance.viewFactory.RemoveView(view, true);
+            }
+            _setupIngredientView(i, localPlayer.hand.GetCard(i));
+        }
+
+        for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
+        {
+            CustomerCardView view = _activeCustomersView.GetCardByIndex(i);
+            //if (view != null)
+            //{
+            //    Singleton.instance.viewFactory.RemoveView(view, true);
+            //}
+            _setupCustomerView(i, _gameLogic.activeCustomerSet.GetCustomeByIndex(i));
+        }
     }
 }

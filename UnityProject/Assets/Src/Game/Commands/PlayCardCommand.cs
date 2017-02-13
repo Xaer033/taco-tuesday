@@ -7,19 +7,22 @@ public class PlayCardCommand : ICommand
 {
     private CustomerCardState _customer;
     private IngredientCardData _ingredient;
-
-    private int _playerIndex = -1;
+    private PlayerState _playerState;
+    private int _handSlot;
+    
     private int _savedPlayerIndex = -1;
 
     public static PlayCardCommand Create(
+        int handSlot,
+        PlayerState playerState,
         CustomerCardState customer,
-        IngredientCardData ingredient,
-        int playerIndex)
+        IngredientCardData ingredient)
     {
         PlayCardCommand command = new PlayCardCommand();
         command._customer = customer;
         command._ingredient = ingredient;
-        command._playerIndex = playerIndex;
+        command._playerState = playerState;
+        command._handSlot = handSlot;
         return command;
     }
 
@@ -35,7 +38,8 @@ public class PlayCardCommand : ICommand
         Assert.IsNotNull(_customer);
         Assert.IsNotNull(_ingredient);
         _savedPlayerIndex = _customer.lastPlayerIndex;
-        _customer.AddIngredient(_ingredient, _playerIndex);
+        _customer.AddIngredient(_ingredient, _playerState.index);
+        _playerState.hand.SetCard(_handSlot, null);
     }
 
     public void Undo()
@@ -43,5 +47,6 @@ public class PlayCardCommand : ICommand
         Assert.IsNotNull(_customer);
         Assert.IsNotNull(_ingredient);
         _customer.RemoveIngredient(_ingredient, _savedPlayerIndex);
+        _playerState.hand.SetCard(_handSlot, _ingredient);
     }
 }

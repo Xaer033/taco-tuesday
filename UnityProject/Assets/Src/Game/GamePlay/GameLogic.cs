@@ -35,7 +35,7 @@ public class GameLogic
         {
             CustomerCardData cardData = _customerDeck.Pop() as CustomerCardData;
             CustomerCardState cardState = CustomerCardState.Create(cardData);
-            activeCustomerSet.SetCustomerAtSlot(i, cardState);
+            activeCustomerSet.SetCustomerAtIndex(i, cardState);
         }
 
         // Also no commands for starting player hands
@@ -58,25 +58,36 @@ public class GameLogic
     }
     
     public bool PlayCardOnCustomer(
-        IngredientCardData ingredientData, 
-        int playerIndex, 
-        int customerSlotId)
+        int playerIndex,
+        int handIndex,
+        int customerIndex
+        )
     {
-        if (!activeCustomerSet.IsSlotActive(customerSlotId)) { return false; }
+        if (!activeCustomerSet.IsSlotActive(customerIndex)) { return false; }
 
-        CustomerCardState customerState = activeCustomerSet.GetCustomerAtSlot(customerSlotId);
-        if(!customerState.CanAcceptCard(ingredientData)) { return false; }
+        PlayerState playerState = playerGroup.GetPlayer(playerIndex);
+        IngredientCardData ingredientData = playerState.hand.GetCard(handIndex);
+        CustomerCardState customerState = activeCustomerSet.GetCustomeByIndex(customerIndex);
+
+        if (!customerState.CanAcceptCard(ingredientData)) { return false; }
         
-        _playCard(customerState, ingredientData, playerIndex);
-
-        PlayerState player = playerGroup.GetPlayer(playerIndex);// playerList[playerIndex];
-        Assert.IsNotNull(player);
-        if (_resolveCustomerCard(customerState, player))
-        {
-            _createNewCustomer(customerSlotId);
-        }
-
+        _playCard(handIndex, playerState, customerState, ingredientData);
+        _replaceIngredientCard(handIndex, playerState.hand);
         return true;
+    }
+
+    public bool ResolveCustomerCard(int customerSlotIndex, int playerIndex)
+    {
+        PlayerState player = playerGroup.GetPlayer(playerIndex);
+        Assert.IsNotNull(player);
+        CustomerCardState customerState = activeCustomerSet.GetCustomeByIndex(customerSlotIndex);
+
+        bool result = _resolveCustomerCard(customerState, player);
+        if(result)
+        {
+            _createNewCustomer(customerSlotIndex);
+        }
+        return result;
     }
 
     public void EndPlayerTurn()
@@ -90,6 +101,14 @@ public class GameLogic
         return _commandFactory.Undo();
     }
 
+    private void _replaceIngredientCard(int handIndex, PlayerHand hand)
+    {
+        ReplaceIngredientCard command = ReplaceIngredientCard.Create(
+            handIndex, 
+            hand, 
+            _ingredientDeck);
+        _commandFactory.Execute(command);
+    }
     
     private bool _resolveCustomerCard(
         CustomerCardState customer,
@@ -110,18 +129,21 @@ public class GameLogic
             customerSlotId,
             _customerDeck,
             activeCustomerSet);
+
         _commandFactory.Execute(command);
     }
 
     private void _playCard(
+        int handSlot,
+        PlayerState playerState,
         CustomerCardState customer,
-        IngredientCardData ingredient,
-        int playerIndex)
+        IngredientCardData ingredient)
     {
         PlayCardCommand command = PlayCardCommand.Create(
+            handSlot,
+            playerState,
             customer,
-            ingredient,
-            playerIndex);
+            ingredient);
 
         _commandFactory.Execute(command);
     }

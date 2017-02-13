@@ -44,11 +44,10 @@ public sealed class CustomerCardView : BaseCardView
     {
         set
         {
-            if(_cardState != value)
-            {
-                _cardState = value;
-                invalidateFlag |= InvalidationFlag.DYNAMIC_DATA;
-            }
+            _cardState = value;
+            invalidateFlag |= InvalidationFlag.ALL;
+
+            cardData = _cardState.cardData;
         }
         get
         {
@@ -84,6 +83,7 @@ public sealed class CustomerCardView : BaseCardView
         else
         {
             _meatReqLbl.text = string.Format("x{0}", meatReq);
+            _meatReqObj.SetActive(true);
         }
 
         if(veggieReq == 0)
@@ -93,6 +93,7 @@ public sealed class CustomerCardView : BaseCardView
         else
         {
             _veggieReqLbl.text = string.Format("x{0}", veggieReq);
+            _veggieReqObj.SetActive(true);
         }
 
         if(toppingReq == 0)
@@ -102,6 +103,7 @@ public sealed class CustomerCardView : BaseCardView
         else
         {
             _toppingReqLbl.text = string.Format("x{0}", toppingReq);
+            _toppingReqObj.SetActive(true);
         }
     }
 

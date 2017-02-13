@@ -19,6 +19,8 @@ public sealed class IngredientCardView :
 
     public EventTrigger eventTrigger;
 
+    public int handIndex { get; set; }
+
     public PlayerHandView handView { get; set; }
     public Transform handSlot { get; set; }
     public Transform dragLayer { get; set; }

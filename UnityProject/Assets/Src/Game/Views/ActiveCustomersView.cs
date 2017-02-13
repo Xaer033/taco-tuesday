@@ -10,6 +10,7 @@ public class ActiveCustomersView : UIView
     public Transform[] _activeSlotList;
 
 
+    //private CustomerCardState[] _cardStateList = new CustomerCardState[ActiveCustomerSet.kMaxActiveCustomers];
     private CustomerCardView[] _cardViewList = new CustomerCardView[ActiveCustomerSet.kMaxActiveCustomers];
 
     void Awake()
@@ -21,25 +22,14 @@ public class ActiveCustomersView : UIView
         }
     }
 
-    public void SetCardByIndex(int index, CustomerCardState cardState)
+    public void SetCardByIndex(int index, CustomerCardView cardView)
     {
         _boundsCheck(index);
-
-        CustomerCardView cardView = _cardViewList[index];
-        if (cardView != null)
+        if(_cardViewList[index] != cardView)
         {
-            _cardViewList[index].cardState = cardState;
-        }
-        else
-        {
-            cardView = (CustomerCardView)Singleton.instance.cardResourceBank.CreateCardView(
-                cardState.cardData, 
-                _activeSlotList[index]);
-
-            cardView.cardState = cardState;
             _cardViewList[index] = cardView;
+            invalidateFlag |= InvalidationFlag.STATIC_DATA;
         }
-        _moveCardToSlot(index, cardView);
     }
 
     public CustomerCardView GetCardByIndex(int index)
@@ -48,7 +38,37 @@ public class ActiveCustomersView : UIView
         return _cardViewList[index];
     }
 
-    private void _moveCardToSlot(int index, CustomerCardView cardView)
+
+    protected override void OnViewUpdate()
+    {
+        base.OnViewUpdate();
+        if(IsInvalid(InvalidationFlag.ALL))
+        {
+            for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
+            {
+                CustomerCardView cardView = _cardViewList[i];
+                if(cardView != null)
+                {
+                    cardView.invalidateFlag = InvalidationFlag.ALL;
+                }
+                //    cardView = (CustomerCardView)Singleton.instance.cardResourceBank.CreateCardView(
+                //        _cardStateList[i].cardData,
+                //        _activeSlotList[i]);
+
+                //    cardView.cardState = _cardStateList[i];
+                //    _cardViewList[i] = cardView;
+                //_moveCardToSlot(i, cardView);
+            }
+        }
+    }
+
+    private CustomerCardView _processCustomerCard(int index, CustomerCardView view)
+    {
+        _moveCardToSlot(index, view);
+        return view;
+    }
+
+    private void _moveCardToSlot(int index, CustomerCardView cardView) // TODO: Tween or do something cool!
     {
         cardView.transform.position = _activeSlotList[index].position;
     }

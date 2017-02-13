@@ -27,13 +27,13 @@ public class ActiveCustomerSet
         return _activeCustomerList[slotIndex] != null;
     }
 
-    public CustomerCardState GetCustomerAtSlot(int slotIndex)
+    public CustomerCardState GetCustomeByIndex(int slotIndex)
     {
         _boundsCheck(slotIndex);
         return _activeCustomerList[slotIndex];
     }
 
-    public void SetCustomerAtSlot(int slotIndex, CustomerCardState cardState)
+    public void SetCustomerAtIndex(int slotIndex, CustomerCardState cardState)
     {
         _boundsCheck(slotIndex);
         cardState.slotIndex = slotIndex;

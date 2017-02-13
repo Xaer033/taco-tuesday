@@ -14,11 +14,11 @@ public class PlayerHandView : UIView
 
 
     private IngredientCardView[] _cardViewList;
-    private IngredientCardData[] _cardDataList;
+    //private IngredientCardData[] _cardDataList;
 
     void Awake()
     {
-        _cardDataList = new IngredientCardData[PlayerState.kHandSize];
+        //_cardDataList = new IngredientCardData[PlayerState.kHandSize];
         _cardViewList = new IngredientCardView[PlayerState.kHandSize];
     }
     
@@ -33,12 +33,12 @@ public class PlayerHandView : UIView
     }
 
 
-    public void SetCardAtIndex(int index, IngredientCardData card)
+    public void SetCardAtIndex(int index, IngredientCardView card)
     {
         Assert.IsNotNull(card);
-        if(_cardDataList[index] == null || card.id != _cardDataList[index].id)
+        if(card != _cardViewList[index])
         {
-            _cardDataList[index] = card;
+            _cardViewList[index] = _processCardView(index, card);
             invalidateFlag |= InvalidationFlag.STATIC_DATA;
         }
     }
@@ -52,41 +52,23 @@ public class PlayerHandView : UIView
     {
         if(IsInvalid(InvalidationFlag.STATIC_DATA))
         {
-            for(int i = 0; i < _cardDataList.Length; ++i)
+            for(int i = 0; i < _cardViewList.Length; ++i)
             {
-                IngredientCardData cardData = _cardDataList[i];
                 IngredientCardView cardView = _cardViewList[i];
-                Transform cardParent = cardSlotList[i];
-
-                if (cardData == null)
-                {
-                    if(cardView != null)
-                    {
-                        Singleton.instance.viewFactory.RemoveView(cardView);
-                        _cardViewList[i] = null;
-                    }
-                    continue;
-                }
-                
-                if(cardView == null)
-                {
-                    _cardViewList[i] = _createCardView(cardData, cardParent);
-                }
-                else if(cardData.id != cardView.cardData.id)
-                {
-                    _cardViewList[i].cardData = cardData;
-                }
+                cardView.invalidateFlag = InvalidationFlag.STATIC_DATA;
             }
         }
     }
 
-    private IngredientCardView _createCardView(IngredientCardData cardData, Transform cardParent)
+    private IngredientCardView _processCardView(
+        int handIndex,
+        IngredientCardView cardView)
     {
-        IngredientCardView cardView = (IngredientCardView)Singleton.instance.cardResourceBank.CreateCardView(cardData, cardParent);
         cardView.transform.localPosition = Vector3.zero;
         cardView.handView = this;
-        cardView.handSlot = cardParent;
+        cardView.handSlot = cardSlotList[handIndex];
         cardView.dragLayer = dragCardLayer;
+        cardView.handIndex = handIndex;
         return cardView;
     }
 }
