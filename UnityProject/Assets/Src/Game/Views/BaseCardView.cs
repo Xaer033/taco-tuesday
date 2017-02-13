@@ -26,7 +26,7 @@ public class BaseCardView : UIView
             if(_cardData != value)
             {
                 _cardData = value;
-                invalidateFlag = INVALIDATE_STATIC_DATA;
+                invalidateFlag |= InvalidationFlag.STATIC_DATA;
             }
         }
 
@@ -38,7 +38,7 @@ public class BaseCardView : UIView
     
     protected override void OnViewUpdate()
     {
-        if( _cardData != null && IsInvalid(INVALIDATE_STATIC_DATA) )
+        if( _cardData != null && IsInvalid(InvalidationFlag.STATIC_DATA) )
         {
             _titleLbl.text = _cardData.titleKey; // TODO: Localize!
             _cardIcon.name = _cardData.iconName;

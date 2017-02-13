@@ -47,7 +47,7 @@ public sealed class CustomerCardView : BaseCardView
             if(_cardState != value)
             {
                 _cardState = value;
-                invalidateFlag = INVALIDATE_DYNAMIC_DATA;
+                invalidateFlag |= InvalidationFlag.DYNAMIC_DATA;
             }
         }
         get
@@ -63,7 +63,7 @@ public sealed class CustomerCardView : BaseCardView
 
         if(cardState == null) { return; }
 
-        if(IsInvalid(INVALIDATE_STATIC_DATA) )
+        if(IsInvalid(InvalidationFlag.STATIC_DATA) )
         {    
             _foodValueLbl.text = string.Format("{0}", cardState.cardData.baseReward);
         }

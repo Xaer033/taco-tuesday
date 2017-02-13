@@ -9,21 +9,27 @@ namespace GhostGen
 
     public class UIView : MonoBehaviour
     {
-        public const string INVALIDATE_ALL = "invalidate_all";
-        protected const string INVALIDATE_STATIC_DATA = "invalidate_static_data";
-        protected const string INVALIDATE_DYNAMIC_DATA = "invalidate_dynamic_data";
+        [System.Flags]
+        public enum InvalidationFlag
+        {
+            NONE = 1 << 0,
+            STATIC_DATA = 1 << 2,
+            DYNAMIC_DATA = 1 << 3,
 
-        private string _invalidateFlag = INVALIDATE_ALL; // Default to invalidating everything
+            ALL = STATIC_DATA | DYNAMIC_DATA
+        }
 
-        public string invalidateFlag
+        private InvalidationFlag _invalidateFlag = InvalidationFlag.ALL; // Default to invalidating everything
+
+        public InvalidationFlag invalidateFlag
         {
             get { return _invalidateFlag; }
             set { _invalidateFlag = value; }
         }
         
-        public void Validate()
+        public void Validate(InvalidationFlag flag = InvalidationFlag.ALL)
         {
-            invalidateFlag = INVALIDATE_ALL;
+            invalidateFlag |= flag;
             OnViewUpdate();
         }
 
@@ -79,26 +85,22 @@ namespace GhostGen
             }
         }
 
-        protected virtual bool IsInvalid(string validateStr)
+        protected virtual bool IsInvalid(InvalidationFlag flag)
         {
-            if (validateStr == INVALIDATE_ALL) { return true; }
-            if(_invalidateFlag == INVALIDATE_ALL) { return true; }
+            if (flag.IsFlagSet(InvalidationFlag.ALL)) { return true; }
+            if(_invalidateFlag.IsFlagSet(InvalidationFlag.ALL)) { return true; }
 
-            return _invalidateFlag == validateStr;         
+            return _invalidateFlag.IsFlagSet(flag);         
         }
-
-
-
-
-
+        
         public virtual void Update()
         {
-            if(invalidateFlag != null)
+            if(invalidateFlag != InvalidationFlag.NONE)
             {
                 OnViewUpdate();
             }
 
-            invalidateFlag = null;
+            invalidateFlag = InvalidationFlag.NONE;
         }
 
         //------------------- Private Implementation -------------------

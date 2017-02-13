@@ -51,7 +51,7 @@ public sealed class IngredientCardView :
     {
         base.OnViewUpdate();
 
-        if( _cardData != null && IsInvalid(INVALIDATE_STATIC_DATA) )
+        if( _cardData != null && IsInvalid(InvalidationFlag.STATIC_DATA) )
         {      
             _setIngredientCard((IngredientCardData)_cardData);            
         }        
@@ -59,7 +59,7 @@ public sealed class IngredientCardView :
 
     private void _setIngredientCard(IngredientCardData ingredientData)
     {
-        CardResourceBank cardBank = GameManager.cardResourceBank;
+        CardResourceBank cardBank = Singleton.instance.cardResourceBank;
         _backgroundImg.sprite = cardBank.GetIngredientBG(ingredientData.cardType);
         _cardTypeIcon.sprite = cardBank.GetIngredientTypeIcon(ingredientData.cardType);
         _foodValueLbl.text = string.Format("{0}", ingredientData.foodValue);

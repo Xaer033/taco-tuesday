@@ -39,7 +39,7 @@ public class PlayerHandView : UIView
         if(_cardDataList[index] == null || card.id != _cardDataList[index].id)
         {
             _cardDataList[index] = card;
-            invalidateFlag = INVALIDATE_STATIC_DATA;
+            invalidateFlag |= InvalidationFlag.STATIC_DATA;
         }
     }
 
@@ -50,7 +50,7 @@ public class PlayerHandView : UIView
 
     protected override void OnViewUpdate()
     {
-        if(IsInvalid(INVALIDATE_STATIC_DATA))
+        if(IsInvalid(InvalidationFlag.STATIC_DATA))
         {
             for(int i = 0; i < _cardDataList.Length; ++i)
             {
@@ -62,7 +62,7 @@ public class PlayerHandView : UIView
                 {
                     if(cardView != null)
                     {
-                        GameManager.Get().viewFactory.RemoveView(cardView);
+                        Singleton.instance.viewFactory.RemoveView(cardView);
                         _cardViewList[i] = null;
                     }
                     continue;
@@ -82,7 +82,7 @@ public class PlayerHandView : UIView
 
     private IngredientCardView _createCardView(IngredientCardData cardData, Transform cardParent)
     {
-        IngredientCardView cardView = (IngredientCardView)GameManager.cardResourceBank.CreateCardView(cardData, cardParent);
+        IngredientCardView cardView = (IngredientCardView)Singleton.instance.cardResourceBank.CreateCardView(cardData, cardParent);
         cardView.transform.localPosition = Vector3.zero;
         cardView.handView = this;
         cardView.handSlot = cardParent;

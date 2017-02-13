@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using GhostGen;
+using DG.Tweening;
 
 public class IntroState : IGameState
 {
@@ -13,6 +14,8 @@ public class IntroState : IGameState
 	public void Init( GameController p_gameManager )
 	{
 		Debug.Log ("Entering In Intro State");
+        DOTween.Init(true, true, LogBehaviour.ErrorsOnly);
+
 		_gameController = p_gameManager;
 
         _playerList.Add(PlayerState.Create(0, "John"));

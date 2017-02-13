@@ -19,9 +19,16 @@ public class Singleton : MonoBehaviour
 
     void Awake()
     {
-        viewFactory = new ViewFactory(mainCanvas);
         _instance = this;
+        cardResourceBank.Initialize();
+        viewFactory = new ViewFactory(mainCanvas);
     }
+
+    void Update()
+    {
+        viewFactory.Step();
+    }
+
     private static Singleton _instance = null;
     public static Singleton instance
     {

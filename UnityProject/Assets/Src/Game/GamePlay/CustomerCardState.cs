@@ -6,6 +6,8 @@ using UnityEngine;
 public class CustomerCardState
 {
     public int lastPlayerIndex { get; set; }
+    public int slotIndex { get; set; }
+
     public CustomerCardData cardData { get; private set; }
 
     public bool isComplete

@@ -32,9 +32,10 @@ public class ActiveCustomersView : UIView
         }
         else
         {
-            cardView = (CustomerCardView)GameManager.cardResourceBank.CreateCardView(
+            cardView = (CustomerCardView)Singleton.instance.cardResourceBank.CreateCardView(
                 cardState.cardData, 
                 _activeSlotList[index]);
+
             cardView.cardState = cardState;
             _cardViewList[index] = cardView;
         }

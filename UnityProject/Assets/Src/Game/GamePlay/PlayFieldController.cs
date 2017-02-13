@@ -110,11 +110,22 @@ public sealed class PlayFieldController : BaseController
         OnEndDrag.callback.AddListener((e) => _handleEndDrag());
         view.eventTrigger.triggers.Add(OnEndDrag);
     }
+
     private void _handleIngredientCardDrop(PointerEventData e, CustomerCardView customerView)
     {
         Debug.Log("PlayField Received drop of: " + customerView.cardData.titleKey);
         Assert.IsNotNull(_draggedIngredient);
-        _draggedIngredient.isDropSuccessfull = true; // TODO verify this is ACTUALLY successfull
+        CustomerCardState customerState = customerView.cardState;
+        IngredientCardData ingredientData = _draggedIngredient.cardData as IngredientCardData;
+
+        if (customerState.CanAcceptCard(ingredientData))
+        {
+            int currentPlayer = _gameLogic.playerGroup.activePlayer.index; // TODO: this line feels unnessisary...
+            _draggedIngredient.isDropSuccessfull = _gameLogic.PlayCardOnCustomer(
+                ingredientData, 
+                currentPlayer, 
+                customerState.slotIndex);           
+        }
     }
 
     private void _handleIngredientCardHover(CustomerCardView customerView)
@@ -147,6 +158,11 @@ public sealed class PlayFieldController : BaseController
     private void _handleEndDrag()
     {
         _deactiveHoverFX();
+
+        if(_draggedIngredient.isDropSuccessfull)
+        {
+            Singleton.instance.viewFactory.RemoveView(_draggedIngredient, true);
+        }
         _draggedIngredient = null;
     }
 
