@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections;
 using GhostGen;
 using DG.Tweening;
@@ -28,18 +29,23 @@ public class PlayerHandView : UIView
 
     public override void OnViewOutro(bool immediately, OnViewRemoved removedCallback)
     {
-
         base.OnViewOutro(immediately, removedCallback);
     }
 
 
     public void SetCardAtIndex(int index, IngredientCardData card)
     {
+        Assert.IsNotNull(card);
         if(_cardDataList[index] == null || card.id != _cardDataList[index].id)
         {
             _cardDataList[index] = card;
             invalidateFlag = INVALIDATE_STATIC_DATA;
         }
+    }
+
+    public IngredientCardView GetCardAtIndex(int index)
+    {
+        return _cardViewList[index];
     }
 
     protected override void OnViewUpdate()

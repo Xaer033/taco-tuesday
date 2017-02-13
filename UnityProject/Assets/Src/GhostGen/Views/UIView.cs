@@ -21,6 +21,11 @@ namespace GhostGen
             set { _invalidateFlag = value; }
         }
         
+        public void Validate()
+        {
+            invalidateFlag = INVALIDATE_ALL;
+            OnViewUpdate();
+        }
 
         public event OnIntroTransitionHandle onIntroFinishedEvent
         {
@@ -77,6 +82,7 @@ namespace GhostGen
         protected virtual bool IsInvalid(string validateStr)
         {
             if (validateStr == INVALIDATE_ALL) { return true; }
+            if(_invalidateFlag == INVALIDATE_ALL) { return true; }
 
             return _invalidateFlag == validateStr;         
         }

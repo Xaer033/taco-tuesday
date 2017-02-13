@@ -32,11 +32,20 @@ public class ActiveCustomersView : UIView
         }
         else
         {
-            cardView = (CustomerCardView)GameManager.cardResourceBank.CreateCardView(cardState.cardData, _activeSlotList[index]);
+            cardView = (CustomerCardView)GameManager.cardResourceBank.CreateCardView(
+                cardState.cardData, 
+                _activeSlotList[index]);
+            cardView.cardState = cardState;
+            _cardViewList[index] = cardView;
         }
         _moveCardToSlot(index, cardView);
     }
 
+    public CustomerCardView GetCardByIndex(int index)
+    {
+        _boundsCheck(index);
+        return _cardViewList[index];
+    }
 
     private void _moveCardToSlot(int index, CustomerCardView cardView)
     {

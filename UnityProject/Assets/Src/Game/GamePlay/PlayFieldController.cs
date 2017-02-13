@@ -1,39 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Assertions;
 
 using GhostGen;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
-public class PlayFieldController : BaseController
+public sealed class PlayFieldController : BaseController
 {
-    private CardDeck _customerDeck;
-    private CardDeck _ingredientDeck;
-
-    private List<PlayerState> _playerList;
     private PlayerHandView _playerHandView;
-    
+    private ActiveCustomersView _activeCustomersView;
+
     private PlayFieldView _playfieldView;
-    
-    public void Start(List<PlayerState> playerList)
+    private GameLogic _gameLogic;
+    private ParticleSystem _hoverEffect;
+
+    private IngredientCardView _draggedIngredient = null;
+
+    public void Start(GameLogic gameLogic)
     {
-        _customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
-        _customerDeck.Shuffle();
+        const int kLocalPlayerIndex = 0; // TODO: Temporary until we have real multiplayer
+        _gameLogic = gameLogic;
 
-        _ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
-        _ingredientDeck.Shuffle();
-
-        _setupPlayers(playerList);
+        _setupHoverFX();
 
         viewFactory.CreateAsync<PlayFieldView>("PlayFieldView", (view) =>
         {
             _playfieldView = view as PlayFieldView;
             _playfieldView.onIntroFinishedEvent += _playfieldView_OnIntroTransitionEvent;
+            _playfieldView.confirmButton.onClick.AddListener(_onConfirmTurnButton);
+            _playfieldView.undoButton.onClick.AddListener(_onUndoButton);
 
-            _setupCustomers(_playfieldView.staticCardLayer);
-            _setupLocalPlayerHandView(0, _playfieldView.staticCardLayer);
+            _setupActiveCustomers(_playfieldView.staticCardLayer);
+            _setupLocalPlayerHandView(kLocalPlayerIndex, _playfieldView.staticCardLayer);
         });
     }
 
@@ -42,35 +44,125 @@ public class PlayFieldController : BaseController
         Debug.Log(string.Format("View {0} has fininished intro", p_view.name));
     }
 
-    private void _setupCustomers(Transform parent)
+    private void _setupHoverFX()
+    {
+        GameObject hoverObj = Singleton.instance.vfxBank.Create(
+            VFXType.CARD_HOVER,
+            Vector3.zero,
+            Quaternion.identity);
+        _hoverEffect = hoverObj.GetComponent<ParticleSystem>();
+        _hoverEffect.gameObject.SetActive(false);
+    }
+
+    private void _setupActiveCustomers(Transform parent)
     {
         viewFactory.CreateAsync<ActiveCustomersView>(
             "ActiveCustomersView",
             (view) =>
             {
-                ActiveCustomersView customersView = (ActiveCustomersView)view;
+                _activeCustomersView = (ActiveCustomersView)view;
                 for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
                 {
-                    CustomerCardData card = _customerDeck.Pop() as CustomerCardData;
-                    CustomerCardState state = CustomerCardState.Create(card);
-
-                    customersView.SetCardByIndex(i, state);
+                    CustomerCardState state = _gameLogic.activeCustomerSet.GetCustomerAtSlot(i);
+                    _setupCustomerView(i, state);
                 }
             }, parent
         );
         
     }
 
-    private void _setupPlayers(List<PlayerState> playerList)
+    private void _setupCustomerView(int customerSlot, CustomerCardState cardState)
     {
-        _playerList = playerList;
-        foreach (PlayerState player in _playerList)
+        _activeCustomersView.SetCardByIndex(customerSlot, cardState);
+        CustomerCardView view = _activeCustomersView.GetCardByIndex(customerSlot);
+
+        view.eventTrigger.triggers.Clear();
+        EventTrigger.Entry OnDop = new EventTrigger.Entry();
+        OnDop.eventID = EventTriggerType.Drop;
+        OnDop.callback.AddListener((e)=>_handleIngredientCardDrop((PointerEventData)e, view));
+        view.eventTrigger.triggers.Add(OnDop);
+
+        EventTrigger.Entry OnHover = new EventTrigger.Entry();
+        OnHover.eventID = EventTriggerType.PointerEnter;
+        OnHover.callback.AddListener((e) => _handleIngredientCardHover(view));
+        view.eventTrigger.triggers.Add(OnHover);
+
+        EventTrigger.Entry OnHoverEnd = new EventTrigger.Entry();
+        OnHoverEnd.eventID = EventTriggerType.PointerExit;
+        OnHoverEnd.callback.AddListener((e) => _deactiveHoverFX());
+        view.eventTrigger.triggers.Add(OnHoverEnd);
+
+    }
+
+    private void _setupIngredientView(int handSlot, IngredientCardData cardData)
+    {
+        _playerHandView.SetCardAtIndex(handSlot, cardData);
+        _playerHandView.Validate();
+
+        IngredientCardView view = _playerHandView.GetCardAtIndex(handSlot);
+        EventTrigger.Entry OnBeginDrag = new EventTrigger.Entry();
+        OnBeginDrag.eventID = EventTriggerType.BeginDrag;
+        OnBeginDrag.callback.AddListener((e) => _handleIngredientCardBeginDrag((PointerEventData)e, view));
+        view.eventTrigger.triggers.Add(OnBeginDrag);
+
+        EventTrigger.Entry OnEndDrag = new EventTrigger.Entry();
+        OnEndDrag.eventID = EventTriggerType.EndDrag;
+        OnEndDrag.callback.AddListener((e) => _handleEndDrag());
+        view.eventTrigger.triggers.Add(OnEndDrag);
+    }
+    private void _handleIngredientCardDrop(PointerEventData e, CustomerCardView customerView)
+    {
+        Debug.Log("PlayField Received drop of: " + customerView.cardData.titleKey);
+        Assert.IsNotNull(_draggedIngredient);
+        _draggedIngredient.isDropSuccessfull = true; // TODO verify this is ACTUALLY successfull
+    }
+
+    private void _handleIngredientCardHover(CustomerCardView customerView)
+    {
+        if(_draggedIngredient == null) { return; }
+        if (!_draggedIngredient.isDragging) { return; }
+
+        CustomerCardState customerState = customerView.cardState;
+        IngredientCardData ingredientData = _draggedIngredient.cardData as IngredientCardData;
+
+        if (customerState.CanAcceptCard(ingredientData))
         {
-            _fillPlayerHand(player);
+            _activeHoverFX(customerView.transform.position);
         }
     }
 
-    private void _setupLocalPlayerHandView(int localPlayerIndex, Transform handParent)
+    private void _handleIngredientCardHoverEnd(CustomerCardView customerView)
+    {
+        if (_draggedIngredient == null) { return; }
+        if (!_draggedIngredient.isDragging) { return; }
+
+        _activeHoverFX(customerView.transform.position);
+    }
+
+    private void _handleIngredientCardBeginDrag(PointerEventData e, IngredientCardView view)
+    {
+        _draggedIngredient = view;
+    }
+
+    private void _handleEndDrag()
+    {
+        _deactiveHoverFX();
+        _draggedIngredient = null;
+    }
+
+    private void _activeHoverFX(Vector3 position)
+    {
+        _hoverEffect.gameObject.SetActive(true);
+        _hoverEffect.transform.position = position;
+    }
+    private void _deactiveHoverFX()
+    {
+        _hoverEffect.gameObject.SetActive(false);
+    }
+
+    private void _setupLocalPlayerHandView(
+        int localPlayerIndex, 
+        Transform handParent)
     {
         if (_playerHandView)
         {
@@ -80,27 +172,23 @@ public class PlayFieldController : BaseController
         viewFactory.CreateAsync<PlayerHandView>("PlayerHandView", (view)=>
         {
             _playerHandView = view as PlayerHandView;
+            PlayerState player = _gameLogic.playerGroup.GetPlayer(localPlayerIndex);
+
             for (int i = 0; i < PlayerState.kHandSize; ++i)
             {
-                _playerHandView.SetCardAtIndex(i, _playerList[localPlayerIndex].hand.GetCard(i));
+                IngredientCardData ingredientCard = player.hand.GetCard(i);
+                _setupIngredientView(i, ingredientCard);
             }
         }, handParent);
     }
 
-    private void _fillPlayerHand(PlayerState player)
+    private void _onConfirmTurnButton()
     {
-        Debug.Assert(player != null);
-        Debug.Assert(_ingredientDeck != null);
+        _gameLogic.EndPlayerTurn();
+    }
 
-        while(player.hand.emptyCards > 0)
-        {
-            IngredientCardData card = (IngredientCardData)_ingredientDeck.Pop();
-            if(card == null)
-            {
-                Debug.Log("Ingredient Deck empty");
-                break;
-            }
-            player.hand.ReplaceEmptyCard(card);
-        }
+    private void _onUndoButton()
+    {
+        _gameLogic.UndoLastAction();
     }
 }

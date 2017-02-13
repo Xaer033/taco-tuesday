@@ -15,14 +15,25 @@ public sealed class IngredientCardView :
     IEndDragHandler, 
     IDragHandler
 {
-    private EventTrigger _eventTrigger;
-
     private CardDragDropController _dragDropController;
+
+    public EventTrigger eventTrigger;
 
     public PlayerHandView handView { get; set; }
     public Transform handSlot { get; set; }
     public Transform dragLayer { get; set; }
-    
+    public bool isDropSuccessfull { get; set; } 
+   
+    public bool isDragging
+    {
+        get { return _dragDropController.isDragging; }
+    }
+
+    void Awake()
+    {
+        eventTrigger = GetComponent<EventTrigger>();
+        isDropSuccessfull = false;
+    }
 
     void Start()
     {
@@ -73,6 +84,6 @@ public sealed class IngredientCardView :
     public void OnEndDrag(PointerEventData e)
     {
         handView.canvasGroup.blocksRaycasts = true;
-        _dragDropController.OnDragEnd(e);
+        _dragDropController.OnDragEnd(e, isDropSuccessfull);
     }
 }

@@ -12,6 +12,7 @@ public sealed class CustomerCardView : BaseCardView
     public GameObject _meatReqObj;
     public GameObject _veggieReqObj;
     public GameObject _toppingReqObj;
+    public EventTrigger eventTrigger;
 
     private Text _meatReqLbl;
     private Text _veggieReqLbl;
@@ -19,10 +20,10 @@ public sealed class CustomerCardView : BaseCardView
     
     private CustomerCardState _cardState = null;
 
-    private EventTrigger _eventTrigger;
 
     private void Awake()
     {
+        eventTrigger = GetComponent<EventTrigger>();
 
         if(_meatReqObj != null)
             _meatReqLbl     = _meatReqObj.GetComponentInChildren<Text>();
@@ -49,60 +50,59 @@ public sealed class CustomerCardView : BaseCardView
                 invalidateFlag = INVALIDATE_DYNAMIC_DATA;
             }
         }
+        get
+        {
+            return _cardState;
+        }
+       
     }
 
     protected override void OnViewUpdate()
     {
         base.OnViewUpdate();
 
-        if(_cardData == null)
-        {
-            return;
-        }
+        if(cardState == null) { return; }
 
         if(IsInvalid(INVALIDATE_STATIC_DATA) )
-        {       
-            _setCustomerCard((CustomerCardData)_cardData);          
+        {    
+            _foodValueLbl.text = string.Format("{0}", cardState.cardData.baseReward);
         }
 
-        if(IsInvalid(INVALIDATE_DYNAMIC_DATA) )
-        {
-            _meatReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Meat));
-            _veggieReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Veggie));
-            _toppingReqLbl.text = string.Format("x{0}", _cardState.GetIngredientReqLeft(CardType.Topping));
-        }
+        _setCustomerCard(
+            cardState.GetIngredientReqLeft(CardType.Meat),
+            cardState.GetIngredientReqLeft(CardType.Veggie),
+            cardState.GetIngredientReqLeft(CardType.Topping));
+
     }
 
-    private void _setCustomerCard(CustomerCardData customerData)
+    private void _setCustomerCard(int meatReq, int veggieReq, int toppingReq)
     {
-        if(customerData.meatRequirement == 0)
+        if(meatReq == 0)
         {
             _meatReqObj.SetActive(false);
         }
         else
         {
-            _meatReqLbl.text = string.Format("x{0}", customerData.meatRequirement);
+            _meatReqLbl.text = string.Format("x{0}", meatReq);
         }
 
-        if(customerData.veggieRequirement == 0)
+        if(veggieReq == 0)
         {
             _veggieReqObj.SetActive(false);
         }
         else
         {
-            _veggieReqLbl.text = string.Format("x{0}", customerData.veggieRequirement);
+            _veggieReqLbl.text = string.Format("x{0}", veggieReq);
         }
 
-        if(customerData.toppingRequirement == 0)
+        if(toppingReq == 0)
         {
             _toppingReqObj.SetActive(false);
         }
         else
         {
-            _toppingReqLbl.text = string.Format("x{0}", customerData.toppingRequirement);
+            _toppingReqLbl.text = string.Format("x{0}", toppingReq);
         }
-
-        _foodValueLbl.text = string.Format("{0}", customerData.baseReward);
     }
 
     public void onCardDrop(BaseEventData e)

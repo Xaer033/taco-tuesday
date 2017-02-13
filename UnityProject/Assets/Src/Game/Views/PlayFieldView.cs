@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using GhostGen;
 using DG.Tweening;
@@ -8,7 +9,9 @@ public class PlayFieldView : UIView
     public CanvasGroup canvasGroup;
 
     public Transform staticCardLayer;
-
+    public Button confirmButton;
+    public Button undoButton;
+      
     void Awake()
     {
         canvasGroup.alpha = 0.0f;

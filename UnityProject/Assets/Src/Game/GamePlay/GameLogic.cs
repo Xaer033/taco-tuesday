@@ -51,7 +51,7 @@ public class GameLogic
         {
             for (int j = 0; j < PlayerState.kHandSize; ++j)
             {
-                IngredientCardData cardData = _customerDeck.Pop() as IngredientCardData;
+                IngredientCardData cardData = _ingredientDeck.Pop() as IngredientCardData;
                 playerGroup.GetPlayer(i).hand.SetCard(j, cardData);
             }
         }

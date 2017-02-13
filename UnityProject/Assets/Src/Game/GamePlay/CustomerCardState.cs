@@ -56,7 +56,7 @@ public class CustomerCardState
     
     public bool CanAcceptCard(IngredientCardData card)
     {
-        return GetIngredientReqLeft(card.cardType) <= 0;
+        return GetIngredientReqLeft(card.cardType) > 0;
     }
     public bool AddIngredient(IngredientCardData card, int playerIndex)
     {

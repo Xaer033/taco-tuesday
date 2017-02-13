@@ -19,7 +19,7 @@ public class ActiveCustomerSet
     {
         return new ActiveCustomerSet();
     }
-
+    
 
     public bool IsSlotActive(int slotIndex)
     {

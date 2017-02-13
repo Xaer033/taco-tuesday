@@ -7,7 +7,7 @@ using DG.Tweening;
 public class CardDragDropController
 {
     const int kMaxSmoothFrame = 7;
-    const float kDragScale = 1.2f;
+    const float kDragScale = 1.1f;
 
     private Transform _target;
     private Transform _slot;
@@ -24,8 +24,13 @@ public class CardDragDropController
 
     private Tween _scaleTween;
     private Tween _resetTween;
-    private float _deltaTime;
+    private Tween _rotateTween;
 
+
+    public bool isDragging
+    {
+        get { return _isDragging; }
+    }
 
     public CardDragDropController(
         Transform targetCard, 
@@ -68,12 +73,20 @@ public class CardDragDropController
         _inputOffset = _target.position - Camera.main.ScreenToWorldPoint(mPos);
 
         _target.SetParent(_dragLayer);
-        _isDragging = true;
+
+        //if (_rotateTween != null) { _rotateTween.Kill(); }
+        //_rotateTween = _target.DOLocalRotate(Vector3.zero, 0.21f);     
+        //_rotateTween.OnComplete(() =>
+        //{
+            _isDragging = true;
+        //    _rotateTween = null;
+        //});
+        
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        const float kScaleFactor = 2.0f;
+        const float kScaleFactor = 3.0f;
 
         Vector3 mPos = Input.mousePosition;
         mPos.z = GameManager.Get().guiCanvas.planeDistance;
@@ -83,11 +96,13 @@ public class CardDragDropController
         _dragDelta = -eventData.delta * kScaleFactor;
     }
 
-    public void OnDragEnd(PointerEventData eventData)
+    public void OnDragEnd(PointerEventData eventData, bool dropSuccessfull)
     {
-        const float kTweenDuration = 0.523f;
+        const float kTweenDuration = 0.473f;
 
         _isDragging = false;
+
+        _target.SetParent(_slot);
 
         for (int i = 0; i < kMaxSmoothFrame; ++i)
         {
@@ -98,14 +113,16 @@ public class CardDragDropController
         _resetTween.OnComplete(() =>
         {
             _resetTween = null;
-            _target.SetParent(_slot);
         });
-
-        _target.DOLocalRotateQuaternion(Quaternion.identity, kTweenDuration * 0.6f);
-
+        
         if (_scaleTween != null) { _scaleTween.Kill(true); }
         _scaleTween = _target.DOScale(_originalScale, kTweenDuration * 0.756f);
         _scaleTween.OnComplete(() => _scaleTween = null);
+
+
+        if (_rotateTween != null) { _rotateTween.Kill(); }
+        _rotateTween = _target.DORotate(_slot.eulerAngles, kTweenDuration);
+        _rotateTween.SetEase(Ease.OutQuad);
     }
 
     private void _updateDragRotation(float deltaTime)

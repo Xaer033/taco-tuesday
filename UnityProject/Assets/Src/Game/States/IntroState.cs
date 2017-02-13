@@ -8,6 +8,7 @@ public class IntroState : IGameState
     private PlayFieldController _playFieldController = new PlayFieldController();
     private List<PlayerState> _playerList = new List<PlayerState>(4);
 
+    private GameLogic _gameLogic;
 
 	public void Init( GameController p_gameManager )
 	{
@@ -19,7 +20,8 @@ public class IntroState : IGameState
         _playerList.Add(PlayerState.Create(2, "Adith"));
         _playerList.Add(PlayerState.Create(3, "Maud'Dib"));
 
-        _playFieldController.Start(_playerList);
+        _gameLogic = GameLogic.Create(_playerList);
+        _playFieldController.Start(_gameLogic);
        
     }
 

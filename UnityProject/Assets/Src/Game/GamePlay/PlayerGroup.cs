@@ -6,7 +6,6 @@ using UnityEngine.Assertions;
 
 public class PlayerGroup
 {
-
     private List<PlayerState> _playerList;
     private int _activePlayerIndex = 0;
     
