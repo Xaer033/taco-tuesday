@@ -19,7 +19,9 @@ public sealed class PlayFieldController : BaseController
 
     private PlayFieldView _playfieldView;
     private GameLogic _gameLogic;
-    private ParticleSystem _hoverEffect;
+
+    private ParticleSystem _hoverFX;
+    private ParticleSystem _slamFX;
 
     private IngredientCardView _draggedIngredient = null;
     private CustomerCardView _droppedCustomer = null;
@@ -28,7 +30,7 @@ public sealed class PlayFieldController : BaseController
     {
          _gameLogic = gameLogic;
 
-        _setupHoverFX();
+        _setupFX();
 
         viewFactory.CreateAsync<PlayFieldView>("PlayFieldView", (view) =>
         {
@@ -47,14 +49,21 @@ public sealed class PlayFieldController : BaseController
         Debug.Log(string.Format("View {0} has fininished intro", p_view.name));
     }
 
-    private void _setupHoverFX()
+    private void _setupFX()
     {
         GameObject hoverObj = Singleton.instance.vfxBank.Create(
             VFXType.CARD_HOVER,
             Vector3.zero,
             Quaternion.identity);
-        _hoverEffect = hoverObj.GetComponent<ParticleSystem>();
-        _hoverEffect.gameObject.SetActive(false);
+        _hoverFX = hoverObj.GetComponent<ParticleSystem>();
+        _hoverFX.gameObject.SetActive(false);
+
+
+        GameObject slamObj = Singleton.instance.vfxBank.Create(
+            VFXType.CARD_SLAM,
+            Vector3.zero,
+            Quaternion.identity);
+        _slamFX = slamObj.GetComponent<ParticleSystem>();
     }
 
     private void _setupActiveCustomers(Transform parent)
@@ -208,9 +217,8 @@ public sealed class PlayFieldController : BaseController
 
                 IngredientCardData newIngredientCard = localPlayer.hand.GetCard(handIndex);
                 _setupIngredientView(handIndex, newIngredientCard);
-                
 
-                _droppedCustomer.invalidateFlag |= UIView.InvalidationFlag.DYNAMIC_DATA;
+                //_droppedCustomer.invalidateFlag |= UIView.InvalidationFlag.DYNAMIC_DATA;
                 int customerIndex = _droppedCustomer.cardState.slotIndex;
                 bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, kLocalPlayerIndex);
                 if (customerFinished)
@@ -238,12 +246,12 @@ public sealed class PlayFieldController : BaseController
 
     private void _activeHoverFX(Vector3 position)
     {
-        _hoverEffect.gameObject.SetActive(true);
-        _hoverEffect.transform.position = position;
+        _hoverFX.gameObject.SetActive(true);
+        _hoverFX.transform.position = position;
     }
     private void _deactiveHoverFX()
     {
-        _hoverEffect.gameObject.SetActive(false);
+        _hoverFX.gameObject.SetActive(false);
     }
 
     private void _setupLocalPlayerHandView(
@@ -297,14 +305,38 @@ public sealed class PlayFieldController : BaseController
         CustomerCardView customer, 
         TweenCallback callback)
     {
+        Vector3 originalScale = ingredient.transform.localScale;
+
+        Vector3 cardEyeVec = (Camera.main.transform.position - customer.transform.position).normalized;
         Sequence sequence = DOTween.Sequence();
-        Tween moveToTween = ingredient.transform.DOMove(customer.transform.position - Vector3.forward * 0.5f, 0.33f);
-        moveToTween.SetEase(Ease.OutQuad);
-        Tween slamTween = ingredient.transform.DOScale(ingredient.transform.localScale * 0.1f, 0.2f);
-        slamTween.SetEase(Ease.InQuad);
+        Tween moveToTween = ingredient.transform.DOMove(customer.transform.position + cardEyeVec, 0.4f);
+        moveToTween.SetEase(Ease.OutCubic);
+
+        Tween growTween = ingredient.transform.DOScale(originalScale * 1.3f, 0.51f);
+        moveToTween.SetEase(Ease.OutCubic);
+
+        Tween slamTween = ingredient.transform.DOScale(originalScale * 0.1f, 0.2f);
+        slamTween.SetEase(Ease.InCubic);
+
+        Sequence shakeSeq = DOTween.Sequence();
+        Tween shakePosTween = customer.transform.DOShakePosition(0.4f, 7.0f, 14);
+        shakePosTween.SetEase(Ease.OutCubic);
+        Tween shakeRotTween = customer.transform.DOShakeRotation(0.4f, 4.0f);
+        shakeRotTween.SetEase(Ease.OutCubic);
+        shakeSeq.Insert(0.0f, shakePosTween);
+        shakeSeq.Insert(0.0f, shakeRotTween);
 
         sequence.Insert(0.0f, moveToTween);
+        sequence.Insert(0.0f, growTween);
         sequence.Append(slamTween);
+        sequence.AppendCallback(() =>
+        {
+            ingredient.gameObject.SetActive(false);
+            customer.invalidateFlag = UIView.InvalidationFlag.DYNAMIC_DATA;
+            _slamFX.transform.position = ingredient.transform.position;
+            _slamFX.Play();
+        });
+        sequence.Append(shakeSeq);
         sequence.OnComplete(callback);
     }
 }

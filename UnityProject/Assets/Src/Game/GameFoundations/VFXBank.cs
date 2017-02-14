@@ -6,14 +6,15 @@ using UnityEngine.Assertions;
 public enum VFXType
 {
     NONE = -1,
-    CARD_HOVER
+    CARD_HOVER,
+    CARD_SLAM
 }
 
 [CreateAssetMenu(fileName = "VFXBank", menuName = "Resource Banks/Visual FX")]
 public class VFXBank : ScriptableObject
 {
     public GameObject cardHover;
-
+    public GameObject cardSlam;
 
     public GameObject Create(
         VFXType type, 
@@ -30,7 +31,8 @@ public class VFXBank : ScriptableObject
     {
         switch(type)
         {
-            case VFXType.CARD_HOVER: return cardHover;
+            case VFXType.CARD_HOVER:    return cardHover;
+            case VFXType.CARD_SLAM:     return cardSlam;
         }
 
         return null;

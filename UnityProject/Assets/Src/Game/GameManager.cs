@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 		gameController  = new GameController( _stateFactory, null, guiCanvas );
 		gameController.ChangeState( TacoTuesdayState.Intro );
 
-
+        Input.multiTouchEnabled = false;
 	}
 		
 		// Update is called once per frame
