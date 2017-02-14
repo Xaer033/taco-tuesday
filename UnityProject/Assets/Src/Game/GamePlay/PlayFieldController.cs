@@ -309,10 +309,10 @@ public sealed class PlayFieldController : BaseController
 
         Vector3 cardEyeVec = (Camera.main.transform.position - customer.transform.position).normalized;
         Sequence sequence = DOTween.Sequence();
-        Tween moveToTween = ingredient.transform.DOMove(customer.transform.position + cardEyeVec, 0.4f);
+        Tween moveToTween = ingredient.transform.DOMove(customer.transform.position + cardEyeVec, 0.27f);
         moveToTween.SetEase(Ease.OutCubic);
 
-        Tween growTween = ingredient.transform.DOScale(originalScale * 1.3f, 0.51f);
+        Tween growTween = ingredient.transform.DOScale(originalScale * 1.3f, 0.351f);
         moveToTween.SetEase(Ease.OutCubic);
 
         Tween slamTween = ingredient.transform.DOScale(originalScale * 0.1f, 0.2f);
