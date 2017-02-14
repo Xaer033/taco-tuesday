@@ -35,7 +35,6 @@ public class PlayerHandView : UIView
 
     public void SetCardAtIndex(int index, IngredientCardView card)
     {
-        Assert.IsNotNull(card);
         if(card != _cardViewList[index])
         {
             _cardViewList[index] = _processCardView(index, card);
@@ -55,7 +54,7 @@ public class PlayerHandView : UIView
             for(int i = 0; i < _cardViewList.Length; ++i)
             {
                 IngredientCardView cardView = _cardViewList[i];
-                cardView.invalidateFlag = InvalidationFlag.STATIC_DATA;
+                cardView.invalidateFlag = InvalidationFlag.ALL;
             }
         }
     }
@@ -64,6 +63,9 @@ public class PlayerHandView : UIView
         int handIndex,
         IngredientCardView cardView)
     {
+        if (cardView == null) { return null; }
+
+        cardView.transform.SetParent(cardSlotList[handIndex]);
         cardView.transform.localPosition = Vector3.zero;
         cardView.handView = this;
         cardView.handSlot = cardSlotList[handIndex];

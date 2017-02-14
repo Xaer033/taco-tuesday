@@ -8,6 +8,7 @@ using GhostGen;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using DG.Tweening;
 
 public sealed class PlayFieldController : BaseController
 {
@@ -21,6 +22,7 @@ public sealed class PlayFieldController : BaseController
     private ParticleSystem _hoverEffect;
 
     private IngredientCardView _draggedIngredient = null;
+    private CustomerCardView _droppedCustomer = null;
 
     public void Start(GameLogic gameLogic)
     {
@@ -116,9 +118,16 @@ public sealed class PlayFieldController : BaseController
             Debug.LogWarning("Card Data is null!");
             return;
         }
-        IngredientCardView view = Singleton.instance.cardResourceBank.CreateCardView(
-            cardData, 
+
+        IngredientCardView view = _playerHandView.GetCardAtIndex(handSlot);
+        if (view == null)
+        {
+            view = Singleton.instance.cardResourceBank.CreateCardView(
+            cardData,
             _playerHandView.cardSlotList[handSlot]) as IngredientCardView;
+        }
+
+        view.cardData = cardData;
 
         view.eventTrigger.triggers.Clear();
         EventTrigger.Entry OnBeginDrag = new EventTrigger.Entry();
@@ -151,22 +160,8 @@ public sealed class PlayFieldController : BaseController
             _draggedIngredient.handIndex, 
             customerIndex);
 
-        customerView.invalidateFlag |= UIView.InvalidationFlag.DYNAMIC_DATA;
-
-        bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, kLocalPlayerIndex);
-        if (customerFinished)
-        {
-            CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
-            if (newState == null)
-            {
-                CustomerCardView view = _activeCustomersView.GetCardByIndex(customerIndex);
-                Singleton.instance.viewFactory.RemoveView(view, true);
-            }
-            else
-            { 
-                _setupCustomerView(customerIndex, newState);
-            }
-        } 
+        if(_draggedIngredient.isDropSuccessfull)
+            _droppedCustomer = customerView; 
     }
 
     private void _handleIngredientCardHover(CustomerCardView customerView)
@@ -200,14 +195,40 @@ public sealed class PlayFieldController : BaseController
     {
         _deactiveHoverFX();
 
+
         if(_draggedIngredient.isDropSuccessfull)
         {
-            int handIndex = _draggedIngredient.handIndex;
-            Singleton.instance.viewFactory.RemoveView(_draggedIngredient, true);
-            _setupIngredientView(handIndex, localPlayer.hand.GetCard(handIndex));
-        }
+            _zoomSlamTween(_draggedIngredient, _droppedCustomer, () =>
+            {
+                int handIndex = _draggedIngredient.handIndex;
+                Singleton.instance.viewFactory.RemoveView(_draggedIngredient, true);
+                _draggedIngredient = null;
 
-        _draggedIngredient = null;
+                _playerHandView.SetCardAtIndex(handIndex, null);
+
+                IngredientCardData newIngredientCard = localPlayer.hand.GetCard(handIndex);
+                _setupIngredientView(handIndex, newIngredientCard);
+                
+
+                _droppedCustomer.invalidateFlag |= UIView.InvalidationFlag.DYNAMIC_DATA;
+                int customerIndex = _droppedCustomer.cardState.slotIndex;
+                bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, kLocalPlayerIndex);
+                if (customerFinished)
+                {
+                    CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
+                    if (newState == null)
+                    {
+                        CustomerCardView view = _activeCustomersView.GetCardByIndex(customerIndex);
+                        Singleton.instance.viewFactory.RemoveView(view, true);
+                    }
+                    else
+                    {
+                        _setupCustomerView(customerIndex, newState);
+                    }
+                }
+                _draggedIngredient = null;
+            });
+        }
     }
 
     private PlayerState localPlayer
@@ -262,11 +283,6 @@ public sealed class PlayFieldController : BaseController
 
         for(int i = 0; i < PlayerState.kHandSize; ++i)
         {
-            IngredientCardView view = _playerHandView.GetCardAtIndex(i);
-            if(view != null)
-            {
-                Singleton.instance.viewFactory.RemoveView(view, true);
-            }
             _setupIngredientView(i, localPlayer.hand.GetCard(i));
         }
 
@@ -274,5 +290,21 @@ public sealed class PlayFieldController : BaseController
         {
             _setupCustomerView(i, _gameLogic.activeCustomerSet.GetCustomerByIndex(i));
         }
+    }
+
+    private void _zoomSlamTween(
+        IngredientCardView ingredient, 
+        CustomerCardView customer, 
+        TweenCallback callback)
+    {
+        Sequence sequence = DOTween.Sequence();
+        Tween moveToTween = ingredient.transform.DOMove(customer.transform.position - Vector3.forward * 0.5f, 0.33f);
+        moveToTween.SetEase(Ease.OutQuad);
+        Tween slamTween = ingredient.transform.DOScale(ingredient.transform.localScale * 0.1f, 0.2f);
+        slamTween.SetEase(Ease.InQuad);
+
+        sequence.Insert(0.0f, moveToTween);
+        sequence.Append(slamTween);
+        sequence.OnComplete(callback);
     }
 }

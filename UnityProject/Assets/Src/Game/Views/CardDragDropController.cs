@@ -102,6 +102,16 @@ public class CardDragDropController
 
         _isDragging = false;
 
+
+
+        if (_rotateTween != null) { _rotateTween.Kill(); }
+        _rotateTween = _target.DORotate(_slot.eulerAngles, kTweenDuration);
+        _rotateTween.SetEase(Ease.OutQuad);
+
+
+        if (dropSuccessfull) { return; } // Exit early now!
+
+
         _target.SetParent(_slot);
 
         for (int i = 0; i < kMaxSmoothFrame; ++i)
@@ -119,10 +129,6 @@ public class CardDragDropController
         _scaleTween = _target.DOScale(_originalScale, kTweenDuration * 0.756f);
         _scaleTween.OnComplete(() => _scaleTween = null);
 
-
-        if (_rotateTween != null) { _rotateTween.Kill(); }
-        _rotateTween = _target.DORotate(_slot.eulerAngles, kTweenDuration);
-        _rotateTween.SetEase(Ease.OutQuad);
     }
 
     private void _updateDragRotation(float deltaTime)
