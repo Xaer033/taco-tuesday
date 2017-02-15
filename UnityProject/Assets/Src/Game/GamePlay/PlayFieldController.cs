@@ -40,7 +40,7 @@ public sealed class PlayFieldController : BaseController
             _playfieldView.undoButton.onClick.AddListener(_onUndoButton);
 
             _setupActiveCustomers(_playfieldView.staticCardLayer);
-            _setupLocalPlayerHandView(kLocalPlayerIndex, _playfieldView.staticCardLayer);
+            _createPlayerHandView(kLocalPlayerIndex, _playfieldView.staticCardLayer);
         });
     }
 
@@ -204,7 +204,6 @@ public sealed class PlayFieldController : BaseController
     {
         _deactiveHoverFX();
 
-
         if(_draggedIngredient.isDropSuccessfull)
         {
             _playerHandView.blockCardDrag = true;
@@ -256,7 +255,7 @@ public sealed class PlayFieldController : BaseController
         _hoverFX.gameObject.SetActive(false);
     }
 
-    private void _setupLocalPlayerHandView(
+    private void _createPlayerHandView(
         int localPlayerIndex, 
         Transform handParent)
     {
@@ -268,14 +267,18 @@ public sealed class PlayFieldController : BaseController
         viewFactory.CreateAsync<PlayerHandView>("PlayerHandView", (view)=>
         {
             _playerHandView = view as PlayerHandView;
-            PlayerState player = _gameLogic.playerGroup.GetPlayer(localPlayerIndex);
-
-            for (int i = 0; i < PlayerState.kHandSize; ++i)
-            {
-                IngredientCardData ingredientCard = player.hand.GetCard(i);
-                _setupIngredientView(i, ingredientCard);
-            }
+            _setupHandViewFromPlayer(localPlayerIndex);
         }, handParent);
+    }
+
+    private void _setupHandViewFromPlayer(int playerIndex)
+    {
+        PlayerState player = _gameLogic.playerGroup.GetPlayer(playerIndex);
+        for (int i = 0; i < PlayerState.kHandSize; ++i)
+        {
+            IngredientCardData ingredientCard = player.hand.GetCard(i);
+            _setupIngredientView(i, ingredientCard);
+        }
     }
 
     private void _onConfirmTurnButton()
