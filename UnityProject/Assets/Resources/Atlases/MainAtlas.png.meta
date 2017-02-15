@@ -268,8 +268,8 @@ TextureImporter:
       name: Bacon
       rect:
         serializedVersion: 2
-        x: 1299
-        y: 1238
+        x: 1160
+        y: 661
         width: 250
         height: 121
       alignment: 0
@@ -281,8 +281,8 @@ TextureImporter:
       name: Beans
       rect:
         serializedVersion: 2
-        x: 1136
-        y: 641
+        x: 1427
+        y: 1910
         width: 256
         height: 137
       alignment: 0
@@ -294,8 +294,8 @@ TextureImporter:
       name: Beef
       rect:
         serializedVersion: 2
-        x: 467
-        y: 818
+        x: 466
+        y: 573
         width: 197
         height: 177
       alignment: 0
@@ -320,8 +320,8 @@ TextureImporter:
       name: Bloody_Bandaid
       rect:
         serializedVersion: 2
-        x: 970
-        y: 1468
+        x: 1688
+        y: 1549
         width: 256
         height: 130
       alignment: 0
@@ -333,8 +333,8 @@ TextureImporter:
       name: Boogers
       rect:
         serializedVersion: 2
-        x: 1274
-        y: 281
+        x: 1424
+        y: 1614
         width: 262
         height: 131
       alignment: 0
@@ -346,8 +346,8 @@ TextureImporter:
       name: Broken_Glass
       rect:
         serializedVersion: 2
-        x: 1050
-        y: 1226
+        x: 1160
+        y: 784
         width: 247
         height: 129
       alignment: 0
@@ -372,8 +372,8 @@ TextureImporter:
       name: Cheese
       rect:
         serializedVersion: 2
-        x: 1475
-        y: 1948
+        x: 1162
+        y: 915
         width: 211
         height: 99
       alignment: 0
@@ -385,8 +385,8 @@ TextureImporter:
       name: Chewed_Gum
       rect:
         serializedVersion: 2
-        x: 666
-        y: 905
+        x: 665
+        y: 644
         width: 259
         height: 173
       alignment: 0
@@ -398,10 +398,10 @@ TextureImporter:
       name: Chicken
       rect:
         serializedVersion: 2
-        x: 750
-        y: 406
+        x: 795
+        y: 1183
         width: 220
-        height: 172
+        height: 165
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -411,10 +411,10 @@ TextureImporter:
       name: Chorizo
       rect:
         serializedVersion: 2
-        x: 253
-        y: 243
-        width: 245
-        height: 218
+        x: 275
+        y: 27
+        width: 239
+        height: 214
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -424,8 +424,8 @@ TextureImporter:
       name: Cilantro
       rect:
         serializedVersion: 2
-        x: 666
-        y: 754
+        x: 1055
+        y: 1131
         width: 255
         height: 149
       alignment: 0
@@ -437,8 +437,8 @@ TextureImporter:
       name: Corn
       rect:
         serializedVersion: 2
-        x: 753
-        y: 245
+        x: 970
+        y: 1439
         width: 244
         height: 159
       alignment: 0
@@ -450,8 +450,8 @@ TextureImporter:
       name: Crab
       rect:
         serializedVersion: 2
-        x: 1182
-        y: 86
+        x: 1110
+        y: 1668
         width: 255
         height: 157
       alignment: 0
@@ -476,8 +476,8 @@ TextureImporter:
       name: Ear_Wax
       rect:
         serializedVersion: 2
-        x: 500
-        y: 359
+        x: 714
+        y: 288
         width: 248
         height: 176
       alignment: 0
@@ -502,8 +502,8 @@ TextureImporter:
       name: Finger_Nails
       rect:
         serializedVersion: 2
-        x: 500
-        y: 244
+        x: 1162
+        y: 1016
         width: 251
         height: 113
       alignment: 0
@@ -515,8 +515,8 @@ TextureImporter:
       name: Floor_Meat
       rect:
         serializedVersion: 2
-        x: 1052
-        y: 1099
+        x: 1685
+        y: 1922
         width: 331
         height: 125
       alignment: 0
@@ -528,8 +528,8 @@ TextureImporter:
       name: Fly_Eggs
       rect:
         serializedVersion: 2
-        x: 923
-        y: 754
+        x: 1216
+        y: 1517
         width: 206
         height: 149
       alignment: 0
@@ -541,8 +541,8 @@ TextureImporter:
       name: FoodValueBG
       rect:
         serializedVersion: 2
-        x: 1206
-        y: 414
+        x: 666
+        y: 819
         width: 95
         height: 86
       alignment: 0
@@ -567,8 +567,8 @@ TextureImporter:
       name: Habanero
       rect:
         serializedVersion: 2
-        x: 275
-        y: 23
+        x: 253
+        y: 243
         width: 201
         height: 218
       alignment: 0
@@ -580,8 +580,8 @@ TextureImporter:
       name: Hair
       rect:
         serializedVersion: 2
-        x: 795
-        y: 1192
+        x: 1172
+        y: 1891
         width: 253
         height: 156
       alignment: 0
@@ -606,8 +606,8 @@ TextureImporter:
       name: Human_Fingers
       rect:
         serializedVersion: 2
-        x: 1211
-        y: 1361
+        x: 466
+        y: 466
         width: 262
         height: 105
       alignment: 0
@@ -671,8 +671,8 @@ TextureImporter:
       name: Maggots
       rect:
         serializedVersion: 2
-        x: 736
-        y: 66
+        x: 467
+        y: 819
         width: 197
         height: 176
       alignment: 0
@@ -684,8 +684,8 @@ TextureImporter:
       name: Meat_card_icon
       rect:
         serializedVersion: 2
-        x: 1303
-        y: 414
+        x: 763
+        y: 819
         width: 95
         height: 86
       alignment: 0
@@ -736,8 +736,8 @@ TextureImporter:
       name: Mold
       rect:
         serializedVersion: 2
-        x: 478
-        y: 28
+        x: 456
+        y: 248
         width: 256
         height: 213
       alignment: 0
@@ -749,8 +749,8 @@ TextureImporter:
       name: Mystery_Meat
       rect:
         serializedVersion: 2
-        x: 972
-        y: 411
+        x: 926
+        y: 649
         width: 232
         height: 168
       alignment: 0
@@ -762,8 +762,8 @@ TextureImporter:
       name: Onion
       rect:
         serializedVersion: 2
-        x: 999
-        y: 245
+        x: 887
+        y: 915
         width: 273
         height: 164
       alignment: 0
@@ -775,8 +775,8 @@ TextureImporter:
       name: Pidgeon_Meat
       rect:
         serializedVersion: 2
-        x: 1385
-        y: 1119
+        x: 1685
+        y: 1803
         width: 325
         height: 117
       alignment: 0
@@ -801,8 +801,8 @@ TextureImporter:
       name: Rat_Meat
       rect:
         serializedVersion: 2
-        x: 1163
-        y: 977
+        x: 1688
+        y: 1681
         width: 300
         height: 120
       alignment: 0
@@ -840,8 +840,8 @@ TextureImporter:
       name: Salmon
       rect:
         serializedVersion: 2
-        x: 795
-        y: 1081
+        x: 1409
+        y: 905
         width: 255
         height: 109
       alignment: 0
@@ -853,8 +853,8 @@ TextureImporter:
       name: Salsa_Chipotle
       rect:
         serializedVersion: 2
-        x: 970
-        y: 1357
+        x: 1409
+        y: 794
         width: 239
         height: 109
       alignment: 0
@@ -866,8 +866,8 @@ TextureImporter:
       name: Salsa_Roja
       rect:
         serializedVersion: 2
-        x: 1131
-        y: 780
+        x: 1367
+        y: 1747
         width: 228
         height: 142
       alignment: 0
@@ -879,8 +879,8 @@ TextureImporter:
       name: Salsa_Verde
       rect:
         serializedVersion: 2
-        x: 915
-        y: 581
+        x: 666
+        y: 907
         width: 219
         height: 171
       alignment: 0
@@ -918,8 +918,8 @@ TextureImporter:
       name: Skin_Shavings
       rect:
         serializedVersion: 2
-        x: 682
-        y: 580
+        x: 730
+        y: 470
         width: 231
         height: 172
       alignment: 0
@@ -931,8 +931,8 @@ TextureImporter:
       name: Sour_Cream
       rect:
         serializedVersion: 2
-        x: 1206
-        y: 502
+        x: 1253
+        y: 1378
         width: 227
         height: 137
       alignment: 0
@@ -957,8 +957,8 @@ TextureImporter:
       name: Spit
       rect:
         serializedVersion: 2
-        x: 1712
-        y: 1947
+        x: 795
+        y: 1081
         width: 258
         height: 100
       alignment: 0
@@ -970,8 +970,8 @@ TextureImporter:
       name: Steak
       rect:
         serializedVersion: 2
-        x: 935
-        y: 78
+        x: 963
+        y: 482
         width: 245
         height: 165
       alignment: 0
@@ -983,8 +983,8 @@ TextureImporter:
       name: Toe_Fungus
       rect:
         serializedVersion: 2
-        x: 466
-        y: 537
+        x: 516
+        y: 33
         width: 214
         height: 213
       alignment: 0
@@ -996,8 +996,8 @@ TextureImporter:
       name: Tomato
       rect:
         serializedVersion: 2
-        x: 927
-        y: 924
+        x: 1017
+        y: 1282
         width: 234
         height: 155
       alignment: 0
@@ -1022,8 +1022,8 @@ TextureImporter:
       name: ToppingIcon
       rect:
         serializedVersion: 2
-        x: 1400
-        y: 414
+        x: 860
+        y: 819
         width: 95
         height: 86
       alignment: 0
@@ -1048,8 +1048,8 @@ TextureImporter:
       name: VeggieIcon
       rect:
         serializedVersion: 2
-        x: 1551
-        y: 1860
+        x: 957
+        y: 827
         width: 94
         height: 86
       alignment: 0

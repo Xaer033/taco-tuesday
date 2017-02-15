@@ -312,7 +312,7 @@ public sealed class PlayFieldController : BaseController
         Tween moveToTween = ingredient.transform.DOMove(customer.transform.position + cardEyeVec, 0.27f);
         moveToTween.SetEase(Ease.OutCubic);
 
-        Tween growTween = ingredient.transform.DOScale(originalScale * 1.3f, 0.351f);
+        Tween growTween = ingredient.transform.DOScale(originalScale * 1.3f, 0.31f);
         moveToTween.SetEase(Ease.OutCubic);
 
         Tween slamTween = ingredient.transform.DOScale(originalScale * 0.1f, 0.2f);
