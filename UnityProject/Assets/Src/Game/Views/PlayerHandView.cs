@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Assertions;
 using System.Collections;
 using GhostGen;
@@ -11,7 +12,7 @@ public class PlayerHandView : UIView
 
     public CanvasGroup canvasGroup;
     public Transform dragCardLayer;
-
+    public Image dragBlocker;
 
     private IngredientCardView[] _cardViewList;
     //private IngredientCardData[] _cardDataList;
@@ -20,11 +21,20 @@ public class PlayerHandView : UIView
     {
         //_cardDataList = new IngredientCardData[PlayerState.kHandSize];
         _cardViewList = new IngredientCardView[PlayerState.kHandSize];
+        blockCardDrag = false;
     }
     
     void Start()
     {
         OnIntroTransitionFinished();
+    }
+
+    public bool blockCardDrag
+    {
+        set
+        {
+            dragBlocker.gameObject.SetActive(value);
+        }
     }
 
     public override void OnViewOutro(bool immediately, OnViewRemoved removedCallback)
@@ -54,7 +64,10 @@ public class PlayerHandView : UIView
             for(int i = 0; i < _cardViewList.Length; ++i)
             {
                 IngredientCardView cardView = _cardViewList[i];
-                cardView.invalidateFlag = InvalidationFlag.ALL;
+                if (cardView)
+                {
+                    cardView.invalidateFlag = InvalidationFlag.STATIC_DATA;
+                }
             }
         }
     }

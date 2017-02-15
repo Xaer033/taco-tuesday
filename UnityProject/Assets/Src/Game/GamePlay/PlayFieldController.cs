@@ -207,6 +207,7 @@ public sealed class PlayFieldController : BaseController
 
         if(_draggedIngredient.isDropSuccessfull)
         {
+            _playerHandView.blockCardDrag = true;
             _zoomSlamTween(_draggedIngredient, _droppedCustomer, () =>
             {
                 int handIndex = _draggedIngredient.handIndex;
@@ -234,6 +235,7 @@ public sealed class PlayFieldController : BaseController
                         _setupCustomerView(customerIndex, newState);
                     }
                 }
+                _playerHandView.blockCardDrag = false;
                 _draggedIngredient = null;
             });
         }
@@ -319,9 +321,9 @@ public sealed class PlayFieldController : BaseController
         slamTween.SetEase(Ease.InCubic);
 
         Sequence shakeSeq = DOTween.Sequence();
-        Tween shakePosTween = customer.transform.DOShakePosition(0.4f, 7.0f, 14);
+        Tween shakePosTween = customer.transform.DOShakePosition(0.4f, 10.0f, 22);
         shakePosTween.SetEase(Ease.OutCubic);
-        Tween shakeRotTween = customer.transform.DOShakeRotation(0.4f, 4.0f);
+        Tween shakeRotTween = customer.transform.DOShakeRotation(0.4f, 6.0f, 16);
         shakeRotTween.SetEase(Ease.OutCubic);
         shakeSeq.Insert(0.0f, shakePosTween);
         shakeSeq.Insert(0.0f, shakeRotTween);
