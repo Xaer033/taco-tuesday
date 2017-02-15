@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.3.1</string>
+        <string>4.3.3</string>
         <key>fileName</key>
         <string>C:/GameDev/Projects/TacoTuesday/AssetPipeline/CardIcons.tps</string>
         <key>autoSDSettings</key>
