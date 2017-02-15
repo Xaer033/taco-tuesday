@@ -223,6 +223,8 @@ public sealed class PlayFieldController : BaseController
                 bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, kLocalPlayerIndex);
                 if (customerFinished)
                 {
+                    _playfieldView.playerScore = localPlayer.points;
+
                     CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
                     if (newState == null)
                     {

@@ -11,7 +11,10 @@ public class PlayFieldView : UIView
     public Transform staticCardLayer;
     public Button confirmButton;
     public Button undoButton;
-      
+    public Text playerScoreLbl;
+
+    private int _playerScore = 0;
+
     void Awake()
     {
         canvasGroup.alpha = 0.0f;
@@ -23,8 +26,28 @@ public class PlayFieldView : UIView
         introTween.SetDelay(0.5f);
     }
 
-//------------------- Private Implementation -------------------
-//--------------------------------------------------------------
+    public int playerScore
+    {
+        set
+        {
+            if(_playerScore != value)
+            {
+                _playerScore = value;
+                invalidateFlag = InvalidationFlag.DYNAMIC_DATA;
+            }
+        }
+    }
+
+    protected override void OnViewUpdate()
+    {
+        base.OnViewUpdate();
+        if(IsInvalid(InvalidationFlag.DYNAMIC_DATA))
+        {
+            playerScoreLbl.text = string.Format("Score: {0}", _playerScore); // TODO: Localize this!
+        }
+    }
+    //------------------- Private Implementation -------------------
+    //--------------------------------------------------------------
 
 }
 
