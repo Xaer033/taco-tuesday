@@ -17,14 +17,13 @@ public class VFXBank : ScriptableObject
     public GameObject cardSlam;
 
     public GameObject Create(
-        VFXType type, 
-        Vector3 position, 
-        Quaternion rotation)
+        VFXType type,
+        Transform parent = null)
     {
         GameObject prefab = _getFXPrefab(type);
         Assert.IsNotNull(prefab);
 
-        return Instantiate<GameObject>(prefab, position, rotation); 
+        return Instantiate<GameObject>(prefab, parent); 
     }
 
     private GameObject _getFXPrefab(VFXType type)
