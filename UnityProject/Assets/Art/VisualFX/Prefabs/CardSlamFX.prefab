@@ -120,7 +120,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 2
+      scalar: 0.95
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -264,7 +264,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.65882355}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.09803922}
       minMaxState: 0
     startSize:
       scalar: 4
