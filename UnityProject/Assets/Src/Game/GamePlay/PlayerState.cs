@@ -13,7 +13,7 @@ public class PlayerState
     public int      index   { get; private set; }
     public string   name    { get; private set; }
 
-    public int      points  { get; set; }
+    public int      score  { get; set; }
 
     public PlayerHand hand { get; private set; }
     public static PlayerState Create(int playerIndex, string name)
@@ -22,7 +22,7 @@ public class PlayerState
         player.hand = PlayerHand.Create(kHandSize);
         player.index = playerIndex;
         player.name = name;
-        player.points = 0;
+        player.score = 0;
         return player;
     }
 

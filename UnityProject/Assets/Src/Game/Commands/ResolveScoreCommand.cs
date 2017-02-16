@@ -29,12 +29,12 @@ public class ResolveScoreCommand : ICommand
 
     public void Execute()
     {
-        _savedScore = _player.points;
-        _player.points += _customer.totalScore;
+        _savedScore = _player.score;
+        _player.score += _customer.totalScore;
     }
 
     public void Undo()
     {
-        _player.points = _savedScore;
+        _player.score = _savedScore;
     }
 }

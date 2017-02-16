@@ -223,7 +223,7 @@ public sealed class PlayFieldController : BaseController
                 bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, kLocalPlayerIndex);
                 if (customerFinished)
                 {
-                    _playfieldView.playerScore = localPlayer.points;
+                    _playfieldView.playerScore = localPlayer.score;
 
                     CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
                     if (newState == null)
@@ -292,6 +292,8 @@ public sealed class PlayFieldController : BaseController
     {
         bool didUndo = _gameLogic.UndoLastAction();
         if (!didUndo) { return; }
+
+        _playfieldView.playerScore = localPlayer.score;
 
         _playerHandView.invalidateFlag = UIView.InvalidationFlag.ALL;
         _activeCustomersView.invalidateFlag = UIView.InvalidationFlag.ALL;
