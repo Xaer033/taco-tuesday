@@ -94,7 +94,7 @@ namespace GhostGen
 		//private List<LayerContainer> _transitionList;
 
 		private IViewFactory _viewFactory;
-		private Dictionary< int, string > _gameViewPaths;
+		//private Dictionary< int, string > _gameViewPaths;
 
 		//private Camera _mainCamera;
         private Canvas _mainCanvas;

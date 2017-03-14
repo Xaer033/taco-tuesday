@@ -39,6 +39,15 @@ public sealed class PlayFieldController : BaseController
             _playfieldView.confirmButton.onClick.AddListener(_onConfirmTurnButton);
             _playfieldView.undoButton.onClick.AddListener(_onUndoButton);
 
+            _playfieldView.setActivePlayer(activePlayer.index);
+
+            for(int i = 0; i < _gameLogic.playerGroup.playerCount; ++i)
+            {
+                PlayerState player = _gameLogic.playerGroup.GetPlayer(i);
+                _playfieldView.setPlayerName(i, player.name);
+                _playfieldView.setPlayerScore(i, player.score);
+            }
+
             _setupActiveCustomers(_playfieldView.staticCardLayer);
             _createPlayerHandView(kLocalPlayerIndex, _playfieldView.staticCardLayer);
         });
@@ -82,6 +91,7 @@ public sealed class PlayFieldController : BaseController
         if (cardState == null)
         {
             Debug.LogWarning("Card State is null!");
+            _activeCustomersView.RemoveCardByIndex(0); // TODO: Do this On card slam instead of after the fact
             return;
         }
 
@@ -159,7 +169,7 @@ public sealed class PlayFieldController : BaseController
         int customerIndex = customerState.slotIndex;
 
         _draggedIngredient.isDropSuccessfull = _gameLogic.PlayCardOnCustomer(
-            kLocalPlayerIndex,
+            _gameLogic.playerGroup.activePlayer.index,
             _draggedIngredient.handIndex, 
             customerIndex);
 
@@ -209,15 +219,15 @@ public sealed class PlayFieldController : BaseController
 
                 _playerHandView.SetCardAtIndex(handIndex, null);
 
-                IngredientCardData newIngredientCard = localPlayer.hand.GetCard(handIndex);
+                IngredientCardData newIngredientCard = activePlayer.hand.GetCard(handIndex);
                 _setupIngredientView(handIndex, newIngredientCard);
 
                 //_droppedCustomer.invalidateFlag |= UIView.InvalidationFlag.DYNAMIC_DATA;
                 int customerIndex = _droppedCustomer.cardState.slotIndex;
-                bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, kLocalPlayerIndex);
+                bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, activePlayer.index);
                 if (customerFinished)
                 {
-                    _playfieldView.playerScore = localPlayer.score;
+                    _playfieldView.setPlayerScore(activePlayer.index, activePlayer.score);
 
                     CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
                     if (newState == null)
@@ -239,6 +249,11 @@ public sealed class PlayFieldController : BaseController
     private PlayerState localPlayer
     {
         get { return _gameLogic.playerGroup.GetPlayer(kLocalPlayerIndex); }
+    }
+
+    private PlayerState activePlayer
+    {
+        get { return _gameLogic.playerGroup.activePlayer; }
     }
 
     private void _activeHoverFX(Vector3 position)
@@ -280,26 +295,34 @@ public sealed class PlayFieldController : BaseController
     private void _onConfirmTurnButton()
     {
         _gameLogic.EndPlayerTurn();
+        _refreshHandView(activePlayer);
+        _playfieldView.setActivePlayer(activePlayer.index);
     }
 
     private void _onUndoButton()
     {
         bool didUndo = _gameLogic.UndoLastAction();
         if (!didUndo) { return; }
+        
+        _refreshHandView(activePlayer);
 
-        _playfieldView.playerScore = localPlayer.score;
-
-        _playerHandView.invalidateFlag = UIView.InvalidationFlag.ALL;
         _activeCustomersView.invalidateFlag = UIView.InvalidationFlag.ALL;
-
-        for(int i = 0; i < PlayerState.kHandSize; ++i)
-        {
-            _setupIngredientView(i, localPlayer.hand.GetCard(i));
-        }
-
         for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
         {
             _setupCustomerView(i, _gameLogic.activeCustomerSet.GetCustomerByIndex(i));
+        }
+
+        _playfieldView.setActivePlayer(activePlayer.index);
+    }
+
+    private void _refreshHandView(PlayerState player)
+    {
+        _playfieldView.setPlayerScore(player.index, player.score);
+
+        _playerHandView.invalidateFlag = UIView.InvalidationFlag.ALL;
+        for (int i = 0; i < PlayerState.kHandSize; ++i)
+        {
+            _setupIngredientView(i, player.hand.GetCard(i));
         }
     }
 

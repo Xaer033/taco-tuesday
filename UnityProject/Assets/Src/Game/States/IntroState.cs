@@ -56,10 +56,10 @@ public class IntroState : IGameState
 	
 //------------------- Private Implementation -------------------
 //--------------------------------------------------------------
-	private Button 			_backButton;
-	private PlayFieldView		_introView;
+	//private Button 			_backButton;
+	//private PlayFieldView		_introView;
 	private GameController 	_gameController;
-    private ActiveCustomerSet _customerController;
+    //private ActiveCustomerSet _customerController;
 
 	private bool _gotoSplash = false;
 

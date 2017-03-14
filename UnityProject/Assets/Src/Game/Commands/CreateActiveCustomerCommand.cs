@@ -37,14 +37,24 @@ public class CreateActiveCustomerCommand : ICommand
         _savedCustomerState = _customerSet.GetCustomerByIndex(_slotIndex);
 
         CustomerCardData card = _customerDeck.Pop() as CustomerCardData;
-        CustomerCardState newState = CustomerCardState.Create(card);
-        _customerSet.SetCustomerAtIndex(_slotIndex, newState);
+        if (card != null)
+        {
+            CustomerCardState newState = CustomerCardState.Create(card);
+            _customerSet.SetCustomerAtIndex(_slotIndex, newState);
+        }
+        else
+        {
+            _customerSet.SetCustomerAtIndex(_slotIndex, null);
+        }
     }
 
     public void Undo()
     {
         CustomerCardState undoState = _customerSet.GetCustomerByIndex(_slotIndex);
-        _customerDeck.Push(undoState.cardData);
-        _customerSet.SetCustomerAtIndex(_slotIndex, _savedCustomerState);
+        if (undoState != null)
+        {
+            _customerDeck.Push(undoState.cardData);
+            _customerSet.SetCustomerAtIndex(_slotIndex, _savedCustomerState);
+        }
     }
 }

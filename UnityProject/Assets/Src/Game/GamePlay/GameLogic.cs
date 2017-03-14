@@ -5,6 +5,8 @@ using UnityEngine.Assertions;
 
 public class GameLogic
 {
+    public const int kMaxPlayers = 4;
+
     public PlayerGroup playerGroup { get; private set; }
     public ActiveCustomerSet activeCustomerSet { get; private set; }
 
@@ -52,7 +54,8 @@ public class GameLogic
             for (int j = 0; j < PlayerState.kHandSize; ++j)
             {
                 IngredientCardData cardData = _ingredientDeck.Pop() as IngredientCardData;
-                playerGroup.GetPlayer(i).hand.SetCard(j, cardData);
+                PlayerState playerState = playerGroup.GetPlayer(i);
+                playerState.hand.SetCard(j, cardData);
             }
         }
     }
@@ -60,15 +63,15 @@ public class GameLogic
     public bool PlayCardOnCustomer(
         int playerIndex,
         int handIndex,
-        int customerIndex
-        )
+        int customerIndex)
     {
         if (!activeCustomerSet.IsSlotActive(customerIndex)) { return false; }
 
-        PlayerState playerState = playerGroup.GetPlayer(playerIndex);
-        IngredientCardData ingredientData = playerState.hand.GetCard(handIndex);
-        CustomerCardState customerState = activeCustomerSet.GetCustomerByIndex(customerIndex);
+        PlayerState         playerState     = playerGroup.GetPlayer(playerIndex);
+        IngredientCardData  ingredientData  = playerState.hand.GetCard(handIndex);
+        CustomerCardState   customerState   = activeCustomerSet.GetCustomerByIndex(customerIndex);
 
+        if (playerState.cardsPlayed >= PlayerState.kMaxCardsPerTurn) { return false; }
         if (!customerState.CanAcceptCard(ingredientData)) { return false; }
         
         _playCard(handIndex, playerState, customerState, ingredientData);

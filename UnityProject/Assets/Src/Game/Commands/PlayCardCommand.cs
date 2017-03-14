@@ -40,12 +40,14 @@ public class PlayCardCommand : ICommand
         _savedPlayerIndex = _customer.lastPlayerIndex;
         _customer.AddIngredient(_ingredient, _playerState.index);
         _playerState.hand.SetCard(_handSlot, null);
+        _playerState.cardsPlayed++;
     }
 
     public void Undo()
     {
         Assert.IsNotNull(_customer);
         Assert.IsNotNull(_ingredient);
+        _playerState.cardsPlayed--;
         _customer.RemoveIngredient(_ingredient, _savedPlayerIndex);
         _playerState.hand.SetCard(_handSlot, _ingredient);
     }

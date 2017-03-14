@@ -36,7 +36,10 @@ public class ActiveCustomerSet
     public void SetCustomerAtIndex(int slotIndex, CustomerCardState cardState)
     {
         _boundsCheck(slotIndex);
-        cardState.slotIndex = slotIndex;
+        if(cardState != null)
+        {
+            cardState.slotIndex = slotIndex;
+        }
         _activeCustomerList[slotIndex] = cardState;
     }
 

@@ -61,6 +61,7 @@ public sealed class CustomerCardView : BaseCardView
         base.OnViewUpdate();
 
         if(cardState == null) { return; }
+        if(cardState.cardData == null) { return; }
 
         if(IsInvalid(InvalidationFlag.STATIC_DATA) )
         {    
