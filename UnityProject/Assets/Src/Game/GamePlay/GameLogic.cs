@@ -129,6 +129,7 @@ public class GameLogic
     private void _createNewCustomer(int customerSlotId)
     {
         CreateActiveCustomerCommand command = CreateActiveCustomerCommand.Create(
+            playerGroup.activePlayer,
             customerSlotId,
             _customerDeck,
             activeCustomerSet);

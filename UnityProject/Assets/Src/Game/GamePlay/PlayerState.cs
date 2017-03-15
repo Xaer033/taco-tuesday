@@ -1,5 +1,5 @@
 ﻿//using System.Collections;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 //using UnityEngine;
 
 //using Newtonsoft.Json;
@@ -18,11 +18,13 @@ public class PlayerState
     public int          cardsPlayed { get; set; }
 
     public PlayerHand   hand        { get; private set; }
+    public Stack<CustomerCardData> deadCustomerStack { get; private set; }
 
     public static PlayerState Create(int playerIndex, string name)
     {
         PlayerState player = new PlayerState();
         player.hand = PlayerHand.Create(kHandSize);
+        player.deadCustomerStack = new Stack<CustomerCardData>();
         player.index = playerIndex;
         player.name = name;
         player.score = 0;

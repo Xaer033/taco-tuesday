@@ -230,15 +230,15 @@ public sealed class PlayFieldController : BaseController
                     _playfieldView.setPlayerScore(activePlayer.index, activePlayer.score);
 
                     CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
-                    if (newState == null)
-                    {
-                        CustomerCardView view = _activeCustomersView.GetCardByIndex(customerIndex);
-                        Singleton.instance.viewFactory.RemoveView(view, true);
-                    }
-                    else
-                    {
+                    //if (newState == null)
+                    //{
+                    //    CustomerCardView view = _activeCustomersView.GetCardByIndex(customerIndex);
+                    //    Singleton.instance.viewFactory.RemoveView(view, true);
+                    //}
+                    //else
+                    //{
                         _setupCustomerView(customerIndex, newState);
-                    }
+                    //}
                 }
                 _playerHandView.blockCardDrag = false;
                 _draggedIngredient = null;

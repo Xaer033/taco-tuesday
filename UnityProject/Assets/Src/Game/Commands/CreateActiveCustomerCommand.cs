@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CreateActiveCustomerCommand : ICommand
 {
+    private PlayerState _activePlayer;
     private CardDeck _customerDeck;
     private ActiveCustomerSet _customerSet;
     private int _slotIndex;
@@ -11,15 +12,17 @@ public class CreateActiveCustomerCommand : ICommand
     private CustomerCardState _savedCustomerState;
 
     public static CreateActiveCustomerCommand Create(
+        PlayerState activePlayer,
         int slotIndex,
         CardDeck customerDeck,
         ActiveCustomerSet customerSet
         )
     {
         CreateActiveCustomerCommand command = new CreateActiveCustomerCommand();
-        command._customerDeck = customerDeck;
-        command._slotIndex = slotIndex;
-        command._customerSet = customerSet;
+        command._activePlayer   = activePlayer;
+        command._customerDeck   = customerDeck;
+        command._slotIndex      = slotIndex;
+        command._customerSet    = customerSet;
         return command;
     }
 
@@ -35,6 +38,7 @@ public class CreateActiveCustomerCommand : ICommand
     public void Execute()
     {
         _savedCustomerState = _customerSet.GetCustomerByIndex(_slotIndex);
+        _activePlayer.deadCustomerStack.Push(_savedCustomerState.cardData);
 
         CustomerCardData card = _customerDeck.Pop() as CustomerCardData;
         if (card != null)
@@ -50,11 +54,12 @@ public class CreateActiveCustomerCommand : ICommand
 
     public void Undo()
     {
+        _activePlayer.deadCustomerStack.Pop();
         CustomerCardState undoState = _customerSet.GetCustomerByIndex(_slotIndex);
         if (undoState != null)
         {
             _customerDeck.Push(undoState.cardData);
-            _customerSet.SetCustomerAtIndex(_slotIndex, _savedCustomerState);
         }
+        _customerSet.SetCustomerAtIndex(_slotIndex, _savedCustomerState);
     }
 }

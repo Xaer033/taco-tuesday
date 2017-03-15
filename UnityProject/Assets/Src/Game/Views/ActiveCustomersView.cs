@@ -25,13 +25,16 @@ public class ActiveCustomersView : UIView
     public void RemoveCardByIndex(int index)
     {
         _boundsCheck(index);
-        Singleton.instance.viewFactory.RemoveView(_cardViewList[index]);
+        _cardViewList[index].gameObject.SetActive(false);
+        //Singleton.instance.viewFactory.RemoveView(_cardViewList[index]);
     }
 
     public void SetCardByIndex(int index, CustomerCardView cardView)
     {
         _boundsCheck(index);
-        if(_cardViewList[index] != cardView)
+        cardView.gameObject.SetActive(true);
+
+        if (_cardViewList[index] != cardView)
         {
             _cardViewList[index] = cardView;
             invalidateFlag |= InvalidationFlag.STATIC_DATA;
