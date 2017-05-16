@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using GhostGen;
 using UnityEngine.EventSystems;
+using TMPro;
 
 [System.Serializable]
 [RequireComponent(typeof(EventTrigger))]
@@ -14,9 +15,9 @@ public sealed class CustomerCardView : BaseCardView
     public GameObject _toppingReqObj;
     public EventTrigger eventTrigger;
 
-    private Text _meatReqLbl;
-    private Text _veggieReqLbl;
-    private Text _toppingReqLbl;
+    private TextMeshProUGUI _meatReqLbl;
+    private TextMeshProUGUI _veggieReqLbl;
+    private TextMeshProUGUI _toppingReqLbl;
     
     private CustomerCardState _cardState = null;
 
@@ -26,13 +27,13 @@ public sealed class CustomerCardView : BaseCardView
         eventTrigger = GetComponent<EventTrigger>();
 
         if(_meatReqObj != null)
-            _meatReqLbl     = _meatReqObj.GetComponentInChildren<Text>();
+            _meatReqLbl     = _meatReqObj.GetComponentInChildren<TextMeshProUGUI>();
 
         if (_veggieReqObj != null)
-            _veggieReqLbl   = _veggieReqObj.GetComponentInChildren<Text>();
+            _veggieReqLbl   = _veggieReqObj.GetComponentInChildren<TextMeshProUGUI>();
 
         if (_toppingReqObj != null)
-            _toppingReqLbl  = _toppingReqObj.GetComponentInChildren<Text>();
+            _toppingReqLbl  = _toppingReqObj.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     void Start()

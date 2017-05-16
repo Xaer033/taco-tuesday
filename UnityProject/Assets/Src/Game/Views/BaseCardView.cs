@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using GhostGen;
 using UnityEngine.EventSystems;
+using TMPro;
 
 [System.Serializable]
 public class BaseCardView : UIView
@@ -11,8 +12,8 @@ public class BaseCardView : UIView
     public Image _backgroundImg;
     public Image _cardIcon;
     public Image _cardTypeIcon;
-    public Text _titleLbl;
-    public Text _foodValueLbl;
+    public TextMeshProUGUI _titleLbl;
+    public TextMeshProUGUI _foodValueLbl;
     
 
     protected BaseCardData _cardData = null;
