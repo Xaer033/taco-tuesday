@@ -4,14 +4,15 @@ using UnityEngine.Assertions;
 using System.Collections;
 using GhostGen;
 using DG.Tweening;
+using TMPro;
 
 public class PlayFieldView : UIView
 {
     [System.Serializable]
     public class PlayerInfo
     {
-        public Text nameLbl;
-        public Text scoreLbl;
+        public TextMeshProUGUI nameLbl;
+        public TextMeshProUGUI scoreLbl;
     }
 
     public CanvasGroup canvasGroup;

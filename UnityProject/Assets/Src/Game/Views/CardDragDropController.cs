@@ -91,7 +91,7 @@ public class CardDragDropController
         Vector3 mPos = Input.mousePosition;
         mPos.z = GameManager.Get().guiCanvas.planeDistance;
         mPos = Camera.main.ScreenToWorldPoint(mPos) + _inputOffset;
-        _target.position =mPos + (Camera.main.transform.position - mPos) * 0.1f;
+        _target.position = mPos;// + (Camera.main.transform.position - mPos) * 0.1f;
        
         _dragDelta = -eventData.delta * kScaleFactor;
     }
