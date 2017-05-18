@@ -1382,12 +1382,12 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: -6
     m_Bottom: 0
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 210.2, y: 86.4}
+  m_CellSize: {x: 210.2, y: 77.57}
   m_Spacing: {x: 78.63, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1

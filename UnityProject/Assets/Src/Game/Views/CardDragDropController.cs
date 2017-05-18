@@ -61,27 +61,19 @@ public class CardDragDropController
     public void OnDragBegin(PointerEventData eventData)
     {
         if (_resetTween != null) { _resetTween.Kill(true); }
-
         if (_scaleTween != null) { _scaleTween.Kill(); }
+
         _scaleTween = _target.DOScale(_originalScale * kDragScale, 0.82f);
         _scaleTween.SetEase(Ease.OutBack);
         _scaleTween.OnComplete(() => _scaleTween = null);
-        
 
         Vector3 mPos = Input.mousePosition;
         mPos.z = GameManager.Get().guiCanvas.planeDistance;
         _inputOffset = _target.position - Camera.main.ScreenToWorldPoint(mPos);
 
         _target.SetParent(_dragLayer);
-
-        //if (_rotateTween != null) { _rotateTween.Kill(); }
-        //_rotateTween = _target.DOLocalRotate(Vector3.zero, 0.21f);     
-        //_rotateTween.OnComplete(() =>
-        //{
-            _isDragging = true;
-        //    _rotateTween = null;
-        //});
         
+        _isDragging = true;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -91,8 +83,9 @@ public class CardDragDropController
         Vector3 mPos = Input.mousePosition;
         mPos.z = GameManager.Get().guiCanvas.planeDistance;
         mPos = Camera.main.ScreenToWorldPoint(mPos) + _inputOffset;
-        _target.position = mPos;// + (Camera.main.transform.position - mPos) * 0.1f;
-       
+        //Pull card torwards the camera and above the other cards
+        _target.position = mPos + (Camera.main.transform.position - mPos) * 0.1f;
+        
         _dragDelta = -eventData.delta * kScaleFactor;
     }
 
@@ -102,15 +95,11 @@ public class CardDragDropController
 
         _isDragging = false;
 
-
-
         if (_rotateTween != null) { _rotateTween.Kill(); }
         _rotateTween = _target.DORotate(_slot.eulerAngles, kTweenDuration);
         _rotateTween.SetEase(Ease.OutQuad);
 
-
         if (dropSuccessfull) { return; } // Exit early now!
-
 
         _target.SetParent(_slot);
 
@@ -118,6 +107,7 @@ public class CardDragDropController
         {
             _averageDelta[i] = Vector2.zero;
         }
+
         _resetTween = _target.DOMove(_slot.position, kTweenDuration);
         _resetTween.SetEase(Ease.OutCubic);
         _resetTween.OnComplete(() =>
@@ -128,7 +118,6 @@ public class CardDragDropController
         if (_scaleTween != null) { _scaleTween.Kill(true); }
         _scaleTween = _target.DOScale(_originalScale, kTweenDuration * 0.756f);
         _scaleTween.OnComplete(() => _scaleTween = null);
-
     }
 
     private void _updateDragRotation(float deltaTime)
