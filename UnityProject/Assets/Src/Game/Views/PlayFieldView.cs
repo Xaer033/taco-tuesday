@@ -91,7 +91,7 @@ public class PlayFieldView : UIView
             for(int i = 0; i < GameLogic.kMaxPlayers; ++i)
             {
                 playerInfoList[i].scoreLbl.text = string.Format("Score: {0}", _playerScores[i]); // TODO: Localize this!
-                playerInfoList[i].nameLbl.text = string.Format("Player: {0}", _playerNames[i]); // and this
+                playerInfoList[i].nameLbl.text = string.Format("P{0}: {1}", i + 1, _playerNames[i]); // and this
             }
         }
     }
