@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
+using UnityEngine.EventSystems;
 
 namespace GhostGen
 {
@@ -19,7 +20,14 @@ namespace GhostGen
             ALL = STATIC_DATA | DYNAMIC_DATA
         }
 
+        protected event Action<BaseEventData> _onTriggered;
         private InvalidationFlag _invalidateFlag = InvalidationFlag.ALL; // Default to invalidating everything
+
+        public event Action<BaseEventData> onTriggered
+        {
+            add { _onTriggered += value; }
+            remove { _onTriggered -= value; }
+        }
 
         public InvalidationFlag invalidateFlag
         {
@@ -62,6 +70,13 @@ namespace GhostGen
             }
         }
 
+        public void OnTriggered(BaseEventData eventData)
+        {
+            if(_onTriggered != null)
+            {
+                _onTriggered(eventData);
+            }
+        }
         protected virtual void OnViewUpdate()
         {
         }

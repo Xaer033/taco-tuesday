@@ -24,10 +24,14 @@ public class GameManager : MonoBehaviour
     //    private set { _viewFactory = value; }
     //}
 
-    public static GameManager Get()
+     
+    public static  GameManager instance
     {
-        Debug.Assert(_instance != null, "Game Manager not initialized yet, race condition detected!");
-        return _instance;
+        get
+        {
+            Debug.Assert(_instance != null, "Game Manager not initialized yet, race condition detected!");
+            return _instance;        
+        }
     }
 
     private static GameManager _instance;
@@ -43,7 +47,7 @@ public class GameManager : MonoBehaviour
 		_stateFactory 	= new TacoTuesdayStateFactory ();
 
 		gameController  = new GameController( _stateFactory, null, guiCanvas );
-		gameController.ChangeState( TacoTuesdayState.Intro );
+		gameController.ChangeState( TacoTuesdayState.INTRO );
 
         Input.multiTouchEnabled = false;
 	}

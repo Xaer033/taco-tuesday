@@ -39,7 +39,7 @@ public class PlayFieldView : UIView
         introTween.SetDelay(0.5f);
     }
 
-    public void setPlayerScore(int playerIndex, int value)
+    public void SetPlayerScore(int playerIndex, int value)
     {
         Assert.IsTrue(playerIndex >= 0);
         Assert.IsTrue(playerIndex < _playerScores.Length);
@@ -51,7 +51,7 @@ public class PlayFieldView : UIView
         }
     }
 
-    public void setPlayerName(int playerIndex, string value)
+    public void SetPlayerName(int playerIndex, string value)
     {
         Assert.IsTrue(playerIndex >= 0);
         Assert.IsTrue(playerIndex < _playerScores.Length);
@@ -63,7 +63,7 @@ public class PlayFieldView : UIView
         }
     }
 
-    public void setActivePlayer(int playerIndex)
+    public void SetActivePlayer(int playerIndex)
     {
         Assert.IsTrue(playerIndex >= 0);
         Assert.IsTrue(playerIndex < playerInfoList.Length);

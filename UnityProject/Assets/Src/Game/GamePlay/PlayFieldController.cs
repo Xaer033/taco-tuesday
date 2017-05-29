@@ -39,13 +39,13 @@ public sealed class PlayFieldController : BaseController
             _playfieldView.confirmButton.onClick.AddListener(_onConfirmTurnButton);
             _playfieldView.undoButton.onClick.AddListener(_onUndoButton);
 
-            _playfieldView.setActivePlayer(activePlayer.index);
+            _playfieldView.SetActivePlayer(activePlayer.index);
 
             for(int i = 0; i < _gameLogic.playerGroup.playerCount; ++i)
             {
                 PlayerState player = _gameLogic.playerGroup.GetPlayer(i);
-                _playfieldView.setPlayerName(i, player.name);
-                _playfieldView.setPlayerScore(i, player.score);
+                _playfieldView.SetPlayerName(i, player.name);
+                _playfieldView.SetPlayerScore(i, player.score);
             }
 
             _setupActiveCustomers(_playfieldView.staticCardLayer);
@@ -227,7 +227,7 @@ public sealed class PlayFieldController : BaseController
                 bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, activePlayer.index);
                 if (customerFinished)
                 {
-                    _playfieldView.setPlayerScore(activePlayer.index, activePlayer.score);
+                    _playfieldView.SetPlayerScore(activePlayer.index, activePlayer.score);
 
                     CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
                     //if (newState == null)
@@ -296,7 +296,7 @@ public sealed class PlayFieldController : BaseController
     {
         _gameLogic.EndPlayerTurn();
         _refreshHandView(activePlayer);
-        _playfieldView.setActivePlayer(activePlayer.index);
+        _playfieldView.SetActivePlayer(activePlayer.index);
     }
 
     private void _onUndoButton()
@@ -312,12 +312,12 @@ public sealed class PlayFieldController : BaseController
             _setupCustomerView(i, _gameLogic.activeCustomerSet.GetCustomerByIndex(i));
         }
 
-        _playfieldView.setActivePlayer(activePlayer.index);
+        _playfieldView.SetActivePlayer(activePlayer.index);
     }
 
     private void _refreshHandView(PlayerState player)
     {
-        _playfieldView.setPlayerScore(player.index, player.score);
+        _playfieldView.SetPlayerScore(player.index, player.score);
 
         _playerHandView.invalidateFlag = UIView.InvalidationFlag.ALL;
         for (int i = 0; i < PlayerState.kHandSize; ++i)

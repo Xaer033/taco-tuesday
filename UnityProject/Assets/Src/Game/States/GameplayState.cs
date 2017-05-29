@@ -4,20 +4,30 @@ using System.Collections.Generic;
 using GhostGen;
 using DG.Tweening;
 
-public class IntroState : IGameState
+public class GameplayState : IGameState
 {
-    private SplashScreenController _splashController;
+    private PlayFieldController _playFieldController = new PlayFieldController();
+    private List<PlayerState> _playerList = new List<PlayerState>(4);
 
-	public void Init( GameController gameController )
+    private GameLogic _gameLogic;
+
+	public void Init( GameController p_gameManager )
 	{
 		Debug.Log ("Entering In Intro State");
         DOTween.Init(true, true, LogBehaviour.ErrorsOnly);
 
-        _gameController = gameController;
+		_gameController = p_gameManager;
 
-        _splashController = new SplashScreenController();
-        _splashController.Start();
+        _playerList.Add(PlayerState.Create(0, "John"));
+        _playerList.Add(PlayerState.Create(1, "Poop"));
+        _playerList.Add(PlayerState.Create(2, "Adith"));
+        _playerList.Add(PlayerState.Create(3, "Maud'Dib"));
+
+        _gameLogic = GameLogic.Create(_playerList);
+        _playFieldController.Start(_gameLogic);
+       
     }
+
     
     public void Step( float p_deltaTime )
 	{
@@ -35,7 +45,7 @@ public class IntroState : IGameState
         //Camera.main.transform.LookAt(lookPos, grav.normalized);
     }
 
-    public void Exit( GameController gameController )
+    public void Exit( GameController p_gameManager )
 	{
 	//	_controller.getUI().rem
 		Debug.Log ("Exiting In Intro State");
