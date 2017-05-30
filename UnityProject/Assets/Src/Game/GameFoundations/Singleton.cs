@@ -12,10 +12,23 @@ public class Singleton : MonoBehaviour
     public CardResourceBank cardResourceBank;
     public VFXBank vfxBank;
 
-    //public GameManager gameManager { get; private set; }
     //public FontManager fontManager { get; private set; }
     public ViewFactory viewFactory { get; private set; }
+    public GameManager gameManager
+    {
+        get
+        {
+            return GameManager.instance;
+        }
+    }
 
+    public GameController gameController
+    {
+        get
+        {
+            return gameManager.gameController;
+        }
+    }
 
     void Awake()
     {

@@ -23,7 +23,7 @@ public class VFXBank : ScriptableObject
         GameObject prefab = _getFXPrefab(type);
         Assert.IsNotNull(prefab);
 
-        return Instantiate<GameObject>(prefab, parent); 
+        return Instantiate<GameObject>(prefab, parent, false); 
     }
 
     private GameObject _getFXPrefab(VFXType type)

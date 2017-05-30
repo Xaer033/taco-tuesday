@@ -60,12 +60,13 @@ public sealed class PlayFieldController : BaseController
 
     private void _setupFX()
     {
-        GameObject hoverObj = Singleton.instance.vfxBank.Create(VFXType.CARD_HOVER);
+        Transform canvasTransform = Singleton.instance.viewFactory.canvas.transform;
+        GameObject hoverObj = Singleton.instance.vfxBank.Create(VFXType.CARD_HOVER, canvasTransform);
         _hoverFX = hoverObj.GetComponent<ParticleSystem>();
         _hoverFX.gameObject.SetActive(false);
 
 
-        GameObject slamObj = Singleton.instance.vfxBank.Create(VFXType.CARD_SLAM);
+        GameObject slamObj = Singleton.instance.vfxBank.Create(VFXType.CARD_SLAM, canvasTransform);
         _slamFX = slamObj.GetComponent<ParticleSystem>();
     }
 
