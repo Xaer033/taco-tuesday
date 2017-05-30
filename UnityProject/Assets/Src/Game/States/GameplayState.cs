@@ -12,11 +12,13 @@ public class GameplayState : IGameState
     private GameLogic _gameLogic;
 
 	public void Init( GameController p_gameManager )
-	{
-		Debug.Log ("Entering In Intro State");
-        DOTween.Init(true, true, LogBehaviour.ErrorsOnly);
+	{       
+        Debug.Log ("Entering In GamePlay State");
 
 		_gameController = p_gameManager;
+
+        Tween introTween = Singleton.instance.viewFactory.screenFader.FadeIn(1.0f);//fader.DOFade(1.0f, 1.0f);
+        introTween.SetDelay(0.25f);
 
         _playerList.Add(PlayerState.Create(0, "John"));
         _playerList.Add(PlayerState.Create(1, "Poop"));

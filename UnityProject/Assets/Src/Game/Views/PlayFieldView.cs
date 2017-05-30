@@ -35,8 +35,8 @@ public class PlayFieldView : UIView
 
     void Start()
     {
-        Tween introTween = canvasGroup.DOFade(1.0f, 1.0f).OnComplete(OnIntroTransitionFinished);
-        introTween.SetDelay(0.5f);
+        Tween introTween = canvasGroup.DOFade(1.0f, 0.25f).OnComplete(OnIntroTransitionFinished);
+        introTween.SetDelay(0.15f);
     }
 
     public void SetPlayerScore(int playerIndex, int value)

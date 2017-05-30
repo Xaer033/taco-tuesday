@@ -7,7 +7,6 @@ using GhostGen;
 
 public class ViewFactory
 {
-
     internal class AsyncBlock
     {
         public static AsyncBlock Create(ResourceRequest p_request, OnViewCreated p_callback, Transform p_parent )
@@ -27,17 +26,23 @@ public class ViewFactory
 
     public delegate void OnViewCreated(UIView p_view);
 
-
     public Canvas canvas { get; set; }
 
-
+    private ScreenFader _screenFader;
     private List<AsyncBlock> _asyncList = new List<AsyncBlock>();
     
        
     public ViewFactory(Canvas guiCanvas)
     {
         canvas = guiCanvas;
+        _screenFader = _createScreenFader();
     }   
+
+    public ScreenFader screenFader
+    {
+        get { return _screenFader; }
+        set { _screenFader = value; }
+    }
 
     public void Step()
     {
@@ -100,5 +105,12 @@ public class ViewFactory
         Transform viewParent = (parent != null) ? parent : canvas.transform;
         Assert.IsNotNull(viewBase);
         return GameObject.Instantiate<UIView>(viewBase, viewParent, false);
+    }
+
+    private ScreenFader _createScreenFader()
+    {
+        ScreenFader prefab = Resources.Load<ScreenFader>("GUI/ScreenFader");
+        Assert.IsNotNull(prefab);
+        return GameObject.Instantiate<ScreenFader>(prefab, canvas.transform, false);
     }
 }

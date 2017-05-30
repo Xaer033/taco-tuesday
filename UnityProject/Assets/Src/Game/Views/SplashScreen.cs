@@ -12,16 +12,11 @@ public class SplashScreen : UIView
 {
     public TextMeshProUGUI title;
     public TextMeshProUGUI subtitle;
-    public Image fader;
     
 	void Awake()
     {
         title.alpha = 0;
         subtitle.alpha = 0;
-
-        Color col = fader.color;
-        col.a = 1.0f;
-        fader.color = col;
     }
 
     void Start()
@@ -44,7 +39,7 @@ public class SplashScreen : UIView
         Tween subtitleShakeRot = subtitle.transform.DOShakeRotation(0.4f, 8.0f, 16);
         subtitleShakeRot.SetEase(Ease.OutCubic);
 
-        Tween t = fader.DOFade(1.0f, 1.0f);
+        Tween t = Singleton.instance.viewFactory.screenFader.FadeOut(1.0f);//fader.DOFade(1.0f, 1.0f);
 
         outroSeq.Insert(0.0f, titleShakePos);
         outroSeq.Insert(0.0f, titleShakeRot);
@@ -69,7 +64,8 @@ public class SplashScreen : UIView
 
         Sequence introSeq = DOTween.Sequence();
 
-        Tween fadeIn = fader.DOFade(0.0f, 1.0f);
+        Tween fadeIn = Singleton.instance.viewFactory.screenFader.FadeIn(1.0f);//fader.DOFade(1.0f, 1.0f);
+        //fader.DOFade(0.0f, 1.0f);
 
         Sequence titleSeq = DOTween.Sequence();
         Tween titleFade = title.DOFade(1.0f, 1.0f);
