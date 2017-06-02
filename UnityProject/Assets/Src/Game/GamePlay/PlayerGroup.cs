@@ -46,6 +46,12 @@ public class PlayerGroup
         SetActivePlayer(newIndex);
     }
 
+    public PlayerState GetNextPlayer()
+    {
+        int newIndex = (_activePlayerIndex + 1) % playerCount;
+        return GetPlayer(newIndex);
+    }
+
     private void _boundsAssert(int index)
     {
         Assert.IsTrue(index >= 0);

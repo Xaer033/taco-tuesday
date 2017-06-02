@@ -97,7 +97,26 @@ public class ViewFactory
     public void RemoveView(UIView view, bool immediately = false)
     {
         Assert.IsNotNull(view);
-        view.OnViewOutro(immediately, ()=> GameObject.Destroy(view.gameObject));
+        if(immediately)
+        {
+            _removeView(view);
+        }
+        else
+        {
+            view.OnViewOutro(()=>
+            {
+                _removeView(view);
+            });
+        }
+    }
+
+    private void _removeView(UIView view)
+    {
+        if(view != null)
+        {
+            view.OnViewDispose();
+            GameObject.Destroy(view.gameObject);     
+        }
     }
 
     private UIView _createView(UIView viewBase, Transform parent)

@@ -25,12 +25,15 @@ public sealed class PlayFieldController : BaseController
 
     private IngredientCardView _draggedIngredient = null;
     private CustomerCardView _droppedCustomer = null;
+    private PassInterludeController _passController;
 
     public void Start(GameLogic gameLogic)
     {
          _gameLogic = gameLogic;
 
         _setupFX();
+
+        _passController = new PassInterludeController();
 
         viewFactory.CreateAsync<PlayFieldView>("PlayFieldView", (view) =>
         {
@@ -295,9 +298,13 @@ public sealed class PlayFieldController : BaseController
 
     private void _onConfirmTurnButton()
     {
-        _gameLogic.EndPlayerTurn();
-        _refreshHandView(activePlayer);
-        _playfieldView.SetActivePlayer(activePlayer.index);
+        string instructionTextKey = "Pass device to " + _gameLogic.playerGroup.GetNextPlayer().name;
+        _passController.Start(instructionTextKey, () =>
+        {
+            _gameLogic.EndPlayerTurn();
+            _refreshHandView(activePlayer);
+            _playfieldView.SetActivePlayer(activePlayer.index);
+        });
     }
 
     private void _onUndoButton()

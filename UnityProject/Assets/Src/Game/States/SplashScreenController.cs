@@ -10,7 +10,9 @@ public class SplashScreenController : BaseController
 
     public void Start()
     {
-        _splashScreen = viewFactory.Create<SplashScreen>("MainMenu/SplashScreen", viewFactory.canvas.transform);       
+        viewFactory.Create<StarScapeView>("MainMenu/StarScapeView");
+
+        _splashScreen = viewFactory.Create<SplashScreen>("MainMenu/SplashScreen");       
 
         _splashScreen.onTriggered += OnTriggered;
         _splashScreen.onOutroTransitionEvent += OnOutroFinished;

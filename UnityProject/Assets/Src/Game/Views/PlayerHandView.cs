@@ -36,13 +36,7 @@ public class PlayerHandView : UIView
             dragBlocker.gameObject.SetActive(value);
         }
     }
-
-    public override void OnViewOutro(bool immediately, OnViewRemoved removedCallback)
-    {
-        base.OnViewOutro(immediately, removedCallback);
-    }
-
-
+    
     public void SetCardAtIndex(int index, IngredientCardView card)
     {
         if(card != _cardViewList[index])

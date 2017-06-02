@@ -64,9 +64,9 @@ public sealed class CustomerCardView : BaseCardView
         if(cardState == null) { return; }
         if(cardState.cardData == null) { return; }
 
-        if(IsInvalid(InvalidationFlag.STATIC_DATA) )
+        if(IsInvalid(InvalidationFlag.DYNAMIC_DATA) )
         {    
-            _foodValueLbl.text = string.Format("{0}", cardState.cardData.baseReward);
+            _foodValueLbl.text = string.Format("{0}", cardState.totalScore);
         }
 
         _setCustomerCard(

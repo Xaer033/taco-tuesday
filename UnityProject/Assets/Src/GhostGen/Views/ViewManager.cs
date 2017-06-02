@@ -119,7 +119,7 @@ namespace GhostGen
 		private void _removeLayerContainer( LayerContainer p_container )
 		{
 			//Clean up/start transition if it has one
-			p_container.view.OnViewOutro(true, null);
+			p_container.view.OnViewOutro( null);
 
 			//Enter transition if one exists
 			//if( p_container.view.hasTransition )

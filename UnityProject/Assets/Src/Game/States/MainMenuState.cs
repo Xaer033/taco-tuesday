@@ -6,15 +6,23 @@ using DG.Tweening;
 
 public class MainMenuState : IGameState
 {
-	private GameController 	_gameController;
     private MainMenuController _mainMenuController;
+    private StarScapeView _starscapeView;
 
 	public void Init( GameController gameController )
 	{
 		Debug.Log ("Entering In MainMenu State");
-        _gameController = gameController;
-
         _mainMenuController = new MainMenuController();
+
+        _starscapeView = GameObject.FindObjectOfType<StarScapeView>();
+        if (_starscapeView == null)
+        {
+            Singleton.instance.viewFactory.CreateAsync<StarScapeView>("MainMenu/StarScapeView", (view) =>
+            {
+                _starscapeView = view as StarScapeView;
+            });
+        }
+
         Singleton.instance.viewFactory.CreateAsync<MainMenuView>("MainMenu/MainMenuView", (view) =>
         {
             Singleton.instance.viewFactory.screenFader.FadeIn(0.35f, () =>
@@ -22,6 +30,7 @@ public class MainMenuState : IGameState
                 _mainMenuController.Start(view as MainMenuView);
             });
         });
+        
     }
     
     public void Step( float p_deltaTime )
@@ -33,7 +42,8 @@ public class MainMenuState : IGameState
 	{
 	//	_controller.getUI().rem
 		Debug.Log ("Exiting In MainMenu State");
-		//_backButton.onClick.RemoveAllListeners ();
+        //_backButton.onClick.RemoveAllListeners ();
+        Singleton.instance.viewFactory.RemoveView(_starscapeView);
 	}
     
 }

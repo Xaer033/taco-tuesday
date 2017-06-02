@@ -82,25 +82,23 @@ namespace GhostGen
         }
 
 
-        public virtual void OnViewOutro(bool immediately, OnViewRemoved removedCallback)
+        public virtual void OnViewOutro( Action finishedCallback)
         {
-            OnDisposeView(removedCallback);
+            if(finishedCallback != null)
+            {
+                finishedCallback();
+            }
         }
 
-        protected virtual void OnDisposeView(OnViewRemoved removedCallback)
+        public virtual void OnViewDispose()
         {
             OnOutroTransitionFinished();
             
             _introTransitionFinishEvent = null;
             _outroTransitionFinishEvent = null;
-
-            if (removedCallback != null)
-            {
-                removedCallback();
-            }
         }
 
-        protected virtual bool IsInvalid(InvalidationFlag flag)
+        protected bool IsInvalid(InvalidationFlag flag)
         {
             if (flag.IsFlagSet(InvalidationFlag.ALL)) { return true; }
             if(_invalidateFlag.IsFlagSet(InvalidationFlag.ALL)) { return true; }
