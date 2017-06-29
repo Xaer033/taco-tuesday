@@ -95,7 +95,7 @@ public sealed class PlayFieldController : BaseController
         if (cardState == null)
         {
             Debug.LogWarning("Card State is null!");
-            _activeCustomersView.RemoveCardByIndex(0); // TODO: Do this On card slam instead of after the fact
+            _activeCustomersView.RemoveCardByIndex(customerSlot); // TODO: Do this On card slam instead of after the fact
             return;
         }
 
@@ -232,17 +232,8 @@ public sealed class PlayFieldController : BaseController
                 if (customerFinished)
                 {
                     _playfieldView.SetPlayerScore(activePlayer.index, activePlayer.score);
-
                     CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
-                    //if (newState == null)
-                    //{
-                    //    CustomerCardView view = _activeCustomersView.GetCardByIndex(customerIndex);
-                    //    Singleton.instance.viewFactory.RemoveView(view, true);
-                    //}
-                    //else
-                    //{
-                        _setupCustomerView(customerIndex, newState);
-                    //}
+                    _setupCustomerView(customerIndex, newState);
                 }
                 _playerHandView.blockCardDrag = false;
                 _draggedIngredient = null;
