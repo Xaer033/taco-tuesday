@@ -62,6 +62,7 @@ public class PlayerHandView : UIView
         }
     }
 
+
     protected override void OnViewUpdate()
     {
         if(IsInvalid(InvalidationFlag.STATIC_DATA))
