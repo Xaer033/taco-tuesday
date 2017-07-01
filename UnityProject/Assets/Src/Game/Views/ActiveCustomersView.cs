@@ -60,13 +60,6 @@ public class ActiveCustomersView : UIView
                 {
                     cardView.invalidateFlag = InvalidationFlag.ALL;
                 }
-                //    cardView = (CustomerCardView)Singleton.instance.cardResourceBank.CreateCardView(
-                //        _cardStateList[i].cardData,
-                //        _activeSlotList[i]);
-
-                //    cardView.cardState = _cardStateList[i];
-                //    _cardViewList[i] = cardView;
-                //_moveCardToSlot(i, cardView);
             }
         }
     }
