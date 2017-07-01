@@ -133,6 +133,7 @@ public sealed class PlayFieldController : BaseController
         if(cardData == null)
         {
             Debug.LogWarning("Card Data is null!");
+            _playerHandView.RemoveCardByIndex(handSlot); // TODO: Do this On card slam instead of after the fact    
             return;
         }
 
@@ -178,7 +179,9 @@ public sealed class PlayFieldController : BaseController
             customerIndex);
 
         if(_draggedIngredient.isDropSuccessfull)
+        {       
             _droppedCustomer = customerView; 
+        }
     }
 
     private void _handleIngredientCardHover(CustomerCardView customerView)
@@ -221,7 +224,7 @@ public sealed class PlayFieldController : BaseController
                 Singleton.instance.viewFactory.RemoveView(_draggedIngredient, true);
                 _draggedIngredient = null;
 
-                _playerHandView.SetCardAtIndex(handIndex, null);
+                //_playerHandView.SetCardAtIndex(handIndex, null);
 
                 IngredientCardData newIngredientCard = activePlayer.hand.GetCard(handIndex);
                 _setupIngredientView(handIndex, newIngredientCard);

@@ -7,7 +7,6 @@ using DG.Tweening;
 
 public class PlayerHandView : UIView
 {
-
     public Transform[] cardSlotList;
 
     public CanvasGroup canvasGroup;
@@ -15,11 +14,9 @@ public class PlayerHandView : UIView
     public Image dragBlocker;
 
     private IngredientCardView[] _cardViewList;
-    //private IngredientCardData[] _cardDataList;
 
     void Awake()
     {
-        //_cardDataList = new IngredientCardData[PlayerState.kHandSize];
         _cardViewList = new IngredientCardView[PlayerState.kHandSize];
         blockCardDrag = false;
     }
@@ -39,6 +36,7 @@ public class PlayerHandView : UIView
     
     public void SetCardAtIndex(int index, IngredientCardView card)
     {
+        _boundsCheck(index);
         if(card != _cardViewList[index])
         {
             _cardViewList[index] = _processCardView(index, card);
@@ -48,7 +46,18 @@ public class PlayerHandView : UIView
 
     public IngredientCardView GetCardAtIndex(int index)
     {
+        _boundsCheck(index);
         return _cardViewList[index];
+    }
+
+    public void RemoveCardByIndex(int index)
+    {
+        _boundsCheck(index);
+        if(_cardViewList[index])
+        {
+            //_cardViewList[index].gameObject.SetActive(false);
+            Singleton.instance.viewFactory.RemoveView(_cardViewList[index]);
+        }
     }
 
     protected override void OnViewUpdate()
@@ -71,6 +80,7 @@ public class PlayerHandView : UIView
         IngredientCardView cardView)
     {
         if (cardView == null) { return null; }
+        _boundsCheck(handIndex);
 
         cardView.transform.SetParent(cardSlotList[handIndex]);
         cardView.transform.localPosition = Vector3.zero;
@@ -79,6 +89,12 @@ public class PlayerHandView : UIView
         cardView.dragLayer = dragCardLayer;
         cardView.handIndex = handIndex;
         return cardView;
+    }
+
+    private void _boundsCheck(int index)
+    {
+        Debug.Assert(index >= 0, "Index is less than 0!");
+        Debug.Assert(index < PlayerHand.kDefaultHandSize, "Index is greater than slot container size");
     }
 }
 
