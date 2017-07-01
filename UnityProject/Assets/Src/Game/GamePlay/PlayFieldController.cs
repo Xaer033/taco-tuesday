@@ -221,11 +221,11 @@ public sealed class PlayFieldController : BaseController
             _zoomSlamTween(_draggedIngredient, _droppedCustomer, () =>
             {
                 int handIndex = _draggedIngredient.handIndex;
-                Singleton.instance.viewFactory.RemoveView(_draggedIngredient, true);
+                //Singleton.instance.viewFactory.RemoveView(_draggedIngredient, true);
                 _draggedIngredient = null;
 
                 //_playerHandView.SetCardAtIndex(handIndex, null);
-
+                _playerHandView.RemoveCardByIndex(handIndex);
                 IngredientCardData newIngredientCard = activePlayer.hand.GetCard(handIndex);
                 _setupIngredientView(handIndex, newIngredientCard);
 
