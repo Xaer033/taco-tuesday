@@ -126,6 +126,13 @@
 		"cardType"	: "meat",
 		"foodValue"	: 4
 	},
+	{
+		"id"		: "bat_meat",
+		"titleKey"	: "Bat Meat",
+		"iconName"	: "Steak",
+		"cardType"	: "meat",
+		"foodValue"	: -3
+	},
 	
 // Veggies
 	{
@@ -375,6 +382,13 @@
 		"iconName"	: "Salsa_Verde",
 		"cardType"	: "topping",
 		"foodValue"	: 2
+	},
+	{
+		"id"		: "sour_cream",
+		"titleKey"	: "Sour Cream",
+		"iconName"	: "Salsa_Verde",
+		"cardType"	: "topping",
+		"foodValue"	: 1
 	}
 ]
 

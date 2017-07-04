@@ -40,7 +40,7 @@ public class CardDeck : System.Object
 
     public BaseCardData Pop()
     {
-        BaseCardData card = Top;
+        BaseCardData card = top;
         _cardList.Remove(card);
 
         return card;
@@ -51,7 +51,7 @@ public class CardDeck : System.Object
         _cardList.Add(card);
     }
 
-    public BaseCardData Top
+    public BaseCardData top
     {
         get
         {
@@ -64,7 +64,7 @@ public class CardDeck : System.Object
         }
     }
 
-    public BaseCardData Bottom
+    public BaseCardData bottom
     {
         get
         {
@@ -80,6 +80,14 @@ public class CardDeck : System.Object
     public void Shuffle()
     {
         _cardList.Sort((a, b) => Guid.NewGuid().CompareTo(Guid.NewGuid()));
+    }
+
+    public bool isEmpty
+    {
+        get
+        {
+            return _cardList.Count == 0;
+        }
     }
     
 }

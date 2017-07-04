@@ -65,6 +65,12 @@ public class GameLogic
         int handIndex,
         int customerIndex)
     {
+        if(isGameOver)
+        {
+            Debug.LogError("Game is over!");
+            return false;
+        }
+
         if (!activeCustomerSet.IsSlotActive(customerIndex)) { return false; }
 
         PlayerState         playerState     = playerGroup.GetPlayer(playerIndex);
@@ -150,5 +156,14 @@ public class GameLogic
             ingredient);
 
         _commandFactory.Execute(command);
+    }
+
+    public bool isGameOver
+    {
+        get
+        {
+            return _customerDeck.isEmpty && 
+                activeCustomerSet.isAllSlotsEmpty;
+        }
     }
 }

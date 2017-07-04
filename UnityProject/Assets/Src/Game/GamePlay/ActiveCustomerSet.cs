@@ -20,7 +20,20 @@ public class ActiveCustomerSet
         return new ActiveCustomerSet();
     }
     
-
+    public bool isAllSlotsEmpty
+    {
+        get
+        {
+            for(int i = 0; i < kMaxActiveCustomers; ++i)
+            {
+                if(IsSlotActive(i))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
     public bool IsSlotActive(int slotIndex)
     {
         _boundsCheck(slotIndex);

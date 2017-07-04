@@ -18,7 +18,8 @@
 		"baseReward"		: -2,
 		"meatRequirement"	: 1,
 		"veggieRequirement"	: 2,
-		"toppingRequirement": 1
+		"toppingRequirement": 1,
+		"cardCount"			: 2
 	},
 	{
 		"id"				: "carnivore_1",
@@ -93,27 +94,18 @@
 		"toppingRequirement": 3
 	},
 	{
-		"id"				: "regular_1",
-		"titleKey"			: "The Regular",
-		"iconName"			: "angry_customer",
-		"cardType"			: "customer",
-		"baseReward"		: 0,
-		"meatRequirement"	: 0,
-		"veggieRequirement"	: 1,
-		"toppingRequirement": 2
-	},
-	{
-		"id"				: "regular_2",
+		"id"				: "regular",
 		"titleKey"			: "The Regular",
 		"iconName"			: "angry_customer",
 		"cardType"			: "customer",
 		"baseReward"		: 0,
 		"meatRequirement"	: 1,
 		"veggieRequirement"	: 1,
-		"toppingRequirement": 1
+		"toppingRequirement": 1,
+		"cardCount"			: 2
 	},
 	{
-		"id"				: "to_go",
+		"id"				: "to_go_1",
 		"titleKey"			: "To-Go",
 		"iconName"			: "angry_customer",
 		"cardType"			: "customer",
@@ -123,7 +115,7 @@
 		"toppingRequirement": 0
 	},
 	{
-		"id"				: "to_go",
+		"id"				: "to_go_2",
 		"titleKey"			: "To-Go",
 		"iconName"			: "angry_customer",
 		"cardType"			: "customer",
@@ -133,7 +125,7 @@
 		"toppingRequirement": 1
 	},
 	{
-		"id"				: "to_go",
+		"id"				: "to_go_3",
 		"titleKey"			: "To-Go",
 		"iconName"			: "angry_customer",
 		"cardType"			: "customer",
@@ -143,7 +135,7 @@
 		"toppingRequirement": 1
 	},
 	{
-		"id"				: "vegetarian",
+		"id"				: "vegetarian_1",
 		"titleKey"			: "Vegetarian",
 		"iconName"			: "angry_customer",
 		"cardType"			: "customer",
@@ -153,7 +145,7 @@
 		"toppingRequirement": 0
 	},
 	{
-		"id"				: "vegetarian",
+		"id"				: "vegetarian_2",
 		"titleKey"			: "Vegetarian",
 		"iconName"			: "angry_customer",
 		"cardType"			: "customer",
