@@ -26,7 +26,7 @@ public class GameOverPopupController : BaseController
         List<PlayerState> sortedList = new List<PlayerState>(playerList);
         sortedList.Sort((a, b) =>
         {
-            return a.score.CompareTo(b.score);
+            return b.score.CompareTo(a.score);
         });
         return sortedList;
     }
