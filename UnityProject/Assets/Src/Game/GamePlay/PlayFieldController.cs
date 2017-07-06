@@ -27,9 +27,12 @@ public sealed class PlayFieldController : BaseController
     private CustomerCardView _droppedCustomer = null;
     private PassInterludeController _passController;
 
-    public void Start(GameLogic gameLogic)
+    private Action _onGameOver;
+
+    public void Start(GameLogic gameLogic, Action onGameOver)
     {
          _gameLogic = gameLogic;
+        _onGameOver = onGameOver;
 
         _setupFX();
 
@@ -54,6 +57,11 @@ public sealed class PlayFieldController : BaseController
             _setupActiveCustomers(_playfieldView.staticCardLayer);
             _createPlayerHandView(kLocalPlayerIndex, _playfieldView.staticCardLayer);
         });
+    }
+
+    public void RemoveView()
+    {
+        viewFactory.RemoveView(_playfieldView);
     }
 
     private void _playfieldView_OnIntroTransitionEvent(UIView p_view)
@@ -236,10 +244,18 @@ public sealed class PlayFieldController : BaseController
                 {
                     _playfieldView.SetPlayerScore(activePlayer.index, activePlayer.score);
                     CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
-                    _setupCustomerView(customerIndex, newState);
+                    _setupCustomerView(customerIndex, newState);                    
                 }
+           
                 _playerHandView.blockCardDrag = false;
-                _draggedIngredient = null;
+
+                if(_gameLogic.isGameOver)
+                {
+                    if(_onGameOver != null)
+                    {
+                        _onGameOver();
+                    }  
+                }
             });
         }
     }

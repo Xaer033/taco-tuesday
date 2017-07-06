@@ -15,10 +15,7 @@ public class BaseCardView : UIView
     public TextMeshProUGUI _titleLbl;
     public TextMeshProUGUI _foodValueLbl;
     
-
     protected BaseCardData _cardData = null;
-
-   
 
     public BaseCardData cardData
     {

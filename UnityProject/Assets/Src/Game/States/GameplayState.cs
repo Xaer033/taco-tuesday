@@ -7,6 +7,8 @@ using DG.Tweening;
 public class GameplayState : IGameState
 {
     private PlayFieldController _playFieldController = new PlayFieldController();
+    private GameOverPopupController _gameOverPopupController = new GameOverPopupController();
+
     private List<PlayerState> _playerList = new List<PlayerState>(4);
 
     private GameLogic _gameLogic;
@@ -26,7 +28,7 @@ public class GameplayState : IGameState
         _playerList.Add(PlayerState.Create(3, "Maud'Dib"));
 
         _gameLogic = GameLogic.Create(_playerList);
-        _playFieldController.Start(_gameLogic);
+        _playFieldController.Start(_gameLogic, onGameOver);
        
     }
 
@@ -69,4 +71,13 @@ public class GameplayState : IGameState
 	{
 		_gotoSplash = true;
 	}
+
+    private void onGameOver()
+    {
+        _gameOverPopupController.Start(_playerList, () =>
+        {           
+            _playFieldController.RemoveView();
+            _gameController.ChangeState(TacoTuesdayState.MAIN_MENU);                                    
+        });
+    }
 }

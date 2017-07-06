@@ -6,6 +6,8 @@ using UnityEngine.Assertions;
 
 public class PlayerGroup
 {
+    public static int kMaxPlayerCount = 4;
+
     private List<PlayerState> _playerList;
     private int _activePlayerIndex = 0;
     
