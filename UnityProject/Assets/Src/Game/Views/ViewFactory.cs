@@ -83,8 +83,11 @@ public class ViewFactory
         return (T)(object)_createView(viewBase, parent);
     }
 
+
     public bool CreateAsync<T>(string viewPath, OnViewCreated callback, Transform parent = null)
     {
+        Debug.Log("View At: " + viewPath);
+
         ResourceRequest request = Resources.LoadAsync<UIView>("GUI/" + viewPath);
         if (request == null) { return false; }
 

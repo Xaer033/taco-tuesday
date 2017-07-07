@@ -9,6 +9,7 @@ public class TacoTuesdayState
     public const int MAIN_MENU = 2;
     public const int GAMEPLAY = 3;
     public const int CREDITS = 4;
+    public const int SETUP_GAME = 5;
 }
 
 
@@ -21,6 +22,7 @@ public class TacoTuesdayStateFactory : IStateFactory
             case TacoTuesdayState.INTRO: return new IntroState();
             case TacoTuesdayState.MAIN_MENU: return new MainMenuState();
             case TacoTuesdayState.GAMEPLAY: return new GameplayState();
+            case TacoTuesdayState.SETUP_GAME: return new PlayerSetupState();
             case TacoTuesdayState.CREDITS: break;
         }
 

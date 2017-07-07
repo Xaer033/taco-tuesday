@@ -5,7 +5,6 @@ using GhostGen;
 [DisallowMultipleComponent]
 public class GameManager : MonoBehaviour
 {
-
     public FontManager       fontManager { get; private set; }
     
     public GameController gameController { get; private set; }
@@ -13,6 +12,9 @@ public class GameManager : MonoBehaviour
 
     public CardResourceBank _cardResourceBank;
     
+    public GameContext gameContext { get; set; }
+
+
     private IStateFactory _stateFactory;
    
      
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
 	void Awake()
 	{
         _instance = this;
-        fontManager = gameObject.AddComponent<FontManager>();
+        fontManager = gameObject.GetComponent<FontManager>();
 
         guiCanvas = GetComponentInChildren<Canvas>();
         

@@ -30,7 +30,7 @@ public class MainMenuController : BaseController
         Singleton.instance.viewFactory.screenFader.FadeOut(0.5f, () =>
         {
             Singleton.instance.viewFactory.RemoveView(_mainMenuView);
-            Singleton.instance.gameController.ChangeState(TacoTuesdayState.GAMEPLAY);
+            Singleton.instance.gameController.ChangeState(TacoTuesdayState.SETUP_GAME);
         });
         Debug.Log("Start Game!");
     }

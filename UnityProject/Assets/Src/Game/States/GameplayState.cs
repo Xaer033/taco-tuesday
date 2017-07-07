@@ -22,10 +22,7 @@ public class GameplayState : IGameState
         Tween introTween = Singleton.instance.viewFactory.screenFader.FadeIn(1.0f);//fader.DOFade(1.0f, 1.0f);
         introTween.SetDelay(0.25f);
 
-        _playerList.Add(PlayerState.Create(0, "John"));
-        _playerList.Add(PlayerState.Create(1, "Poop"));
-        _playerList.Add(PlayerState.Create(2, "Adith"));
-        _playerList.Add(PlayerState.Create(3, "Maud'Dib"));
+        _setupPlayerList();
 
         _gameLogic = GameLogic.Create(_playerList);
         _playFieldController.Start(_gameLogic, onGameOver);
@@ -40,13 +37,6 @@ public class GameplayState : IGameState
 			_gameController.ChangeState (TacoTuesdayState.INTRO);
 			_gotoSplash = false;
 		}
-
-        //Transform camTransform = Camera.main.transform;
-        //Vector3 lookPos = camTransform.position + camTransform.forward * 10.0f;
-
-        //Vector3 grav = -Input.gyro.gravity;
-        //grav.x = -grav.x;
-        //Camera.main.transform.LookAt(lookPos, grav.normalized);
     }
 
     public void Exit( GameController p_gameManager )
@@ -79,5 +69,16 @@ public class GameplayState : IGameState
             _playFieldController.RemoveView();
             _gameController.ChangeState(TacoTuesdayState.MAIN_MENU);                                    
         });
+    }
+
+    private void _setupPlayerList()
+    {
+        GameContext context = Singleton.instance.gameManager.gameContext;
+        for(int i = 0; i < context.playerNameList.Count; ++i)
+        {
+            string pName = context.playerNameList[i];
+            string name = (string.IsNullOrEmpty(pName)) ? "Player " + i + 1 : pName;
+            _playerList.Add(PlayerState.Create(i, name));
+        }
     }
 }

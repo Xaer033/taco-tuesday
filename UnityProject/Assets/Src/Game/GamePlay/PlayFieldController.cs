@@ -38,9 +38,11 @@ public sealed class PlayFieldController : BaseController
 
         _passController = new PassInterludeController();
 
-        viewFactory.CreateAsync<PlayFieldView>("PlayFieldView", (view) =>
+        viewFactory.CreateAsync<PlayFieldView>("PlayFieldView", (_view) =>
         {
-            _playfieldView = view as PlayFieldView;
+            _playfieldView = _view as PlayFieldView;
+            view = _view;
+
             _playfieldView.onIntroFinishedEvent += _playfieldView_OnIntroTransitionEvent;
             _playfieldView.confirmButton.onClick.AddListener(_onConfirmTurnButton);
             _playfieldView.undoButton.onClick.AddListener(_onUndoButton);
@@ -57,11 +59,6 @@ public sealed class PlayFieldController : BaseController
             _setupActiveCustomers(_playfieldView.staticCardLayer);
             _createPlayerHandView(kLocalPlayerIndex, _playfieldView.staticCardLayer);
         });
-    }
-
-    public void RemoveView()
-    {
-        viewFactory.RemoveView(_playfieldView);
     }
 
     private void _playfieldView_OnIntroTransitionEvent(UIView p_view)
