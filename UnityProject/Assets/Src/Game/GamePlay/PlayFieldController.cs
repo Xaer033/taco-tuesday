@@ -68,7 +68,7 @@ public sealed class PlayFieldController : BaseController
 
     private void _setupFX()
     {
-        Transform canvasTransform = Singleton.instance.viewFactory.canvas.transform;
+        Transform canvasTransform = Singleton.instance.gui.viewFactory.canvas.transform;
         GameObject hoverObj = Singleton.instance.vfxBank.Create(VFXType.CARD_HOVER, canvasTransform);
         _hoverFX = hoverObj.GetComponent<ParticleSystem>();
         _hoverFX.gameObject.SetActive(false);

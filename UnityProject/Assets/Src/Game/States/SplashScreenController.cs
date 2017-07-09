@@ -20,7 +20,7 @@ public class SplashScreenController : BaseController
 
     private void OnOutroFinished(UIView view)
     {
-        GameManager.instance.gameController.ChangeState(TacoTuesdayState.MAIN_MENU);
+        Singleton.instance.gameController.ChangeState(TacoTuesdayState.MAIN_MENU);
     }
 
     private void OnTriggered(BaseEventData e)

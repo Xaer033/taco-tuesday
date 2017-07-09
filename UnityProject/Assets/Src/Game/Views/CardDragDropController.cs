@@ -68,7 +68,7 @@ public class CardDragDropController
         _scaleTween.OnComplete(() => _scaleTween = null);
 
         Vector3 mPos = Input.mousePosition;
-        mPos.z = GameManager.instance.guiCanvas.planeDistance;
+        mPos.z = Singleton.instance.gui.mainCanvas.planeDistance;
         _inputOffset = _target.position - Camera.main.ScreenToWorldPoint(mPos);
 
         _target.SetParent(_dragLayer);
@@ -81,7 +81,7 @@ public class CardDragDropController
         const float kScaleFactor = 3.0f;
 
         Vector3 mPos = Input.mousePosition;
-        mPos.z = GameManager.instance.guiCanvas.planeDistance;
+        mPos.z = Singleton.instance.gui.mainCanvas.planeDistance;
         mPos = Camera.main.ScreenToWorldPoint(mPos) + _inputOffset;
         //Pull card torwards the camera and above the other cards
         _target.position = mPos + (Camera.main.transform.position - mPos) * 0.1f;

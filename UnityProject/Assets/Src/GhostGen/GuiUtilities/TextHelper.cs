@@ -15,13 +15,15 @@ namespace GhostGen
 
         private Text _text;
         private FontType _dirtyFontType = FontType.None;
+        private FontManager _fontManager;
 
         // Use this for initialization
         void Awake()
         {
+            _fontManager = Singleton.instance.fontManager;
             _text = GetComponent<Text>();
             _text.verticalOverflow = VerticalWrapMode.Overflow;
-            _setTextParameters(FontManager.GetFont(fontType));
+            _setTextParameters(_fontManager.GetFont(fontType));
         }
 
         private void _setTextParameters(Font font)
@@ -39,7 +41,7 @@ namespace GhostGen
         {
             if (fontType != _dirtyFontType)
             {
-                _setTextParameters(FontManager.GetFont(fontType));
+                _setTextParameters(_fontManager.GetFont(fontType));
             }
             _dirtyFontType = fontType;
         }

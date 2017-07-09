@@ -13,13 +13,13 @@ public class GameplayState : IGameState
 
     private GameLogic _gameLogic;
 
-	public void Init( GameController p_gameManager )
+	public void Init( GameController p_gameController )
 	{       
         Debug.Log ("Entering In GamePlay State");
 
-		_gameController = p_gameManager;
+		_gameController = p_gameController;
 
-        Tween introTween = Singleton.instance.viewFactory.screenFader.FadeIn(1.0f);//fader.DOFade(1.0f, 1.0f);
+        Tween introTween = Singleton.instance.gui.screenFader.FadeIn(1.0f);//fader.DOFade(1.0f, 1.0f);
         introTween.SetDelay(0.25f);
 
         _setupPlayerList();
@@ -39,7 +39,7 @@ public class GameplayState : IGameState
 		}
     }
 
-    public void Exit( GameController p_gameManager )
+    public void Exit( GameController p_gameController)
 	{
 	//	_controller.getUI().rem
 		Debug.Log ("Exiting In Intro State");
@@ -73,11 +73,11 @@ public class GameplayState : IGameState
 
     private void _setupPlayerList()
     {
-        GameContext context = Singleton.instance.gameManager.gameContext;
+        GameContext context = Singleton.instance.sessionFlags.gameContext;
         for(int i = 0; i < context.playerNameList.Count; ++i)
         {
             string pName = context.playerNameList[i];
-            string name = (string.IsNullOrEmpty(pName)) ? "Player " + i + 1 : pName;
+            string name = (string.IsNullOrEmpty(pName)) ?  (i + 1).ToString() : pName;
             _playerList.Add(PlayerState.Create(i, name));
         }
     }

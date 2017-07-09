@@ -23,7 +23,7 @@ public class PassPlaySetupController : BaseController
 
             for (int i = 0; i < PlayerGroup.kMaxPlayerCount; ++i)
             {
-                _passPlaySetup.playerInputSetups[i].playerName.text = string.Format("Player {0}", i+1);
+                _passPlaySetup.playerInputSetups[i].playerName.text = string.Format("Player {0}", (i+1).ToString());
             }
         });
     }
@@ -54,7 +54,7 @@ public class PassPlaySetupController : BaseController
     }
     private void onCancelButton()
     {
-        _passPlaySetup.startButton.onClick.RemoveListener(onCancelButton);
+        _passPlaySetup.cancelButton.onClick.RemoveListener(onCancelButton);
         if (_onCancel != null)
         {
             _onCancel();

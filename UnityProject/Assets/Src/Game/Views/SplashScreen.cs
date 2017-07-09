@@ -39,7 +39,7 @@ public class SplashScreen : UIView
         Tween subtitleShakeRot = subtitle.transform.DOShakeRotation(0.4f, 8.0f, 16);
         subtitleShakeRot.SetEase(Ease.OutCubic);
 
-        Tween t = Singleton.instance.viewFactory.screenFader.FadeOut(0.5f);//fader.DOFade(1.0f, 1.0f);
+        Tween t = Singleton.instance.gui.screenFader.FadeOut(0.5f);//fader.DOFade(1.0f, 1.0f);
 
         outroSeq.Insert(0.0f, titleShakePos);
         outroSeq.Insert(0.0f, titleShakeRot);
@@ -62,7 +62,7 @@ public class SplashScreen : UIView
 
         Sequence introSeq = DOTween.Sequence();
 
-        Tween fadeIn = Singleton.instance.viewFactory.screenFader.FadeIn(TWEEN_DURATION);//fader.DOFade(1.0f, 1.0f);
+        Tween fadeIn = Singleton.instance.gui.screenFader.FadeIn(TWEEN_DURATION);//fader.DOFade(1.0f, 1.0f);
         //fader.DOFade(0.0f, 1.0f);
 
         Sequence titleSeq = DOTween.Sequence();

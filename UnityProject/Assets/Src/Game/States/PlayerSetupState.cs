@@ -7,14 +7,18 @@ using DG.Tweening;
 public class PlayerSetupState : IGameState
 {
     private PassPlaySetupController _passPlaySetupController;
+    private ScreenFader _fader;
+    private GameController _controller;
 
 	public void Init( GameController gameController )
 	{
+        _controller = gameController;
+
         _passPlaySetupController = new PassPlaySetupController();
         _passPlaySetupController.Start(onPassSetupStart, onPassSetupCancel);
 
-        ViewFactory viewFactory = Singleton.instance.viewFactory;
-        viewFactory.screenFader.FadeIn(0.35f);       
+        _fader = Singleton.instance.gui.screenFader;
+        _fader.FadeIn(0.35f);       
     }
     
     public void Step( float p_deltaTime )
@@ -29,21 +33,21 @@ public class PlayerSetupState : IGameState
 
     private void onPassSetupStart()
     {
-        GameContext context = GameContext.Create(GameContext.GameType.PASS_AND_PLAY);
-        context.playerNameList = _passPlaySetupController.GetNameList();
-        Singleton.instance.gameManager.gameContext = context;
+        List<string> pNames = _passPlaySetupController.GetNameList();
+        GameContext context = GameContext.Create(GameType.PASS_AND_PLAY, pNames);
+        Singleton.instance.sessionFlags.gameContext = context;
 
-        Singleton.instance.viewFactory.screenFader.FadeOut(0.35f, () =>
+        _fader.FadeOut(0.35f, () =>
         {
-            Singleton.instance.gameController.ChangeState(TacoTuesdayState.GAMEPLAY);
+            _controller.ChangeState(TacoTuesdayState.GAMEPLAY);
         });
     }
 
     private void onPassSetupCancel()
     {
-        Singleton.instance.viewFactory.screenFader.FadeOut(0.35f, () =>
+        _fader.FadeOut(0.35f, () =>
         {
-            Singleton.instance.gameController.ChangeState(TacoTuesdayState.MAIN_MENU);
+            _controller.ChangeState(TacoTuesdayState.MAIN_MENU);
         });
     }
 }

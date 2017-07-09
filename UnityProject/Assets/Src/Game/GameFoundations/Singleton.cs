@@ -3,43 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using GhostGen;
 
-[RequireComponent(typeof(FontManager))]
-public class Singleton : MonoBehaviour
-{
-    public Canvas mainCanvas;
-    public Camera guiCamera;
 
+public class Singleton : MonoBehaviour 
+{
     public CardResourceBank cardResourceBank;
     public VFXBank vfxBank;
+    public GuiManager gui;
+    public FontManager fontManager;
 
-    //public FontManager fontManager { get; private set; }
-    public ViewFactory viewFactory { get; private set; }
-    public GameManager gameManager
-    {
-        get
-        {
-            return GameManager.instance;
-        }
-    }
 
-    public GameController gameController
-    {
-        get
-        {
-            return gameManager.gameController;
-        }
-    }
+    public GameController   gameController  { get; private set; }
+    public SessionFlags     sessionFlags    { get; private set; }
 
-    void Awake()
+    private IStateFactory _stateFactory;
+
+    public void Awake()
     {
         _instance = this;
-        cardResourceBank.Initialize();
-        viewFactory = new ViewFactory(mainCanvas);
+
+        _stateFactory = new TacoTuesdayStateFactory();
+        gameController = new GameController(_stateFactory);
+
+        sessionFlags = new SessionFlags();
+
+        Input.multiTouchEnabled = false; //This needs to go elsewere 
+    }
+    public void Start()
+    {
+        _postInit();
+
+        gameController.ChangeState(TacoTuesdayState.INTRO);
     }
 
-    void Update()
+
+    public void Update()
     {
-        viewFactory.Step();
+        gameController.Step(Time.deltaTime);
+        gui.Step(Time.deltaTime);
     }
 
     private static Singleton _instance = null;
@@ -51,5 +51,11 @@ public class Singleton : MonoBehaviour
         }
     }
 
-    
+
+    private void _postInit()
+    {
+        cardResourceBank.PostInit();
+        gui.PostInit();
+        fontManager.PostInit();
+    }
 }

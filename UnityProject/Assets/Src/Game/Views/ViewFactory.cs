@@ -28,22 +28,15 @@ public class ViewFactory
 
     public Canvas canvas { get; set; }
 
-    private ScreenFader _screenFader;
     private List<AsyncBlock> _asyncList = new List<AsyncBlock>();
     
        
     public ViewFactory(Canvas guiCanvas)
     {
         canvas = guiCanvas;
-        _screenFader = _createScreenFader();
     }   
 
-    public ScreenFader screenFader
-    {
-        get { return _screenFader; }
-        set { _screenFader = value; }
-    }
-
+   
     public void Step()
     {
         int asyncLength = _asyncList.Count;
@@ -127,12 +120,5 @@ public class ViewFactory
         Transform viewParent = (parent != null) ? parent : canvas.transform;
         Assert.IsNotNull(viewBase);
         return GameObject.Instantiate<UIView>(viewBase, viewParent, false);
-    }
-
-    private ScreenFader _createScreenFader()
-    {
-        ScreenFader prefab = Resources.Load<ScreenFader>("GUI/ScreenFader");
-        Assert.IsNotNull(prefab);
-        return GameObject.Instantiate<ScreenFader>(prefab, canvas.transform, false);
     }
 }

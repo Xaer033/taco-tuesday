@@ -6,7 +6,10 @@ public class BaseController
 
     protected ViewFactory viewFactory
     {
-        get { return Singleton.instance.viewFactory; }
+        get
+        {
+            return Singleton.instance.gui.viewFactory;
+        }
     }
 
     protected UIView view

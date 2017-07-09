@@ -27,9 +27,9 @@ public class MainMenuController : BaseController
     {
         _mainMenuView._startButton.onClick.RemoveListener(OnStartGame);
 
-        Singleton.instance.viewFactory.screenFader.FadeOut(0.5f, () =>
+        Singleton.instance.gui.screenFader.FadeOut(0.5f, () =>
         {
-            Singleton.instance.viewFactory.RemoveView(_mainMenuView);
+            Singleton.instance.gui.viewFactory.RemoveView(_mainMenuView);
             Singleton.instance.gameController.ChangeState(TacoTuesdayState.SETUP_GAME);
         });
         Debug.Log("Start Game!");

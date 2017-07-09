@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 
+public enum GameType
+{
+    SINGLE_PLAYER,
+    PASS_AND_PLAY,
+    ONLINE
+}
+
 public class GameContext
 {
-    public enum GameType
-    {
-        SINGLE_PLAYER,
-        PASS_AND_PLAY,
-        ONLINE
-    }
+    public GameType         gameType        { get; private set; }
+    public List<string>     playerNameList  { get; private set; }
 
-    public GameType         gameType        { get; set; }
-    public List<string>     playerNameList  { get; set; }
-
-    public static GameContext Create(GameType type)
+    public static GameContext Create(GameType type, List<string> playerList)
     {
         GameContext gc = new GameContext();
         gc.gameType = type;
-        gc.playerNameList = new List<string>(PlayerGroup.kMaxPlayerCount);
+        gc.playerNameList = playerList;
         return gc;
     }
 

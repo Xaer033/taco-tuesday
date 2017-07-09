@@ -17,15 +17,15 @@ public class MainMenuState : IGameState
         _starscapeView = GameObject.FindObjectOfType<StarScapeView>();
         if (_starscapeView == null)
         {
-            Singleton.instance.viewFactory.CreateAsync<StarScapeView>("MainMenu/StarScapeView", (view) =>
+            Singleton.instance.gui.viewFactory.CreateAsync<StarScapeView>("MainMenu/StarScapeView", (view) =>
             {
                 _starscapeView = view as StarScapeView;
             });
         }
 
-        Singleton.instance.viewFactory.CreateAsync<MainMenuView>("MainMenu/MainMenuView", (view) =>
+        Singleton.instance.gui.viewFactory.CreateAsync<MainMenuView>("MainMenu/MainMenuView", (view) =>
         {
-            Singleton.instance.viewFactory.screenFader.FadeIn(0.35f, () =>
+            Singleton.instance.gui.screenFader.FadeIn(0.35f, () =>
             {
                 _mainMenuController.Start(view as MainMenuView);
             });
@@ -43,7 +43,7 @@ public class MainMenuState : IGameState
 	//	_controller.getUI().rem
 		Debug.Log ("Exiting In MainMenu State");
         //_backButton.onClick.RemoveAllListeners ();
-        Singleton.instance.viewFactory.RemoveView(_starscapeView);
+        Singleton.instance.gui.viewFactory.RemoveView(_starscapeView);
 	}
     
 }

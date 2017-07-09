@@ -34,13 +34,13 @@ public class GameOverPopupController : BaseController
     {
         _gameOverPopup._confirmButton.onClick.RemoveListener(OnConfirm);
         
-        viewFactory.screenFader.FadeOut(0.5f, () =>
-         {
-             viewFactory.RemoveView(_gameOverPopup);
-             if (_onConfirm != null)
-             {
-                 _onConfirm();
-             }
-         });
+        Singleton.instance.gui.screenFader.FadeOut(0.5f, () =>
+        {
+            viewFactory.RemoveView(_gameOverPopup);
+            if (_onConfirm != null)
+            {
+                _onConfirm();
+            }
+        });
     }
 }

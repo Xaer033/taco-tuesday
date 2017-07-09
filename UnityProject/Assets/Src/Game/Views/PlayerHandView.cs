@@ -56,7 +56,7 @@ public class PlayerHandView : UIView
         if(_cardViewList[index])
         {
             //_cardViewList[index].gameObject.SetActive(false);
-            Singleton.instance.viewFactory.RemoveView(_cardViewList[index]);
+            Singleton.instance.gui.viewFactory.RemoveView(_cardViewList[index]);
             _cardViewList[index] = null;
             invalidateFlag = InvalidationFlag.ALL;
         }

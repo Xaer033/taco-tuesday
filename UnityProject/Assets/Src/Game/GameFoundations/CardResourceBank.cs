@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 using GhostGen;
 
-public class CardResourceBank : ScriptableObject
+public class CardResourceBank : ScriptableObject, IPostInit
 {
     [System.Serializable]
     public class IngredientCardSprites
@@ -26,7 +26,7 @@ public class CardResourceBank : ScriptableObject
 
     private Dictionary<string, Sprite> _iconMap = new Dictionary<string, Sprite>();
 
-    public void Initialize()
+    public void PostInit()
     { 
         Sprite[] sprites = Resources.LoadAll<Sprite>("Atlases/" + iconAtlas.name);
         foreach(Sprite s in sprites)
