@@ -9,15 +9,14 @@ public class GuiManager : ScriptableObject, IPostInit
 
     public ScreenFader  screenFader     { get; private set; }
     public ViewFactory  viewFactory     { get; private set; }
-  
-    public void Awake()
-    {
 
-    }
-
+    private GameObject _guiObject;
+    
     public void PostInit()
     {
-        _createGuiObject();
+        _guiObject = _getOrCreateGuiObject();
+        mainCanvas = _guiObject.GetComponentInChildren<Canvas>();
+        guiCamera = _guiObject.GetComponentInChildren<Camera>();
 
         viewFactory = new ViewFactory(mainCanvas);
         screenFader = _createScreenFader(mainCanvas);
@@ -37,14 +36,18 @@ public class GuiManager : ScriptableObject, IPostInit
         return GameObject.Instantiate<ScreenFader>(prefab, canvas.transform, false);
     }
 
-    private GameObject _createGuiObject()
+    private GameObject _getOrCreateGuiObject()
     {
+        GameObject obj = GameObject.FindGameObjectWithTag("GuiObject");
+        if(obj)
+        {
+            return obj;
+        }
+
         GameObject prefab = Resources.Load<GameObject>("GUI/GuiPrefab");
         Assert.IsNotNull(prefab);
-        GameObject instance = GameObject.Instantiate<GameObject>(prefab, null, false);
+        obj = GameObject.Instantiate<GameObject>(prefab, null, false);
 
-        mainCanvas  = instance.GetComponentInChildren<Canvas>();
-        guiCamera   = instance.GetComponentInChildren<Camera>();
-        return instance;
+        return obj;
     }
 }

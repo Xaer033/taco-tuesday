@@ -62,13 +62,28 @@ public class GameplayState : IGameState
 		_gotoSplash = true;
 	}
 
-    private void onGameOver()
+    private void onGameOver(bool gameOverPopup = true)
     {
-        _gameOverPopupController.Start(_playerList, () =>
-        {           
-            _playFieldController.RemoveView();
-            _gameController.ChangeState(TacoTuesdayState.MAIN_MENU);                                    
-        });
+        if(!gameOverPopup)
+        {
+            Singleton.instance.gui.screenFader.FadeOut(0.5f, () =>
+            {
+                gotoMainMenu();
+            });
+        }
+        else
+        {
+            _gameOverPopupController.Start(_playerList, () =>
+            {
+                gotoMainMenu();
+            });
+        }
+    }
+
+    private void gotoMainMenu()
+    {
+        _playFieldController.RemoveView();
+        _gameController.ChangeState(TacoTuesdayState.MAIN_MENU);
     }
 
     private void _setupPlayerList()

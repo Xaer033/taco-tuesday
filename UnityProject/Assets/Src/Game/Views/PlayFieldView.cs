@@ -20,6 +20,7 @@ public class PlayFieldView : UIView
     public Transform staticCardLayer;
     public Button confirmButton;
     public Button undoButton;
+    public Button exitButton;
 
     public PlayerInfo[] playerInfoList;
 

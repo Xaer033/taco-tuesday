@@ -8,6 +8,8 @@ public class PassPlaySetupController : BaseController
     private Action _onStart;
     private Action _onCancel;
 
+    private List<string> _playerNames = new List<string>(PlayerGroup.kMaxPlayerCount);
+
     public void Start(Action onStart, Action onCancel)
     {
         _onStart = onStart;
@@ -35,13 +37,13 @@ public class PassPlaySetupController : BaseController
             return null;
         }
 
-        List<string> nameList = new List<string>(PlayerGroup.kMaxPlayerCount);
+        _playerNames.Clear();
         for (int i = 0; i < PlayerGroup.kMaxPlayerCount; ++i)
         {
             TMPro.TMP_InputField input = _passPlaySetup.playerInputSetups[i].nameInput;
-            nameList.Add(input.text);
+            _playerNames.Add(input.text);
         }
-        return nameList;
+        return _playerNames;
     }
 
     private void onStartButton()

@@ -27,9 +27,9 @@ public sealed class PlayFieldController : BaseController
     private CustomerCardView _droppedCustomer = null;
     private PassInterludeController _passController;
 
-    private Action _onGameOver;
+    private Action<bool> _onGameOver;
 
-    public void Start(GameLogic gameLogic, Action onGameOver)
+    public void Start(GameLogic gameLogic, Action<bool> onGameOver)
     {
          _gameLogic = gameLogic;
         _onGameOver = onGameOver;
@@ -46,6 +46,7 @@ public sealed class PlayFieldController : BaseController
             _playfieldView.onIntroFinishedEvent += _playfieldView_OnIntroTransitionEvent;
             _playfieldView.confirmButton.onClick.AddListener(_onConfirmTurnButton);
             _playfieldView.undoButton.onClick.AddListener(_onUndoButton);
+            _playfieldView.exitButton.onClick.AddListener(_onExitButton);
 
             _playfieldView.SetActivePlayer(activePlayer.index);
 
@@ -250,7 +251,7 @@ public sealed class PlayFieldController : BaseController
                 {
                     if(_onGameOver != null)
                     {
-                        _onGameOver();
+                        _onGameOver(true);
                     }  
                 }
             });
@@ -328,6 +329,12 @@ public sealed class PlayFieldController : BaseController
         }
 
         _playfieldView.SetActivePlayer(activePlayer.index);
+    }
+
+    private void _onExitButton()
+    {
+        _playfieldView.exitButton.onClick.RemoveListener(_onExitButton);
+        _onGameOver(false);
     }
 
     private void _refreshHandView(PlayerState player)
