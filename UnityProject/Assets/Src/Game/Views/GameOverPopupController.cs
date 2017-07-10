@@ -30,6 +30,7 @@ public class GameOverPopupController : BaseController
         });
         return sortedList;
     }
+
     private void OnConfirm()
     {
         _gameOverPopup._confirmButton.onClick.RemoveListener(OnConfirm);

@@ -35,7 +35,7 @@ public class IntroState : IGameState
         //Camera.main.transform.LookAt(lookPos, grav.normalized);
     }
 
-    public void Exit( GameController gameController )
+    public void Exit( )
 	{
 	//	_controller.getUI().rem
 		Debug.Log ("Exiting In Intro State");

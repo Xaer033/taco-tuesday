@@ -14,24 +14,24 @@ public sealed class PlayFieldController : BaseController
 {
     const int kLocalPlayerIndex = 0; // TODO: Temporary until we have real multiplayer
 
-    private PlayerHandView _playerHandView;
+    private PlayerHandView      _playerHandView;
     private ActiveCustomersView _activeCustomersView;
 
-    private PlayFieldView _playfieldView;
-    private GameLogic _gameLogic;
+    private PlayFieldView   _playfieldView;
+    private GameLogic       _gameLogic;
 
-    private ParticleSystem _hoverFX;
-    private ParticleSystem _slamFX;
+    private ParticleSystem  _hoverFX;
+    private ParticleSystem  _slamFX;
 
-    private IngredientCardView _draggedIngredient = null;
-    private CustomerCardView _droppedCustomer = null;
+    private IngredientCardView      _draggedIngredient = null;
+    private CustomerCardView        _droppedCustomer = null;
     private PassInterludeController _passController;
 
     private Action<bool> _onGameOver;
-
+    
     public void Start(GameLogic gameLogic, Action<bool> onGameOver)
     {
-         _gameLogic = gameLogic;
+        _gameLogic  = gameLogic;
         _onGameOver = onGameOver;
 
         _setupFX();
@@ -60,6 +60,17 @@ public sealed class PlayFieldController : BaseController
             _setupActiveCustomers(_playfieldView.staticCardLayer);
             _createPlayerHandView(kLocalPlayerIndex, _playfieldView.staticCardLayer);
         });
+    }
+
+    override public void RemoveView()
+    {
+        base.RemoveView();
+
+        if (_hoverFX)
+            GameObject.Destroy(_hoverFX.gameObject);
+
+        if (_slamFX)
+            GameObject.Destroy(_slamFX.gameObject);
     }
 
     private void _playfieldView_OnIntroTransitionEvent(UIView p_view)

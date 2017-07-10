@@ -6,10 +6,8 @@ using DG.Tweening;
 
 public class GameplayState : IGameState
 {
-    private PassPlayGameMode    _passPlayGameMode;
+    private IGameModeController _gameModeController;
     private GameController      _gameController;
-
-
 
     public void Init( GameController p_gameController )
 	{       
@@ -17,32 +15,42 @@ public class GameplayState : IGameState
 
 		_gameController = p_gameController;
 
-        Tween introTween = Singleton.instance.gui.screenFader.FadeIn(1.0f);//fader.DOFade(1.0f, 1.0f);
+        Tween introTween = Singleton.instance.gui.screenFader.FadeIn(1.0f);
         introTween.SetDelay(0.25f);
 
-        _passPlayGameMode = new PassPlayGameMode();
-        _passPlayGameMode.Start(gotoMainMenu);
-       
+        _gameModeController = getGameModeController();
+        _gameModeController.Start(gotoMainMenu);
     }
 
     
     public void Step( float p_deltaTime )
 	{
+
     }
 
-    public void Exit( GameController p_gameController)
+    public void Exit()
 	{
-	//	_controller.getUI().rem
 		Debug.Log ("Exiting In Intro State");
-		//_backButton.onClick.RemoveAllListeners ();
-	}
+
+        _gameModeController.CleanUp();
+    }
 
     
     private void gotoMainMenu()
     {
-        _passPlayGameMode.CleanUp();
         _gameController.ChangeState(TacoTuesdayState.MAIN_MENU);
     }
-    
-    
+
+    private IGameModeController getGameModeController()
+    {
+        GameContext context = Singleton.instance.sessionFlags.gameContext;
+        switch(context.gameMode)
+        {
+            case GameMode.PASS_AND_PLAY:    return new PassPlayGameMode();
+            case GameMode.ONLINE:           return null;
+            case GameMode.SINGLE_PLAYER:    return null;
+        }
+        Debug.LogErrorFormat("Not supported gametype {0}", context.gameMode);
+        return null;
+    }
 }

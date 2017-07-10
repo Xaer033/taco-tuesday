@@ -17,7 +17,6 @@ namespace GhostGen
 		{
 			if( _currentState != null )
 				_currentState.Step( p_deltaTime );
-           
 		}
 
 		public void ChangeState( int stateId )
@@ -26,7 +25,7 @@ namespace GhostGen
 				return;
 
 			if( _currentState != null )
-				_currentState.Exit( this );
+				_currentState.Exit( );
 
 			_currentState = _stateFactory.CreateState( stateId );
 			_currentState.Init(this);

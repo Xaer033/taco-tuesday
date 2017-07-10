@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -7,14 +7,36 @@ public class GameLogic
 {
     public const int kMaxPlayers = 4;
 
-    public PlayerGroup playerGroup { get; private set; }
-    public ActiveCustomerSet activeCustomerSet { get; private set; }
+    public PlayerGroup          playerGroup         { get; private set; }
+    public ActiveCustomerSet    activeCustomerSet   { get; private set; }
 
-    private CardDeck _customerDeck;
-    private CardDeck _ingredientDeck;
+    private CardDeck    _customerDeck;
+    private CardDeck    _ingredientDeck;
 
     private CommandFactory _commandFactory = new CommandFactory();
 
+// Broadcast events
+    private Action          _onPlayOnCustomer;
+    private Action<bool>    _onResolveScore;
+    private Action          _onEndTurn;
+
+    public event Action onPlayOnCustomer
+    {
+        add { _onPlayOnCustomer += value; }
+        remove { _onPlayOnCustomer -= value; }
+    }
+
+    public event Action<bool> onResolveScore
+    {
+        add { _onResolveScore += value; }
+        remove { _onResolveScore -= value; }
+    }
+
+    public event Action onEndTurn
+    {
+        add { _onEndTurn += value; }
+        remove { _onEndTurn -= value; }
+    }
 
     public static GameLogic Create(List<PlayerState> playerList)
     {
@@ -82,6 +104,7 @@ public class GameLogic
         
         _playCard(handIndex, playerState, customerState, ingredientData);
         _replaceIngredientCard(handIndex, playerState.hand);
+        _playCardEvent();
         return true;
     }
 
@@ -96,13 +119,15 @@ public class GameLogic
         {
             _createNewCustomer(customerSlotIndex);
         }
+        _resolveMoveEvent(result);
         return result;
     }
 
     public void EndPlayerTurn()
     {
-        ChangePlayerTurn command = ChangePlayerTurn.Create(playerGroup);
+        ICommand command = ChangePlayerTurn.Create(playerGroup);
         _commandFactory.Execute(command);
+        _endTurnEvent();
     }
 
     public bool UndoLastAction()
@@ -110,9 +135,18 @@ public class GameLogic
         return _commandFactory.Undo();
     }
 
+    public bool isGameOver
+    {
+        get
+        {
+            return _customerDeck.isEmpty &&
+                activeCustomerSet.isAllSlotsEmpty;
+        }
+    }
+
     private void _replaceIngredientCard(int handIndex, PlayerHand hand)
     {
-        ReplaceIngredientCard command = ReplaceIngredientCard.Create(
+        ICommand command = ReplaceIngredientCard.Create(
             handIndex, 
             hand, 
             _ingredientDeck);
@@ -125,7 +159,7 @@ public class GameLogic
     {
         if(customer.isComplete)
         {
-            ResolveScoreCommand resolve = ResolveScoreCommand.Create(player, customer);
+            ICommand resolve = ResolveScoreCommand.Create(player, customer);
             _commandFactory.Execute(resolve);
             return true;
         }
@@ -134,7 +168,7 @@ public class GameLogic
 
     private void _createNewCustomer(int customerSlotId)
     {
-        CreateActiveCustomerCommand command = CreateActiveCustomerCommand.Create(
+        ICommand command = CreateActiveCustomerCommand.Create(
             playerGroup.activePlayer,
             customerSlotId,
             _customerDeck,
@@ -149,7 +183,7 @@ public class GameLogic
         CustomerCardState customer,
         IngredientCardData ingredient)
     {
-        PlayCardCommand command = PlayCardCommand.Create(
+        ICommand command = PlayCardCommand.Create(
             handSlot,
             playerState,
             customer,
@@ -158,12 +192,28 @@ public class GameLogic
         _commandFactory.Execute(command);
     }
 
-    public bool isGameOver
+
+    private void _playCardEvent()
     {
-        get
+        if(_onPlayOnCustomer != null)
         {
-            return _customerDeck.isEmpty && 
-                activeCustomerSet.isAllSlotsEmpty;
+            _onPlayOnCustomer();
+        }
+    }
+
+    private void _resolveMoveEvent(bool result)
+    {
+        if (_onResolveScore != null)
+        {
+            _onResolveScore(result);
+        }
+    }
+
+    private void _endTurnEvent()
+    {
+        if(_onEndTurn != null)
+        {
+            _onEndTurn();
         }
     }
 }

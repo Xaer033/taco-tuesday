@@ -18,7 +18,7 @@ public class BaseController
         set { _view = value; }
     }
 
-    public void RemoveView()
+    public virtual void RemoveView()
     {
         if(view != null)
         {

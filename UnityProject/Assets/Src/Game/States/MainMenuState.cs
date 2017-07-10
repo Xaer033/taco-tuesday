@@ -38,7 +38,7 @@ public class MainMenuState : IGameState
 		
     }
 
-    public void Exit( GameController gameController )
+    public void Exit( )
 	{
 	//	_controller.getUI().rem
 		Debug.Log ("Exiting In MainMenu State");

@@ -7,6 +7,6 @@ namespace GhostGen
 
 		void Step( float deltaTime );
 
-		void Exit( GameController p_gameController);
+		void Exit();
 	}
 }

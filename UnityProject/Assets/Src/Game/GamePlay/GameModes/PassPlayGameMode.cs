@@ -1,29 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class PassPlayGameMode  
+public class PassPlayGameMode : IGameModeController
 {
     private PlayFieldController     _playFieldController        = new PlayFieldController();
     private GameOverPopupController _gameOverPopupController    = new GameOverPopupController();
 
-    private List<PlayerState> _playerList = new List<PlayerState>(4);
+    private List<PlayerState>       _playerList                 = new List<PlayerState>(4);
 
 
-    private GameLogic _gameLogic;
-    private Action _onGameOverCallback;
+    private GameLogic   _gameLogic;
+    private Action      _onGameOverCallback;
 
     public void Start(Action gameOverCallback)
     {
         _onGameOverCallback = gameOverCallback;
 
         _setupPlayerList();
+
         _gameLogic = GameLogic.Create(_playerList);
+        _gameLogic.onPlayOnCustomer += onPlayCard;
+        _gameLogic.onResolveScore += onResolveScore;
+        _gameLogic.onEndTurn += onEndTurn;
+
         _playFieldController.Start(_gameLogic, onGameOver);
     }
 
     public void CleanUp()
     {
         _playFieldController.RemoveView();
+
+        _gameLogic.onPlayOnCustomer -= onPlayCard;
+        _gameLogic.onResolveScore -= onResolveScore;
+        _gameLogic.onEndTurn -= onEndTurn;
     }
 
     private void onGameOver(bool gameOverPopup = true)
@@ -55,5 +65,20 @@ public class PassPlayGameMode
             string name = (string.IsNullOrEmpty(pName)) ? (i + 1).ToString() : pName;
             _playerList.Add(PlayerState.Create(i, name));
         }
+    }
+
+    private void onPlayCard()
+    {
+        Debug.Log("On Play Card");
+    }
+
+    private void onResolveScore(bool result)
+    {
+        Debug.Log("On Resolve Card");
+    }
+
+    private void onEndTurn()
+    {
+        Debug.Log("On End Turn");
     }
 }
