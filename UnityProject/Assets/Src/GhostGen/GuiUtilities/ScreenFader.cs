@@ -6,7 +6,10 @@ using DG.Tweening;
 using UnityEngine.Assertions;
 
 public class ScreenFader : MonoBehaviour
-{ 
+{
+    public const float kDefaultFadeDuration = 0.25f;
+
+
     private Image _fadeBG;
     private CanvasGroup _canvasGroup;
     private Action _endCallback;
@@ -19,22 +22,22 @@ public class ScreenFader : MonoBehaviour
         _canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public Tween FadeIn(float duration, Action callback = null)
+    public Tween FadeIn(float duration = kDefaultFadeDuration, Action callback = null)
     {
         return _fade(1.0f, 0.0f, duration, callback);
     }
 
-    public Tween FadeOut(float duration, Action callback = null)
+    public Tween FadeOut(float duration = kDefaultFadeDuration, Action callback = null)
     {
         return _fade(0.0f, 1.0f, duration, callback);
     }
 
-    public Tween FadeTo(float endAlpha, float duration, Action callback = null)
+    public Tween FadeTo(float endAlpha, float duration = kDefaultFadeDuration, Action callback = null)
     {
         return _fade(_canvasGroup.alpha, endAlpha, duration, callback);
     }
 
-    public Tween Fade(float startAlpha, float endAlpha, float duration, Action callback = null)
+    public Tween Fade(float startAlpha, float endAlpha, float duration = kDefaultFadeDuration, Action callback = null)
     {
         return _fade(startAlpha, endAlpha, duration, callback);
     }

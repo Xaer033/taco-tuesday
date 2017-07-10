@@ -1,0 +1,496 @@
+fileFormatVersion: 2
+guid: 0f7851df6c4164f428e075f93c98e036
+timeCreated: 1499650141
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: dbl_sk_cn_lip_corner_l
+    100004: dbl_sk_cn_lip_corner_r
+    100006: dbl_sk_cn_lip_lower_l
+    100008: dbl_sk_cn_lip_lower_l1
+    100010: dbl_sk_cn_lip_lower_l2
+    100012: dbl_sk_cn_lip_lower_l3
+    100014: dbl_sk_cn_lip_lower_l4
+    100016: dbl_sk_cn_lip_lower_l5
+    100018: dbl_sk_cn_lip_lower_r1
+    100020: dbl_sk_cn_lip_lower_r2
+    100022: dbl_sk_cn_lip_lower_r3
+    100024: dbl_sk_cn_lip_lower_r4
+    100026: dbl_sk_cn_lip_lower_r5
+    100028: dbl_sk_cn_lip_upper
+    100030: dbl_sk_cn_lip_upper_l1
+    100032: dbl_sk_cn_lip_upper_l2
+    100034: dbl_sk_cn_lip_upper_l3
+    100036: dbl_sk_cn_lip_upper_l4
+    100038: dbl_sk_cn_lip_upper_r1
+    100040: dbl_sk_cn_lip_upper_r2
+    100042: dbl_sk_cn_lip_upper_r3
+    100044: dbl_sk_cn_lip_upper_r4
+    100046: eye_l
+    100048: eye_r
+    100050: head
+    100052: head_grp1
+    100054: Head_grp2
+    100056: innerbrow_l
+    100058: innerbrow_r
+    100060: Jaw
+    100062: Jaw_grp1
+    100064: jaw_grp2
+    100066: joint15
+    100068: joint16
+    100070: joint17
+    100072: joint18
+    100074: joint19
+    100076: joint20
+    100078: joint21
+    100080: joint22
+    100082: joint23
+    100084: joint24
+    100086: joint25
+    100088: joint26
+    100090: joint27
+    100092: joint28
+    100094: joint29
+    100096: joint30
+    100098: joint31
+    100100: joint32
+    100102: joint33
+    100104: joint34
+    100106: joint35
+    100108: joint36
+    100110: l_shoulder
+    100112: l_squinter
+    100114: lipgrp
+    100116: lowerlid_l
+    100118: lowerlid_r
+    100120: midbrow_l
+    100122: midbrow_r
+    100124: Mouth
+    100126: mouth_center
+    100128: Neck
+    100130: neck_grp3
+    100132: Nose
+    100134: Nosering
+    100136: offset_sk_cn_lip_corner_l
+    100138: offset_sk_cn_lip_corner_r
+    100140: offset_sk_cn_lip_lower
+    100142: offset_sk_cn_lip_lower_l1
+    100144: offset_sk_cn_lip_lower_l2
+    100146: offset_sk_cn_lip_lower_l3
+    100148: offset_sk_cn_lip_lower_l4
+    100150: offset_sk_cn_lip_lower_l5
+    100152: offset_sk_cn_lip_lower_r1
+    100154: offset_sk_cn_lip_lower_r2
+    100156: offset_sk_cn_lip_lower_r3
+    100158: offset_sk_cn_lip_lower_r4
+    100160: offset_sk_cn_lip_lower_r5
+    100162: offset_sk_cn_lip_upper
+    100164: offset_sk_cn_lip_upper_l1
+    100166: offset_sk_cn_lip_upper_l2
+    100168: offset_sk_cn_lip_upper_l3
+    100170: offset_sk_cn_lip_upper_l4
+    100172: offset_sk_cn_lip_upper_r1
+    100174: offset_sk_cn_lip_upper_r2
+    100176: offset_sk_cn_lip_upper_r3
+    100178: offset_sk_cn_lip_upper_r4
+    100180: outerbrow_l
+    100182: outerbrow_r
+    100184: r_shoulder
+    100186: r_squinter
+    100188: Root
+    100190: toplid_l
+    100192: toplid_r
+    400000: //RootNode
+    400002: dbl_sk_cn_lip_corner_l
+    400004: dbl_sk_cn_lip_corner_r
+    400006: dbl_sk_cn_lip_lower_l
+    400008: dbl_sk_cn_lip_lower_l1
+    400010: dbl_sk_cn_lip_lower_l2
+    400012: dbl_sk_cn_lip_lower_l3
+    400014: dbl_sk_cn_lip_lower_l4
+    400016: dbl_sk_cn_lip_lower_l5
+    400018: dbl_sk_cn_lip_lower_r1
+    400020: dbl_sk_cn_lip_lower_r2
+    400022: dbl_sk_cn_lip_lower_r3
+    400024: dbl_sk_cn_lip_lower_r4
+    400026: dbl_sk_cn_lip_lower_r5
+    400028: dbl_sk_cn_lip_upper
+    400030: dbl_sk_cn_lip_upper_l1
+    400032: dbl_sk_cn_lip_upper_l2
+    400034: dbl_sk_cn_lip_upper_l3
+    400036: dbl_sk_cn_lip_upper_l4
+    400038: dbl_sk_cn_lip_upper_r1
+    400040: dbl_sk_cn_lip_upper_r2
+    400042: dbl_sk_cn_lip_upper_r3
+    400044: dbl_sk_cn_lip_upper_r4
+    400046: eye_l
+    400048: eye_r
+    400050: head
+    400052: head_grp1
+    400054: Head_grp2
+    400056: innerbrow_l
+    400058: innerbrow_r
+    400060: Jaw
+    400062: Jaw_grp1
+    400064: jaw_grp2
+    400066: joint15
+    400068: joint16
+    400070: joint17
+    400072: joint18
+    400074: joint19
+    400076: joint20
+    400078: joint21
+    400080: joint22
+    400082: joint23
+    400084: joint24
+    400086: joint25
+    400088: joint26
+    400090: joint27
+    400092: joint28
+    400094: joint29
+    400096: joint30
+    400098: joint31
+    400100: joint32
+    400102: joint33
+    400104: joint34
+    400106: joint35
+    400108: joint36
+    400110: l_shoulder
+    400112: l_squinter
+    400114: lipgrp
+    400116: lowerlid_l
+    400118: lowerlid_r
+    400120: midbrow_l
+    400122: midbrow_r
+    400124: Mouth
+    400126: mouth_center
+    400128: Neck
+    400130: neck_grp3
+    400132: Nose
+    400134: Nosering
+    400136: offset_sk_cn_lip_corner_l
+    400138: offset_sk_cn_lip_corner_r
+    400140: offset_sk_cn_lip_lower
+    400142: offset_sk_cn_lip_lower_l1
+    400144: offset_sk_cn_lip_lower_l2
+    400146: offset_sk_cn_lip_lower_l3
+    400148: offset_sk_cn_lip_lower_l4
+    400150: offset_sk_cn_lip_lower_l5
+    400152: offset_sk_cn_lip_lower_r1
+    400154: offset_sk_cn_lip_lower_r2
+    400156: offset_sk_cn_lip_lower_r3
+    400158: offset_sk_cn_lip_lower_r4
+    400160: offset_sk_cn_lip_lower_r5
+    400162: offset_sk_cn_lip_upper
+    400164: offset_sk_cn_lip_upper_l1
+    400166: offset_sk_cn_lip_upper_l2
+    400168: offset_sk_cn_lip_upper_l3
+    400170: offset_sk_cn_lip_upper_l4
+    400172: offset_sk_cn_lip_upper_r1
+    400174: offset_sk_cn_lip_upper_r2
+    400176: offset_sk_cn_lip_upper_r3
+    400178: offset_sk_cn_lip_upper_r4
+    400180: outerbrow_l
+    400182: outerbrow_r
+    400184: r_shoulder
+    400186: r_squinter
+    400188: Root
+    400190: toplid_l
+    400192: toplid_r
+    7400000: AnimTest
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: AnimTest
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/l_shoulder
+        weight: 1
+      - path: Root/neck_grp3
+        weight: 1
+      - path: Root/neck_grp3/Mouth
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_corner_l
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_corner_l/offset_sk_cn_lip_corner_l
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_corner_l/offset_sk_cn_lip_corner_l/joint32
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_corner_r
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_corner_r/offset_sk_cn_lip_corner_r
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_corner_r/offset_sk_cn_lip_corner_r/joint20
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l/offset_sk_cn_lip_lower
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l/offset_sk_cn_lip_lower/joint26
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l1
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l1/offset_sk_cn_lip_lower_l1
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l1/offset_sk_cn_lip_lower_l1/joint27
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l2
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l2/offset_sk_cn_lip_lower_l2
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l2/offset_sk_cn_lip_lower_l2/joint28
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l3
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l3/offset_sk_cn_lip_lower_l3
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l3/offset_sk_cn_lip_lower_l3/joint29
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l4
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l4/offset_sk_cn_lip_lower_l4
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l4/offset_sk_cn_lip_lower_l4/joint30
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l5
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l5/offset_sk_cn_lip_lower_l5
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_l5/offset_sk_cn_lip_lower_l5/joint31
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r1
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r1/offset_sk_cn_lip_lower_r1
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r1/offset_sk_cn_lip_lower_r1/joint25
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r2
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r2/offset_sk_cn_lip_lower_r2
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r2/offset_sk_cn_lip_lower_r2/joint24
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r3
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r3/offset_sk_cn_lip_lower_r3
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r3/offset_sk_cn_lip_lower_r3/joint23
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r4
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r4/offset_sk_cn_lip_lower_r4
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r4/offset_sk_cn_lip_lower_r4/joint22
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r5
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r5/offset_sk_cn_lip_lower_r5
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_lower_r5/offset_sk_cn_lip_lower_r5/joint21
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper/offset_sk_cn_lip_upper
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper/offset_sk_cn_lip_upper/joint15
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l1
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l1/offset_sk_cn_lip_upper_l1
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l1/offset_sk_cn_lip_upper_l1/joint36
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l2
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l2/offset_sk_cn_lip_upper_l2
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l2/offset_sk_cn_lip_upper_l2/joint35
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l3
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l3/offset_sk_cn_lip_upper_l3
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l3/offset_sk_cn_lip_upper_l3/joint34
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l4
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l4/offset_sk_cn_lip_upper_l4
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_l4/offset_sk_cn_lip_upper_l4/joint33
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r1
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r1/offset_sk_cn_lip_upper_r1
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r1/offset_sk_cn_lip_upper_r1/joint16
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r2
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r2/offset_sk_cn_lip_upper_r2
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r2/offset_sk_cn_lip_upper_r2/joint17
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r3
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r3/offset_sk_cn_lip_upper_r3
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r3/offset_sk_cn_lip_upper_r3/joint18
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r4
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r4/offset_sk_cn_lip_upper_r4
+        weight: 1
+      - path: Root/neck_grp3/Mouth/lipgrp/dbl_sk_cn_lip_upper_r4/offset_sk_cn_lip_upper_r4/joint19
+        weight: 1
+      - path: Root/neck_grp3/Neck
+        weight: 1
+      - path: Root/neck_grp3/Neck/eye_l
+        weight: 1
+      - path: Root/neck_grp3/Neck/eye_l/lowerlid_l
+        weight: 1
+      - path: Root/neck_grp3/Neck/eye_l/toplid_l
+        weight: 1
+      - path: Root/neck_grp3/Neck/eye_r
+        weight: 1
+      - path: Root/neck_grp3/Neck/eye_r/lowerlid_r
+        weight: 1
+      - path: Root/neck_grp3/Neck/eye_r/toplid_r
+        weight: 1
+      - path: Root/neck_grp3/Neck/Head_grp2
+        weight: 1
+      - path: Root/neck_grp3/Neck/Head_grp2/head_grp1
+        weight: 1
+      - path: Root/neck_grp3/Neck/Head_grp2/head_grp1/head
+        weight: 1
+      - path: Root/neck_grp3/Neck/innerbrow_l
+        weight: 1
+      - path: Root/neck_grp3/Neck/innerbrow_r
+        weight: 1
+      - path: Root/neck_grp3/Neck/Jaw_grp1
+        weight: 1
+      - path: Root/neck_grp3/Neck/Jaw_grp1/jaw_grp2
+        weight: 1
+      - path: Root/neck_grp3/Neck/Jaw_grp1/jaw_grp2/Jaw
+        weight: 1
+      - path: Root/neck_grp3/Neck/l_squinter
+        weight: 1
+      - path: Root/neck_grp3/Neck/midbrow_l
+        weight: 1
+      - path: Root/neck_grp3/Neck/midbrow_r
+        weight: 1
+      - path: Root/neck_grp3/Neck/mouth_center
+        weight: 1
+      - path: Root/neck_grp3/Neck/Nose
+        weight: 1
+      - path: Root/neck_grp3/Neck/Nose/Nosering
+        weight: 1
+      - path: Root/neck_grp3/Neck/outerbrow_l
+        weight: 1
+      - path: Root/neck_grp3/Neck/outerbrow_r
+        weight: 1
+      - path: Root/neck_grp3/Neck/r_squinter
+        weight: 1
+      - path: Root/r_shoulder
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: Root
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 475df6b74878a2440922752910f639e9,
+    type: 3}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
