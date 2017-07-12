@@ -65,6 +65,7 @@ public sealed class IngredientCardView :
         _backgroundImg.sprite = cardBank.GetIngredientBG(ingredientData.cardType);
         _cardTypeIcon.sprite = cardBank.GetIngredientTypeIcon(ingredientData.cardType);
         _foodValueLbl.text = string.Format("{0}", ingredientData.foodValue);
+        _foodValueLbl.color = (ingredientData.foodValue > 0) ? Color.white : Color.red;
         _cardIcon.sprite = cardBank.GetMainIcon(ingredientData.iconName);
     }
 

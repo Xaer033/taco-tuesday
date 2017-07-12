@@ -1,24 +1,51 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class GameLogic
+public class GameMatchCore 
 {
-    public const int kMaxPlayers = 4;
-
-    public PlayerGroup          playerGroup         { get; private set; }
-    public ActiveCustomerSet    activeCustomerSet   { get; private set; }
-
-    private CardDeck    _customerDeck;
-    private CardDeck    _ingredientDeck;
+    public GameMatchState   matchState  { get; private set; }
 
     private CommandFactory _commandFactory = new CommandFactory();
+    
+    // Broadcast events
+    private Action _onPlayOnCustomer;
+    private Action<bool> _onResolveScore;
+    private Action _onEndTurn;
 
-// Broadcast events
-    private Action          _onPlayOnCustomer;
-    private Action<bool>    _onResolveScore;
-    private Action          _onEndTurn;
+
+    public static GameMatchCore Create(List<PlayerState> playerList, int randomSeed = -1)
+    {
+        GameMatchCore server = new GameMatchCore(playerList, randomSeed);
+        return server;
+    }
+
+    private GameMatchCore(List<PlayerState> playerList, int randomSeed)
+    {
+        CardDeck customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
+        customerDeck.Shuffle(randomSeed);
+
+        CardDeck ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
+        ingredientDeck.Shuffle(randomSeed);
+
+        // Also no commands for starting player hands
+        ActiveCustomerSet   customerGroup   = _createCustomerCards(customerDeck);
+        PlayerGroup         playerGroup     = _createPlayerHands(playerList, ingredientDeck);
+
+        matchState = GameMatchState.Create(playerGroup, customerGroup, customerDeck, ingredientDeck);
+    }
+
+    public PlayerGroup playerGroup
+    {
+        get { return matchState.playerGroup; }
+    }
+
+    public ActiveCustomerSet activeCustomerSet
+    {
+        get { return matchState.activeCustomerSet; }
+    }
 
     public event Action onPlayOnCustomer
     {
@@ -38,56 +65,12 @@ public class GameLogic
         remove { _onEndTurn -= value; }
     }
 
-    public static GameLogic Create(List<PlayerState> playerList)
-    {
-        return new GameLogic(playerList);
-    }
-
-    private GameLogic(List<PlayerState> playerList)
-    {
-        _customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
-        _customerDeck.Shuffle();
-
-        _ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
-        _ingredientDeck.Shuffle();
-
-        activeCustomerSet = ActiveCustomerSet.Create();
-
-        // Intentionally not using commands here, as we don't want to be able to 
-        // undo the first set of customers
-        for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
-        {
-            CustomerCardData cardData = _customerDeck.Pop() as CustomerCardData;
-            CustomerCardState cardState = CustomerCardState.Create(cardData);
-            activeCustomerSet.SetCustomerAtIndex(i, cardState);
-        }
-
-        // Also no commands for starting player hands
-        playerGroup = PlayerGroup.Create(playerList);
-        _setupPlayerHands();
-    }
-
-    private void _setupPlayerHands()
-    {
-        Assert.IsNotNull(playerGroup);
-
-        for (int i = 0; i < playerGroup.playerCount; ++i)
-        {
-            for (int j = 0; j < PlayerState.kHandSize; ++j)
-            {
-                IngredientCardData cardData = _ingredientDeck.Pop() as IngredientCardData;
-                PlayerState playerState = playerGroup.GetPlayer(i);
-                playerState.hand.SetCard(j, cardData);
-            }
-        }
-    }
-    
     public bool PlayCardOnCustomer(
-        int playerIndex,
-        int handIndex,
-        int customerIndex)
+       int playerIndex,
+       int handIndex,
+       int customerIndex)
     {
-        if(isGameOver)
+        if (isGameOver)
         {
             Debug.LogError("Game is over!");
             return false;
@@ -95,13 +78,13 @@ public class GameLogic
 
         if (!activeCustomerSet.IsSlotActive(customerIndex)) { return false; }
 
-        PlayerState         playerState     = playerGroup.GetPlayer(playerIndex);
-        IngredientCardData  ingredientData  = playerState.hand.GetCard(handIndex);
-        CustomerCardState   customerState   = activeCustomerSet.GetCustomerByIndex(customerIndex);
+        PlayerState playerState = playerGroup.GetPlayer(playerIndex);
+        IngredientCardData ingredientData = playerState.hand.GetCard(handIndex);
+        CustomerCardState customerState = activeCustomerSet.GetCustomerByIndex(customerIndex);
 
         if (playerState.cardsPlayed >= PlayerState.kMaxCardsPerTurn) { return false; }
         if (!customerState.CanAcceptCard(ingredientData)) { return false; }
-        
+
         _playCard(handIndex, playerState, customerState, ingredientData);
         _replaceIngredientCard(handIndex, playerState.hand);
         _playCardEvent();
@@ -115,7 +98,7 @@ public class GameLogic
         CustomerCardState customerState = activeCustomerSet.GetCustomerByIndex(customerSlotIndex);
 
         bool result = _resolveCustomerCard(customerState, player);
-        if(result)
+        if (result)
         {
             _createNewCustomer(customerSlotIndex);
         }
@@ -137,27 +120,23 @@ public class GameLogic
 
     public bool isGameOver
     {
-        get
-        {
-            return _customerDeck.isEmpty &&
-                activeCustomerSet.isAllSlotsEmpty;
-        }
+        get { return matchState.isGameOver; }
     }
 
     private void _replaceIngredientCard(int handIndex, PlayerHand hand)
     {
         ICommand command = ReplaceIngredientCard.Create(
-            handIndex, 
-            hand, 
-            _ingredientDeck);
+            handIndex,
+            hand,
+            matchState.ingredientDeck);
         _commandFactory.Execute(command);
     }
-    
+
     private bool _resolveCustomerCard(
         CustomerCardState customer,
         PlayerState player)
     {
-        if(customer.isComplete)
+        if (customer.isComplete)
         {
             ICommand resolve = ResolveScoreCommand.Create(player, customer);
             _commandFactory.Execute(resolve);
@@ -171,7 +150,7 @@ public class GameLogic
         ICommand command = CreateActiveCustomerCommand.Create(
             playerGroup.activePlayer,
             customerSlotId,
-            _customerDeck,
+            matchState.customerDeck,
             activeCustomerSet);
 
         _commandFactory.Execute(command);
@@ -195,7 +174,7 @@ public class GameLogic
 
     private void _playCardEvent()
     {
-        if(_onPlayOnCustomer != null)
+        if (_onPlayOnCustomer != null)
         {
             _onPlayOnCustomer();
         }
@@ -211,9 +190,39 @@ public class GameLogic
 
     private void _endTurnEvent()
     {
-        if(_onEndTurn != null)
+        if (_onEndTurn != null)
         {
             _onEndTurn();
         }
     }
+
+    private PlayerGroup _createPlayerHands(List<PlayerState> playerList, CardDeck ingredientDeck)
+    {
+        PlayerGroup group =PlayerGroup.Create(playerList);
+        for (int i = 0; i < group.playerCount; ++i)
+        {
+            for (int j = 0; j < PlayerState.kHandSize; ++j)
+            {
+                IngredientCardData cardData = ingredientDeck.Pop() as IngredientCardData;
+                PlayerState playerState = group.GetPlayer(i);
+                playerState.hand.SetCard(j, cardData);
+            }
+        }
+        return group;
+    }
+
+    private ActiveCustomerSet _createCustomerCards(CardDeck customerDeck)
+    {
+        ActiveCustomerSet customers = ActiveCustomerSet.Create();
+        // Intentionally not using commands here, as we don't want to be able to 
+        // undo the first set of customers
+        for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
+        {
+            CustomerCardData cardData = customerDeck.Pop() as CustomerCardData;
+            CustomerCardState cardState = CustomerCardState.Create(cardData);
+            customers.SetCustomerAtIndex(i, cardState);
+        }
+        return customers;
+    }
+
 }

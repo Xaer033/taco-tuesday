@@ -14,11 +14,12 @@ public sealed class PlayFieldController : BaseController
 {
     const int kLocalPlayerIndex = 0; // TODO: Temporary until we have real multiplayer
 
+    private GameMatchState _matchState;
+
     private PlayerHandView      _playerHandView;
     private ActiveCustomersView _activeCustomersView;
 
     private PlayFieldView   _playfieldView;
-    private GameLogic       _gameLogic;
 
     private ParticleSystem  _hoverFX;
     private ParticleSystem  _slamFX;
@@ -26,13 +27,18 @@ public sealed class PlayFieldController : BaseController
     private IngredientCardView      _draggedIngredient = null;
     private CustomerCardView        _droppedCustomer = null;
     private PassInterludeController _passController;
-
-    private Action<bool> _onGameOver;
     
-    public void Start(GameLogic gameLogic, Action<bool> onGameOver)
+// Broadcast events
+    public Func<int, int, bool> onPlayOnCustomer    { set; get; }
+    public Func<int, bool>      onResolveScore      { set; get; }
+    public Action               onEndTurn           { set; get; }
+    public Func<bool>           onUndoTurn          { set; get; }
+    public Action<bool>         onGameOver          { set; get; }
+    
+
+    public void Start(GameMatchState matchState)
     {
-        _gameLogic  = gameLogic;
-        _onGameOver = onGameOver;
+        _matchState  = matchState;
 
         _setupFX();
 
@@ -50,9 +56,9 @@ public sealed class PlayFieldController : BaseController
 
             _playfieldView.SetActivePlayer(activePlayer.index);
 
-            for(int i = 0; i < _gameLogic.playerGroup.playerCount; ++i)
+            for(int i = 0; i < _matchState.playerGroup.playerCount; ++i)
             {
-                PlayerState player = _gameLogic.playerGroup.GetPlayer(i);
+                PlayerState player = _matchState.playerGroup.GetPlayer(i);
                 _playfieldView.SetPlayerName(i, player.name);
                 _playfieldView.SetPlayerScore(i, player.score);
             }
@@ -99,7 +105,7 @@ public sealed class PlayFieldController : BaseController
                 _activeCustomersView = (ActiveCustomersView)view;
                 for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
                 {
-                    CustomerCardState state = _gameLogic.activeCustomerSet.GetCustomerByIndex(i);
+                    CustomerCardState state = _matchState.activeCustomerSet.GetCustomerByIndex(i);
                     _setupCustomerView(i, state);
                 }
             }, parent
@@ -189,12 +195,11 @@ public sealed class PlayFieldController : BaseController
         if (!customerState.CanAcceptCard(ingredientData)) { return; }
         
         int customerIndex = customerState.slotIndex;
+        int handIndex = _draggedIngredient.handIndex;
 
-        _draggedIngredient.isDropSuccessfull = _gameLogic.PlayCardOnCustomer(
-            _gameLogic.playerGroup.activePlayer.index,
-            _draggedIngredient.handIndex, 
-            customerIndex);
-
+        Assert.IsNotNull(onPlayOnCustomer);
+        _draggedIngredient.isDropSuccessfull = onPlayOnCustomer(handIndex, customerIndex);
+        
         if(_draggedIngredient.isDropSuccessfull)
         {       
             _droppedCustomer = customerView; 
@@ -248,22 +253,23 @@ public sealed class PlayFieldController : BaseController
 
                 //_droppedCustomer.invalidateFlag |= UIView.InvalidationFlag.DYNAMIC_DATA;
                 int customerIndex = _droppedCustomer.cardState.slotIndex;
-                bool customerFinished = _gameLogic.ResolveCustomerCard(customerIndex, activePlayer.index);
+                
+                Assert.IsNotNull(onResolveScore);
+
+                bool customerFinished = onResolveScore(customerIndex);
                 if (customerFinished)
                 {
                     _playfieldView.SetPlayerScore(activePlayer.index, activePlayer.score);
-                    CustomerCardState newState = _gameLogic.activeCustomerSet.GetCustomerByIndex(customerIndex);
+                    CustomerCardState newState = _matchState.activeCustomerSet.GetCustomerByIndex(customerIndex);
                     _setupCustomerView(customerIndex, newState);                    
                 }
            
                 _playerHandView.blockCardDrag = false;
 
-                if(_gameLogic.isGameOver)
+                if(_matchState.isGameOver)
                 {
-                    if(_onGameOver != null)
-                    {
-                        _onGameOver(true);
-                    }  
+                    Assert.IsNotNull(onGameOver);
+                    onGameOver(true);
                 }
             });
         }
@@ -271,12 +277,12 @@ public sealed class PlayFieldController : BaseController
 
     private PlayerState localPlayer
     {
-        get { return _gameLogic.playerGroup.GetPlayer(kLocalPlayerIndex); }
+        get { return _matchState.playerGroup.GetPlayer(kLocalPlayerIndex); }
     }
 
     private PlayerState activePlayer
     {
-        get { return _gameLogic.playerGroup.activePlayer; }
+        get { return _matchState.playerGroup.activePlayer; }
     }
 
     private void _activeHoverFX(Vector3 position)
@@ -307,7 +313,7 @@ public sealed class PlayFieldController : BaseController
 
     private void _setupHandViewFromPlayer(int playerIndex)
     {
-        PlayerState player = _gameLogic.playerGroup.GetPlayer(playerIndex);
+        PlayerState player = _matchState.playerGroup.GetPlayer(playerIndex);
         for (int i = 0; i < PlayerState.kHandSize; ++i)
         {
             IngredientCardData ingredientCard = player.hand.GetCard(i);
@@ -317,10 +323,12 @@ public sealed class PlayFieldController : BaseController
 
     private void _onConfirmTurnButton()
     {
-        string instructionTextKey = "Pass device to " + _gameLogic.playerGroup.GetNextPlayer().name;
+        string instructionTextKey = "Pass device to " + _matchState.playerGroup.GetNextPlayer().name;
         _passController.Start(instructionTextKey, () =>
         {
-            _gameLogic.EndPlayerTurn();
+            Assert.IsNotNull(onEndTurn);
+            onEndTurn();
+            
             _refreshHandView(activePlayer);
             _playfieldView.SetActivePlayer(activePlayer.index);
         });
@@ -328,7 +336,9 @@ public sealed class PlayFieldController : BaseController
 
     private void _onUndoButton()
     {
-        bool didUndo = _gameLogic.UndoLastAction();
+        Assert.IsNotNull(onUndoTurn);
+        
+        bool didUndo = onUndoTurn();
         if (!didUndo) { return; }
         
         _refreshHandView(activePlayer);
@@ -336,7 +346,7 @@ public sealed class PlayFieldController : BaseController
         _activeCustomersView.invalidateFlag = UIView.InvalidationFlag.ALL;
         for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
         {
-            _setupCustomerView(i, _gameLogic.activeCustomerSet.GetCustomerByIndex(i));
+            _setupCustomerView(i, _matchState.activeCustomerSet.GetCustomerByIndex(i));
         }
 
         _playfieldView.SetActivePlayer(activePlayer.index);
@@ -345,7 +355,8 @@ public sealed class PlayFieldController : BaseController
     private void _onExitButton()
     {
         _playfieldView.exitButton.onClick.RemoveListener(_onExitButton);
-        _onGameOver(false);
+        Assert.IsNotNull(onGameOver);
+        onGameOver(false);
     }
 
     private void _refreshHandView(PlayerState player)

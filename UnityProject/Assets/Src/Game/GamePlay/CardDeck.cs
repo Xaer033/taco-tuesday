@@ -77,7 +77,7 @@ public class CardDeck : System.Object
         }
     }
 
-    public void Shuffle()
+    public void Shuffle(int randomSeed = -1)
     {
         _cardList.Sort((a, b) => Guid.NewGuid().CompareTo(Guid.NewGuid()));
     }

@@ -67,6 +67,7 @@ public sealed class CustomerCardView : BaseCardView
         if(IsInvalid(InvalidationFlag.DYNAMIC_DATA) )
         {    
             _foodValueLbl.text = string.Format("{0}", cardState.totalScore);
+            _foodValueLbl.color = (cardState.totalScore > 0) ? Color.white : Color.red;
         }
 
         _setCustomerCard(

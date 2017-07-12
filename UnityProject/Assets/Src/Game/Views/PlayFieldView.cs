@@ -25,8 +25,8 @@ public class PlayFieldView : UIView
     public PlayerInfo[] playerInfoList;
 
 
-    private int[]       _playerScores    = new int[GameLogic.kMaxPlayers];
-    private string[]    _playerNames     = new string[GameLogic.kMaxPlayers];
+    private int[]       _playerScores    = new int[PlayerGroup.kMaxPlayerCount];
+    private string[]    _playerNames     = new string[PlayerGroup.kMaxPlayerCount];
     private int _activeIndex = -1;
 
     void Awake()
@@ -89,7 +89,7 @@ public class PlayFieldView : UIView
         base.OnViewUpdate();
         if(IsInvalid(InvalidationFlag.DYNAMIC_DATA))
         {
-            for(int i = 0; i < GameLogic.kMaxPlayers; ++i)
+            for(int i = 0; i < PlayerGroup.kMaxPlayerCount; ++i)
             {
                 playerInfoList[i].scoreLbl.text = string.Format("Score: {0}", _playerScores[i]); // TODO: Localize this!
                 playerInfoList[i].nameLbl.text = string.Format("P{0}: {1}", i + 1, _playerNames[i]); // and this
