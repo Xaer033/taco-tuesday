@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using GhostGen;
 
 [CreateAssetMenu]
 public class GuiManager : ScriptableObject, IPostInit

@@ -1,5 +1,8 @@
 ﻿
-public interface IPostInit 
+namespace GhostGen
 {
-    void PostInit();
+    public interface IPostInit 
+    {
+        void PostInit();
+    }
 }
