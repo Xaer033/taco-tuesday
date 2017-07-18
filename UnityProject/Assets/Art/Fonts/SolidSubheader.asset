@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: -667331979, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
   m_Name: SolidSubheader
   m_EditorClassIdentifier: 
-  hashCode: 879978559
+  hashCode: 1388998342
   material: {fileID: 21248915145975548}
   materialHashCode: -1698481452
   fontAssetType: 1

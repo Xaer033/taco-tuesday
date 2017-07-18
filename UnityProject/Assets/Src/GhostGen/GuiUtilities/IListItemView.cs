@@ -12,6 +12,6 @@ namespace GhostGen
 
         int         GetItemType();
         
-        event Action<IListItemView> OnSelected;
+        event Action<IListItemView, bool> OnSelected;
     }
 }

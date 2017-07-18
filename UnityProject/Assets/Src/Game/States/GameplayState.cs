@@ -7,13 +7,13 @@ using DG.Tweening;
 public class GameplayState : IGameState
 {
     private IGameModeController _gameModeController;
-    private GameController      _gameController;
+    private GameStateMachine      _stateMachine;
 
-    public void Init( GameController p_gameController )
+    public void Init( GameStateMachine stateMachine )
 	{       
         Debug.Log ("Entering In GamePlay State");
 
-		_gameController = p_gameController;
+		_stateMachine = stateMachine;
 
         Tween introTween = Singleton.instance.gui.screenFader.FadeIn(1.0f);
         introTween.SetDelay(0.25f);
@@ -38,7 +38,7 @@ public class GameplayState : IGameState
     
     private void gotoMainMenu()
     {
-        _gameController.ChangeState(TacoTuesdayState.MAIN_MENU);
+        _stateMachine.ChangeState(TacoTuesdayState.MAIN_MENU);
     }
 
     private IGameModeController getGameModeController()

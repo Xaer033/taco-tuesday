@@ -117,7 +117,7 @@ public class ListScrollRect : UnityEngine.UI.ScrollRect
         get { return _onGetItemType; }
     }
 
-    public event Action<int> onSelectedItem;
+    public event Action<int, bool> onSelectedItem;
 
     private int _isSelectedIndex = -1;
 
@@ -133,6 +133,7 @@ public class ListScrollRect : UnityEngine.UI.ScrollRect
         }
     }
 
+    public int selectedIndex { get { return _isSelectedIndex; } }
 
     #region Member Variables
 
@@ -550,6 +551,11 @@ public class ListScrollRect : UnityEngine.UI.ScrollRect
 	/// </summary>
 	public void GoToListItem(int itemIndex)
 	{
+        if(itemCount <= 0)
+        {
+            return;
+        }
+
 		// Make sure we are initialized
 		if (!initialized)
 		{
@@ -680,7 +686,7 @@ public class ListScrollRect : UnityEngine.UI.ScrollRect
 		listInfo.Reset();
 
         // Get the item count from the IContentFiller
-        itemCount = dataProvider.Count;// contentFiller.GetItemCount();
+        itemCount = (dataProvider != null) ? dataProvider.Count : 0;// contentFiller.GetItemCount();
 
 		// If there are no items then bail out here
 		if (itemCount == 0)
@@ -810,14 +816,26 @@ public class ListScrollRect : UnityEngine.UI.ScrollRect
         return -1;
     }
 
-    private void OnSelectedItemBroadcast(IListItemView view)
+    private void OnSelectedItemBroadcast(IListItemView view, bool isSelected)
     {
-        int index = getIndexFromView(view);
-        if(index >= 0 && onSelectedItem != null)
+        if(isSelected)
         {
-            _isSelectedIndex = index;
-            onSelectedItem(index);
+            int index = getIndexFromView(view);
+            if (index >= 0)
+            {
+                _isSelectedIndex = index;
+            }
         }
+        else
+        {
+            _isSelectedIndex = -1;
+        }
+
+        if(onSelectedItem != null)
+        {
+            onSelectedItem(_isSelectedIndex, isSelected);
+        }
+
     }
 	/// <summary>
 	/// Creates a new list item to be positioned in the list.

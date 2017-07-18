@@ -15,7 +15,7 @@ public class RoomItemView : UIView, IListItemView
 
 
     private Hashtable _data;
-    private event Action<IListItemView> _onSelected;
+    private event Action<IListItemView, bool> _onSelected;
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class RoomItemView : UIView, IListItemView
     }
     
 
-    public event Action<IListItemView> OnSelected
+    public event Action<IListItemView, bool> OnSelected
     {
         add { _onSelected += value; }
         remove { _onSelected -= value; }
@@ -52,9 +52,9 @@ public class RoomItemView : UIView, IListItemView
 
     private void OnButtonClick(bool value)
     {
-        if(value && _onSelected != null)
+        if(_onSelected != null)
         {
-            _onSelected(this);
+            _onSelected(this, value);
         }
     }
 
@@ -65,8 +65,10 @@ public class RoomItemView : UIView, IListItemView
         {
             roomName.text = _data["roomName"] as string;
             playerCount.text = _data["playerCount"] as string;
-
+            
+            toggle.onValueChanged.RemoveListener(OnButtonClick);
             toggle.isOn = isSelected;
+            toggle.onValueChanged.AddListener(OnButtonClick);
         }
     }
 }

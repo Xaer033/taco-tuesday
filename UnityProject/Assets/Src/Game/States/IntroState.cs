@@ -8,12 +8,12 @@ public class IntroState : IGameState
 {
     private SplashScreenController _splashController;
 
-	public void Init( GameController gameController )
+	public void Init( GameStateMachine stateMachine )
 	{
 		Debug.Log ("Entering In Intro State");
         DOTween.Init(true, true, LogBehaviour.ErrorsOnly);
 
-        _gameController = gameController;
+        _stateMachine = stateMachine;
 
         _splashController = new SplashScreenController();
         _splashController.Start();
@@ -23,7 +23,7 @@ public class IntroState : IGameState
 	{
 		if (_gotoSplash) 
 		{
-			_gameController.ChangeState (TacoTuesdayState.INTRO);
+			_stateMachine.ChangeState (TacoTuesdayState.INTRO);
 			_gotoSplash = false;
 		}
 
@@ -48,7 +48,7 @@ public class IntroState : IGameState
 //--------------------------------------------------------------
 	//private Button 			_backButton;
 	//private PlayFieldView		_introView;
-	private GameController 	_gameController;
+	private GameStateMachine 	_stateMachine;
     //private ActiveCustomerSet _customerController;
 
 	private bool _gotoSplash = false;

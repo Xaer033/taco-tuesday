@@ -8,11 +8,11 @@ public class PlayerSetupState : IGameState
 {
     private PassPlaySetupController _passPlaySetupController;
     private ScreenFader _fader;
-    private GameController _controller;
+    private GameStateMachine _stateMachine;
 
-	public void Init( GameController gameController )
+	public void Init( GameStateMachine stateMachine )
 	{
-        _controller = gameController;
+        _stateMachine = stateMachine;
 
         _passPlaySetupController = new PassPlaySetupController();
         _passPlaySetupController.Start(onPassSetupStart, onPassSetupCancel);
@@ -39,7 +39,7 @@ public class PlayerSetupState : IGameState
 
         _fader.FadeOut(0.35f, () =>
         {
-            _controller.ChangeState(TacoTuesdayState.GAMEPLAY);
+            _stateMachine.ChangeState(TacoTuesdayState.GAMEPLAY);
         });
     }
 
@@ -47,7 +47,7 @@ public class PlayerSetupState : IGameState
     {
         _fader.FadeOut(0.35f, () =>
         {
-            _controller.ChangeState(TacoTuesdayState.MAIN_MENU);
+            _stateMachine.ChangeState(TacoTuesdayState.MAIN_MENU);
         });
     }
 }

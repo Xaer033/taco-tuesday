@@ -3,7 +3,7 @@ namespace GhostGen
 {
 	public interface IGameState
 	{
-		void Init( GameController p_gameController);
+		void Init( GameStateMachine stateMachine);
 
 		void Step( float deltaTime );
 

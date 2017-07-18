@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace GhostGen
 {
-	public class GameController : System.Object
+	public class GameStateMachine : System.Object
 	{
-		public GameController( IStateFactory p_stateFactory )
+		public GameStateMachine( IStateFactory p_stateFactory )
 		{
 			_currentState 	= null;
 			_currentId 		= -6666666;

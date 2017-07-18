@@ -7,13 +7,13 @@ using GhostGen;
 public class Singleton : MonoBehaviour 
 {
     public CardResourceBank cardResourceBank;
-    public VFXBank vfxBank;
-    public GuiManager gui;
-    public FontManager fontManager;
+    public VFXBank          vfxBank;
+    public GuiManager       gui;
+    public FontManager      fontManager;
 
-
-    public GameController   gameController  { get; private set; }
-    public SessionFlags     sessionFlags    { get; private set; }
+    public GameStateMachine     gameStateMachine    { get; private set; }
+    public SessionFlags         sessionFlags        { get; private set; }
+    public NetworkManager       networkManager      { get; private set; }
 
     private IStateFactory _stateFactory;
 
@@ -22,9 +22,10 @@ public class Singleton : MonoBehaviour
         _instance = this;
 
         _stateFactory = new TacoTuesdayStateFactory();
-        gameController = new GameController(_stateFactory);
+        gameStateMachine = new GameStateMachine(_stateFactory);
 
         sessionFlags = new SessionFlags();
+        networkManager = gameObject.AddComponent<NetworkManager>();
 
         Input.multiTouchEnabled = false; //This needs to go elsewere 
     }
@@ -32,13 +33,13 @@ public class Singleton : MonoBehaviour
     {
         _postInit();
 
-        gameController.ChangeState(TacoTuesdayState.INTRO);
+        gameStateMachine.ChangeState(TacoTuesdayState.INTRO);
     }
 
 
     public void Update()
     {
-        gameController.Step(Time.deltaTime);
+        gameStateMachine.Step(Time.deltaTime);
         gui.Step(Time.deltaTime);
     }
 
@@ -57,5 +58,6 @@ public class Singleton : MonoBehaviour
         cardResourceBank.PostInit();
         gui.PostInit();
         fontManager.PostInit();
+        networkManager.PostInit();
     }
 }

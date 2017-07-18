@@ -9,7 +9,7 @@ public class MainMenuState : IGameState
     private MainMenuController _mainMenuController;
     private StarScapeView _starscapeView;
 
-	public void Init( GameController gameController )
+	public void Init( GameStateMachine stateMachine )
 	{
 		Debug.Log ("Entering In MainMenu State");
         _mainMenuController = new MainMenuController();
