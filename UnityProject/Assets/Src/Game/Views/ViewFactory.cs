@@ -68,6 +68,11 @@ public class ViewFactory
         }
     }
 
+    public T GetPrefab<T>(string viewPath)
+    {
+        return (T)(object)Resources.Load<UIView>("GUI/" + viewPath);
+    }
+
     public T Create<T>(string viewPath, Transform parent = null)
     {
         UIView viewBase = Resources.Load<UIView>("GUI/" + viewPath);
@@ -76,11 +81,14 @@ public class ViewFactory
         return (T)(object)_createView(viewBase, parent);
     }
 
+    public T Create<T>(UIView prefab, Transform parent = null)
+    {
+        Assert.IsNotNull(prefab);
+        return (T)(object)_createView(prefab, parent);
+    }
 
     public bool CreateAsync<T>(string viewPath, OnViewCreated callback, Transform parent = null)
     {
-        Debug.Log("View At: " + viewPath);
-
         ResourceRequest request = Resources.LoadAsync<UIView>("GUI/" + viewPath);
         if (request == null) { return false; }
 

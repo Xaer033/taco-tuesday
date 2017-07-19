@@ -55,4 +55,3 @@ MonoBehaviour:
   vfxBank: {fileID: 11400000, guid: 55abff8ca3b14504bbb9195e45822662, type: 2}
   gui: {fileID: 11400000, guid: 44d47bf62189c7f4a832dfd5c73b7da6, type: 2}
   fontManager: {fileID: 11400000, guid: ff6f347df8fbbfd4f971c93d988e8007, type: 2}
-  networkManage: {fileID: 11400000, guid: cac6c7119ab8d8748bc4e63f98df349a, type: 2}

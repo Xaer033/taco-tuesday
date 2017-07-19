@@ -9,16 +9,21 @@ public class MultiplayerLobbyController : BaseController
 {
     private MultiplayerLobbyView _lobbyView;
     private List<Hashtable> _roomLobbyData = new List<Hashtable>();
-    private Action _onJoin;
+    private Action _onJoinedRoom;
     private Action _onBack;
 
     private ListScrollRect _roomListView;
+    private int _selectedRoomIndex;
+
+    private NetworkManager _networkManager;
 
     public void Start(Action onJoinCallback, Action onBackCallback)
     {
-        
-        _onJoin = onJoinCallback;
+        _onJoinedRoom = onJoinCallback;
         _onBack = onBackCallback;
+
+        _selectedRoomIndex = -1;
+        _networkManager = Singleton.instance.networkManager;
 
         viewFactory.CreateAsync<MultiplayerLobbyView>("GameSetup/MultiplayerLobbyView", (popup)=>
         {
@@ -34,11 +39,13 @@ public class MultiplayerLobbyController : BaseController
             _roomListView.dataProvider = _getRoomDataProvider();
 
             //Singleton.instance.networkManager.onCreatedRoom += onCreatedRoom;
-            Singleton.instance.networkManager.onReceivedRoomListUpdate += onReceivedRoomListUpdate;
+            _networkManager.onReceivedRoomListUpdate += onReceivedRoomListUpdate;
+            _networkManager.onJoinedRoom += onJoinedRoom;
+
         });
     }
 
-    public override void RemoveView()
+    public override void RemoveView(bool immediately = false)
     {
         _lobbyView._joinButton.onClick.RemoveListener(onJoinButton);
         _lobbyView._backButton.onClick.RemoveListener(onBackButton);
@@ -46,9 +53,10 @@ public class MultiplayerLobbyController : BaseController
 
         _roomListView.onSelectedItem -= onRoomClicked;
 
+        _networkManager.onReceivedRoomListUpdate -= onReceivedRoomListUpdate;
+        _networkManager.onJoinedRoom -= onJoinedRoom;
 
-        Singleton.instance.networkManager.onReceivedRoomListUpdate -= onReceivedRoomListUpdate;
-        base.RemoveView();
+        base.RemoveView(immediately);
     }
 
     private void onRoomClicked(int index, bool isSelected)
@@ -57,16 +65,27 @@ public class MultiplayerLobbyController : BaseController
         if(isSelected)
         {
             Debug.Log("Item: " + _roomLobbyData[index]["roomName"]);
+            _selectedRoomIndex = index;
+        }
+        else
+        {
+            _selectedRoomIndex = -1;
         }
     }
     
     private void onJoinButton()
     {
-        Debug.Log("Join a room: ");
-        if(_onJoin != null)
+        if(_selectedRoomIndex < 0)
         {
-            _onJoin();
+            return;
         }
+
+        _lobbyView._joinButton.onClick.RemoveListener(onJoinButton);
+
+        string roomName = _roomLobbyData[_selectedRoomIndex]["roomName"] as string;
+        bool result = PhotonNetwork.JoinRoom(roomName);
+
+        Debug.Log(string.Format("Joining room: {0} with result: {1}", roomName, result));  
     }
 
     private void onCreateButton()
@@ -101,6 +120,15 @@ public class MultiplayerLobbyController : BaseController
     private void onReceivedRoomListUpdate()
     {
         _roomListView.dataProvider = _getRoomDataProvider();
+        PhotonNetwork.player.NickName = string.Format("PL-{0}", UnityEngine.Random.Range(0, 1000));//SystemInfo.deviceName + "_" + UnityEngine.Random.Range(0, 2000);
+    }
+
+    private void onJoinedRoom()
+    {
+        if (_onJoinedRoom != null)
+        {
+            _onJoinedRoom();
+        }
     }
 
     private List<Hashtable> _getRoomDataProvider()

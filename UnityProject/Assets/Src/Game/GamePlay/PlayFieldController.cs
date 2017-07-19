@@ -68,9 +68,9 @@ public sealed class PlayFieldController : BaseController
         });
     }
 
-    override public void RemoveView()
+    override public void RemoveView(bool immediately = false)
     {
-        base.RemoveView();
+        base.RemoveView(immediately);
 
         if (_hoverFX)
             GameObject.Destroy(_hoverFX.gameObject);

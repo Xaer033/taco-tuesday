@@ -77,10 +77,10 @@ namespace GhostGen
                 _onTriggered(eventData);
             }
         }
+
         protected virtual void OnViewUpdate()
         {
         }
-
 
         public virtual void OnViewOutro( Action finishedCallback)
         {

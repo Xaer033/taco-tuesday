@@ -11,9 +11,14 @@ public class NetworkManager : Photon.PunBehaviour, IPostInit
 
     public event Action onCreatedRoom;
     public event Action onJoinedLobby;
+    public event Action onJoinedRoom;
+    public event Action onLeftLobby;
+    public event Action onLeftRoom;
     public event Action onReceivedRoomListUpdate;
+    public event Action<PhotonPlayer> onPlayerConnected;
+    public event Action<PhotonPlayer> onPlayerDisconnected;
 
-	public void PostInit()
+    public void PostInit()
     {
 
     }
@@ -77,10 +82,38 @@ public class NetworkManager : Photon.PunBehaviour, IPostInit
     public override void OnJoinedLobby()
     {
         Debug.Log("Joined Lobby: " + PhotonNetwork.lobby.Type.ToString());
-        if(onJoinedLobby != null)
+        safeCall(onJoinedLobby);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        safeCall(onJoinedRoom);
+    }
+
+    public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
+    {
+        if(onPlayerConnected != null)
         {
-            onJoinedLobby();
+            onPlayerConnected(newPlayer);
         }
+    }
+
+    public override void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
+    {
+        if (onPlayerDisconnected != null)
+        {
+            onPlayerDisconnected(otherPlayer);
+        }
+    }
+
+    public override void OnLeftRoom()
+    {
+        safeCall(onLeftRoom);
+    }
+
+    public override void OnLeftLobby()
+    {
+        safeCall(onLeftLobby);
     }
 
     private void safeCall(Action callback)
