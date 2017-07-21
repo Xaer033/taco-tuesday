@@ -9,6 +9,8 @@ public class NetworkManager : Photon.PunBehaviour, IPostInit
 {
     public const string kGameVersion = "0.1.0";
 
+    public event PhotonNetwork.EventCallback onCustomEvent;
+
     public event Action onCreatedRoom;
     public event Action onJoinedLobby;
     public event Action onJoinedRoom;
@@ -20,12 +22,23 @@ public class NetworkManager : Photon.PunBehaviour, IPostInit
 
     public void PostInit()
     {
-
+        PhotonNetwork.OnEventCall += onCustomEventCallback;
     }
 
     public void CleanUp()
     {
-        if(PhotonNetwork.connected)
+        PhotonNetwork.OnEventCall -= onCustomEventCallback;
+
+        onCreatedRoom = null;
+        onJoinedLobby = null;
+        onJoinedRoom = null;
+        onLeftLobby = null;
+        onLeftRoom = null;
+        onReceivedRoomListUpdate = null;
+        onPlayerConnected = null;
+        onPlayerDisconnected = null;
+
+        if (PhotonNetwork.connected)
         {
             Disconnect();
         }
@@ -114,6 +127,15 @@ public class NetworkManager : Photon.PunBehaviour, IPostInit
     public override void OnLeftLobby()
     {
         safeCall(onLeftLobby);
+    }
+
+    
+    private void onCustomEventCallback(byte eventCode, object content, int senderId)
+    {
+        if(onCustomEvent != null)
+        {
+            onCustomEvent(eventCode, content, senderId);
+        }
     }
 
     private void safeCall(Action callback)

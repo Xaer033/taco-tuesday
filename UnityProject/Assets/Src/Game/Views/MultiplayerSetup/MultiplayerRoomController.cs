@@ -6,6 +6,8 @@ using GhostGen;
 
 public class MultiplayerRoomController : BaseController 
 {
+    const byte EVENT_READY_TOGGLE = 1;
+
     private MultiplayerRoomView _roomView;
     private NetworkManager _networkManager;
     private Action _onBackCallback;
@@ -25,6 +27,7 @@ public class MultiplayerRoomController : BaseController
             _networkManager.onPlayerConnected += _onPlayerConnectionStatusChanged;
             _networkManager.onPlayerDisconnected += _onPlayerConnectionStatusChanged;
             _networkManager.onLeftRoom += _onLeftRoom;
+            _networkManager.onCustomEvent += _onCustomEvent;
 
             _setupPlayers();
         });
@@ -35,20 +38,51 @@ public class MultiplayerRoomController : BaseController
         _networkManager.onPlayerConnected -= _onPlayerConnectionStatusChanged;
         _networkManager.onPlayerDisconnected -= _onPlayerConnectionStatusChanged;
         _networkManager.onLeftRoom -= _onLeftRoom;
+        _networkManager.onCustomEvent -= _onCustomEvent;
 
         base.RemoveView(immediately);
     }
 
+    private void _addButtonCallbacks(bool isMaster)
+    {
+        _roomView.leaveButton.onClick.AddListener(_onLeaveRoomButton);
+
+        if (isMaster)
+        {
+            _roomView.startButton.onClick.AddListener(_onStartGameButton);
+        }
+        else
+        {
+            _roomView.readyToggle.onValueChanged.AddListener(_onReadyButton);
+        }
+    }
+
+    private void _removeButtonCallbacks()
+    {
+        _roomView.leaveButton.onClick.RemoveAllListeners();
+        _roomView.startButton.onClick.RemoveAllListeners();
+        _roomView.readyToggle.onValueChanged.RemoveAllListeners();
+    }
+
     private void _onPlayerConnectionStatusChanged(PhotonPlayer newPlayer)
     {
+        _removeButtonCallbacks();
         _setupPlayers();
+        _addButtonCallbacks(PhotonNetwork.isMasterClient);
     }
 
     private void _onLeaveRoomButton()
     {
-        // Maybe throw up a modal dialog to ask if they are sure?
         _roomView.leaveButton.onClick.RemoveListener(_onLeaveRoomButton);
+        // Maybe throw up a modal dialog to ask if they are sure?
         PhotonNetwork.LeaveRoom();
+    }
+
+    private void _onReadyButton(bool isSelected)
+    {
+        RaiseEventOptions options = new RaiseEventOptions();
+        options.Receivers = ReceiverGroup.All;
+        PhotonNetwork.RaiseEvent(EVENT_READY_TOGGLE, isSelected, true, options);
     }
 
     private void _onLeftRoom()
@@ -67,22 +101,25 @@ public class MultiplayerRoomController : BaseController
         }
     }
 
+    private void _onCustomEvent(byte eventCode, object content, int senderId)
+    {
+        if(eventCode == EVENT_READY_TOGGLE)
+        {
+            int index = _roomView.GetIndexForPlayerId(senderId);
+            if(index >= 0)
+            {
+                _roomView.SetIsReady(index, (bool)content);
+            }
+        }
+    }
+
     private void _viewInitialization()
     {
-        _roomView.leaveButton.onClick.AddListener(_onLeaveRoomButton);
-
         _roomView.SetTitle(PhotonNetwork.room.Name);
         bool isMaster = PhotonNetwork.isMasterClient;
         _roomView.IsMasterClient(isMaster);
-
-        if(isMaster)
-        {
-            _roomView.startButton.onClick.AddListener(_onStartGameButton);
-        }
-        else
-        {
-            _roomView.readyToggle.onValueChanged.AddListener((isSelected) => { });
-        }
+        
+        _addButtonCallbacks(isMaster);
     }
 
     private void _setupPlayers()

@@ -58,6 +58,7 @@ public class MultiplayerRoomView : UIView
         RoomPlayerItemView pView = _playerItemViewList[index];
         if(player != null)
         {
+            pView.playerId = player.ID;
             pView.gameObject.SetActive(true);
             pView.playerName.text = player.NickName;
             pView.checkmark.gameObject.SetActive(false);
@@ -66,6 +67,23 @@ public class MultiplayerRoomView : UIView
         {
             pView.gameObject.SetActive(false);
         }
+    }
+
+    public int GetIndexForPlayerId(int playerId)
+    {
+        int count = _playerItemViewList.Count;
+        for(int i = 0; i < count; ++i)
+        {
+            if(_playerItemViewList[i] == null)
+            {
+                continue;
+            }
+            if(playerId == _playerItemViewList[i].playerId)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void SetIsReady(int index, bool isActive)
