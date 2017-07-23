@@ -33,7 +33,8 @@ public class MultiplayerSetupState : IGameState
     public void Exit()
 	{
         _lobbyController.RemoveView();
-	}
+        _roomController.RemoveView();
+    }
 
     private void onGoToMainMenu()
     {
@@ -56,6 +57,16 @@ public class MultiplayerSetupState : IGameState
     private void onStartGame()
     {
         Debug.Log("Start game or somethin'");
+
+        List<string> pNames = _roomController.GetNameList();
+        GameContext context = GameContext.Create(GameMode.ONLINE, pNames, PhotonNetwork.isMasterClient);
+        Singleton.instance.sessionFlags.gameContext = context;
+
+
+        _fader.FadeOut(0.35f, () =>
+        {
+            _stateMachine.ChangeState(TacoTuesdayState.GAMEPLAY);
+        });
     }
 
     private void onLeaveRoom()

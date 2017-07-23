@@ -34,7 +34,7 @@ public class PlayerSetupState : IGameState
     private void onPassSetupStart()
     {
         List<string> pNames = _passPlaySetupController.GetNameList();
-        GameContext context = GameContext.Create(GameMode.PASS_AND_PLAY, pNames);
+        GameContext context = GameContext.Create(GameMode.PASS_AND_PLAY, pNames, true);
         Singleton.instance.sessionFlags.gameContext = context;
 
         _fader.FadeOut(0.35f, () =>

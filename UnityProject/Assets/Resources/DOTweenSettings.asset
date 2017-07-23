@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 16995157, guid: 4b86096da60397740b448d7845570549, type: 3}
   m_Name: DOTweenSettings
   m_EditorClassIdentifier: 
-  useSafeMode: 1
+  useSafeMode: 0
   timeScale: 1
   useSmoothDeltaTime: 0
   showUnityEditorReport: 0

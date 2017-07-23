@@ -37,8 +37,7 @@ public class MultiplayerLobbyController : BaseController
             _roomListView.onSelectedItem += onRoomClicked;
             
             _roomListView.dataProvider = _getRoomDataProvider();
-
-            //Singleton.instance.networkManager.onCreatedRoom += onCreatedRoom;
+            
             _networkManager.onReceivedRoomListUpdate += onReceivedRoomListUpdate;
             _networkManager.onJoinedRoom += onJoinedRoom;
 

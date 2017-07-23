@@ -8,34 +8,40 @@ public class GameMatchCore
 {
     public GameMatchState   matchState  { get; private set; }
 
-    private CommandFactory _commandFactory = new CommandFactory();
+    private CommandFactory  _commandFactory = new CommandFactory();
     
+    private bool            _isMasterClient;
+
     // Broadcast events
     private Action _onPlayOnCustomer;
     private Action<bool> _onResolveScore;
     private Action _onEndTurn;
 
 
-    public static GameMatchCore Create(List<PlayerState> playerList, int randomSeed = -1)
-    {
-        GameMatchCore server = new GameMatchCore(playerList, randomSeed);
-        return server;
-    }
 
-    private GameMatchCore(List<PlayerState> playerList, int randomSeed)
+    public static GameMatchCore Create(
+        List<PlayerState> playerList,
+        bool isMasterClient, 
+        CardDeck customerDeck, 
+        CardDeck ingredientDeck)
     {
-        CardDeck customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
-        customerDeck.Shuffle(randomSeed);
-
-        CardDeck ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
-        ingredientDeck.Shuffle(randomSeed);
+        GameMatchCore core = new GameMatchCore();
+        core._isMasterClient = isMasterClient;
 
         // Also no commands for starting player hands
-        ActiveCustomerSet   customerGroup   = _createCustomerCards(customerDeck);
-        PlayerGroup         playerGroup     = _createPlayerHands(playerList, ingredientDeck);
+        ActiveCustomerSet   customerGroup   = core._createCustomerCards(customerDeck);
+        PlayerGroup         playerGroup     = core._createPlayerHands(playerList, ingredientDeck);
 
-        matchState = GameMatchState.Create(playerGroup, customerGroup, customerDeck, ingredientDeck);
+        core.matchState = GameMatchState.Create(
+            playerGroup, 
+            customerGroup, 
+            customerDeck, 
+            ingredientDeck);
+
+        return core;
     }
+
+    private GameMatchCore() { }
 
     public PlayerGroup playerGroup
     {
@@ -86,7 +92,6 @@ public class GameMatchCore
         if (!customerState.CanAcceptCard(ingredientData)) { return false; }
 
         _playCard(handIndex, playerState, customerState, ingredientData);
-        _replaceIngredientCard(handIndex, playerState.hand);
         _playCardEvent();
         return true;
     }
@@ -97,7 +102,7 @@ public class GameMatchCore
         Assert.IsNotNull(player);
         CustomerCardState customerState = activeCustomerSet.GetCustomerByIndex(customerSlotIndex);
 
-        bool result = _resolveCustomerCard(customerState, player);
+        bool result = _resolveCustomerCards(customerState, player);
         if (result)
         {
             _createNewCustomer(customerSlotIndex);
@@ -108,6 +113,10 @@ public class GameMatchCore
 
     public void EndPlayerTurn()
     {
+        int playerIndex = playerGroup.activePlayer.index;
+        PlayerState playerState = playerGroup.GetPlayer(playerIndex);
+        _replaceIngredientCards(playerState.hand);
+
         ICommand command = ChangePlayerTurn.Create(playerGroup);
         _commandFactory.Execute(command);
         _endTurnEvent();
@@ -123,16 +132,15 @@ public class GameMatchCore
         get { return matchState.isGameOver; }
     }
 
-    private void _replaceIngredientCard(int handIndex, PlayerHand hand)
+    private void _replaceIngredientCards(PlayerHand hand)
     {
-        ICommand command = ReplaceIngredientCard.Create(
-            handIndex,
+        ICommand command = ReplaceIngredientCards.Create(
             hand,
             matchState.ingredientDeck);
         _commandFactory.Execute(command);
     }
 
-    private bool _resolveCustomerCard(
+    private bool _resolveCustomerCards(
         CustomerCardState customer,
         PlayerState player)
     {

@@ -3,33 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PassPlayGameMode : IGameModeController
+public class OnlineGameMode : IGameModeController
 {
-    private PassAndPlayFieldController  _playFieldController        = new PassAndPlayFieldController();
+    private const int kRandomSeed = 100;
+
+    private NormalPlayFieldController   _playFieldController        = new NormalPlayFieldController();
     private GameOverPopupController     _gameOverPopupController    = new GameOverPopupController();
 
     private List<PlayerState>           _playerList                 = new List<PlayerState>(4);
 
-
     private GameMatchCore   _gameMatchCore;
     private Action          _onGameOverCallback;
+    
+    private bool            _isMasterClient;
 
-    public void Start(Action gameOverCallback)
+    public bool isMasterClient { get; set; }
+
+    public void Start( Action gameOverCallback)
     {
         _onGameOverCallback = gameOverCallback;
 
         _setupPlayerList();
-        
-        int randomSeed = Environment.TickCount;
 
         CardDeck customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
-        customerDeck.Shuffle(randomSeed);
+        customerDeck.Shuffle(kRandomSeed);
         CardDeck ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
-        ingredientDeck.Shuffle(randomSeed);
+        ingredientDeck.Shuffle(kRandomSeed);
 
         _gameMatchCore = GameMatchCore.Create(
-            _playerList, 
-            true, 
+            _playerList,
+            isMasterClient, 
             customerDeck, 
             ingredientDeck);
 
@@ -40,6 +43,7 @@ public class PassPlayGameMode : IGameModeController
     public void CleanUp()
     {
         _playFieldController.RemoveView();
+        Singleton.instance.networkManager.Disconnect();
     }
 
     private void onGameOver(bool gameOverPopup = true)
@@ -104,5 +108,4 @@ public class PassPlayGameMode : IGameModeController
         _playFieldController.onUndoTurn         = onUndoTurn;
         _playFieldController.onGameOver         = onGameOver;
     }
-    
 }

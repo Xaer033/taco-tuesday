@@ -43,6 +43,20 @@ public class MultiplayerRoomController : BaseController
         base.RemoveView(immediately);
     }
 
+    public List<string> GetNameList()
+    {
+        List<string> nameList = new List<string>(4);
+
+        PhotonPlayer[] playerList = PhotonNetwork.playerList;
+        int count = playerList.Length;
+        for(int i = 0; i < count; ++i)
+        {
+            nameList.Add(playerList[i].NickName + " " + i.ToString());
+        }
+
+        return nameList;
+    }
+
     private void _addButtonCallbacks(bool isMaster)
     {
         _roomView.leaveButton.onClick.AddListener(_onLeaveRoomButton);

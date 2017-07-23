@@ -79,7 +79,12 @@ public class CardDeck : System.Object
 
     public void Shuffle(int randomSeed = -1)
     {
-        _cardList.Sort((a, b) => Guid.NewGuid().CompareTo(Guid.NewGuid()));
+        System.Random random = new System.Random(randomSeed);
+        
+        _cardList.Sort((a, b) =>
+        {
+            return random.Next(0, 100).CompareTo(random.Next(0, 100));
+        });
     }
 
     public bool isEmpty

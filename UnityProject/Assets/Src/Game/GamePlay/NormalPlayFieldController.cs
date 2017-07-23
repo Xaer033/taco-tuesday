@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using DG.Tweening;
 
-public sealed class PlayFieldController : BaseController
+public sealed class NormalPlayFieldController : BaseController
 {
     const int kLocalPlayerIndex = 0; // TODO: Temporary until we have real multiplayer
 
@@ -26,7 +26,6 @@ public sealed class PlayFieldController : BaseController
 
     private IngredientCardView      _draggedIngredient = null;
     private CustomerCardView        _droppedCustomer = null;
-    private PassInterludeController _passController;
     
 // Broadcast events
     public Func<int, int, bool> onPlayOnCustomer    { set; get; }
@@ -41,9 +40,7 @@ public sealed class PlayFieldController : BaseController
         _matchState  = matchState;
 
         _setupFX();
-
-        _passController = new PassInterludeController();
-
+        
         viewFactory.CreateAsync<PlayFieldView>("PlayFieldView", (_view) =>
         {
             _playfieldView = _view as PlayFieldView;
@@ -63,20 +60,21 @@ public sealed class PlayFieldController : BaseController
                 _playfieldView.SetPlayerScore(i, player.score);
             }
 
-            _setupActiveCustomers(_playfieldView.staticCardLayer);
+            _setupActiveCustomersView(_playfieldView.staticCardLayer);
             _createPlayerHandView(kLocalPlayerIndex, _playfieldView.staticCardLayer);
         });
     }
 
     override public void RemoveView(bool immediately = false)
     {
-        base.RemoveView(immediately);
-
         if (_hoverFX)
             GameObject.Destroy(_hoverFX.gameObject);
 
         if (_slamFX)
             GameObject.Destroy(_slamFX.gameObject);
+
+
+        base.RemoveView(immediately);
     }
 
     private void _playfieldView_OnIntroTransitionEvent(UIView p_view)
@@ -86,7 +84,7 @@ public sealed class PlayFieldController : BaseController
 
     private void _setupFX()
     {
-        Transform canvasTransform = Singleton.instance.gui.viewFactory.canvas.transform;
+        Transform canvasTransform = Singleton.instance.gui.mainCanvas.transform;
         GameObject hoverObj = Singleton.instance.vfxBank.Create(VFXType.CARD_HOVER, canvasTransform);
         _hoverFX = hoverObj.GetComponent<ParticleSystem>();
         _hoverFX.gameObject.SetActive(false);
@@ -96,11 +94,9 @@ public sealed class PlayFieldController : BaseController
         _slamFX = slamObj.GetComponent<ParticleSystem>();
     }
 
-    private void _setupActiveCustomers(Transform parent)
+    private void _setupActiveCustomersView(Transform parent)
     {
-        viewFactory.CreateAsync<ActiveCustomersView>(
-            "ActiveCustomersView",
-            (view) =>
+        viewFactory.CreateAsync<ActiveCustomersView>("ActiveCustomersView", (view) =>
             {
                 _activeCustomersView = (ActiveCustomersView)view;
                 for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
@@ -108,85 +104,37 @@ public sealed class PlayFieldController : BaseController
                     CustomerCardState state = _matchState.activeCustomerSet.GetCustomerByIndex(i);
                     _setupCustomerView(i, state);
                 }
-            }, parent
+            }, 
+            parent
         );
-        
     }
 
     private void _setupCustomerView(int customerSlot, CustomerCardState cardState)
     {
-        if (cardState == null)
-        {
-            Debug.LogWarning("Card State is null!");
-            _activeCustomersView.RemoveCardByIndex(customerSlot); // TODO: Do this On card slam instead of after the fact
-            return;
-        }
-
-        CustomerCardView view = _activeCustomersView.GetCardByIndex(customerSlot);
-        if (view == null)
-        {
-            view = (CustomerCardView)Singleton.instance.cardResourceBank.CreateCardView(
-             cardState.cardData,
-             _activeCustomersView._activeSlotList[customerSlot]);
-        }
-
-        view.cardState = cardState;
-
-        view.eventTrigger.triggers.Clear();
-        EventTrigger.Entry OnDrop = new EventTrigger.Entry();
-        OnDrop.eventID = EventTriggerType.Drop;
-        OnDrop.callback.AddListener((e)=>_handleIngredientCardDrop((PointerEventData)e, view));
-        view.eventTrigger.triggers.Add(OnDrop);
-
-        EventTrigger.Entry OnHoverBegin = new EventTrigger.Entry();
-        OnHoverBegin.eventID = EventTriggerType.PointerEnter;
-        OnHoverBegin.callback.AddListener((e) => _handleIngredientCardHover(view));
-        view.eventTrigger.triggers.Add(OnHoverBegin);
-
-        EventTrigger.Entry OnHoverEnd = new EventTrigger.Entry();
-        OnHoverEnd.eventID = EventTriggerType.PointerExit;
-        OnHoverEnd.callback.AddListener((e) => _deactiveHoverFX());
-        view.eventTrigger.triggers.Add(OnHoverEnd);
-
-        _activeCustomersView.SetCardByIndex(customerSlot, view);
+        PlayFieldViewUtils.SetupCustomerView(
+            _activeCustomersView,
+            customerSlot,
+            cardState,
+            _handleIngredientCardDrop,
+            _handleIngredientCardHover,
+            _deactiveHoverFX);
     }
 
     private void _setupIngredientView(int handSlot, IngredientCardData cardData)
     {
-        if(cardData == null)
-        {
-            Debug.LogWarning("Card Data is null!");
-            _playerHandView.RemoveCardByIndex(handSlot); // TODO: Do this On card slam instead of after the fact    
-            return;
-        }
-
-        IngredientCardView view = _playerHandView.GetCardAtIndex(handSlot);
-        if (view == null)
-        {
-            view = Singleton.instance.cardResourceBank.CreateCardView(
+        PlayFieldViewUtils.SetupIngredientView(
+            _playerHandView,
+            handSlot, 
             cardData,
-            _playerHandView.cardSlotList[handSlot]) as IngredientCardView;
-        }
-
-        view.cardData = cardData;
-
-        view.eventTrigger.triggers.Clear();
-        EventTrigger.Entry OnBeginDrag = new EventTrigger.Entry();
-        OnBeginDrag.eventID = EventTriggerType.BeginDrag;
-        OnBeginDrag.callback.AddListener((e) => _handleIngredientCardBeginDrag((PointerEventData)e, view));
-        view.eventTrigger.triggers.Add(OnBeginDrag);
-
-        EventTrigger.Entry OnEndDrag = new EventTrigger.Entry();
-        OnEndDrag.eventID = EventTriggerType.EndDrag;
-        OnEndDrag.callback.AddListener((e) => _handleEndDrag());
-        view.eventTrigger.triggers.Add(OnEndDrag);
-
-        _playerHandView.SetCardAtIndex(handSlot, view);
+            _handleIngredientCardBeginDrag,
+            _handleEndDrag);
     }
 
-    private void _handleIngredientCardDrop(PointerEventData e, CustomerCardView customerView)
+    private void _handleIngredientCardDrop(CustomerCardView customerView)
     {
-        Debug.Log("PlayField Received drop of: " + customerView.cardData.titleKey);
+        Debug.Log("LocalPlayer: " + localPlayer.index + ", Active Player: " + activePlayer.index);
+
+        if (localPlayer != activePlayer) { return; }
         if (_draggedIngredient == null) { return; }
 
         CustomerCardState customerState = customerView.cardState;
@@ -228,7 +176,7 @@ public sealed class PlayFieldController : BaseController
         _activeHoverFX(customerView.transform.position);
     }
 
-    private void _handleIngredientCardBeginDrag(PointerEventData e, IngredientCardView view)
+    private void _handleIngredientCardBeginDrag(IngredientCardView view)
     {
         _draggedIngredient = view;
     }
@@ -240,38 +188,47 @@ public sealed class PlayFieldController : BaseController
         if(_draggedIngredient.isDropSuccessfull)
         {
             _playerHandView.blockCardDrag = true;
-            _zoomSlamTween(_draggedIngredient, _droppedCustomer, () =>
-            {
-                int handIndex = _draggedIngredient.handIndex;
-                //Singleton.instance.viewFactory.RemoveView(_draggedIngredient, true);
-                _draggedIngredient = null;
 
-                //_playerHandView.SetCardAtIndex(handIndex, null);
-                _playerHandView.RemoveCardByIndex(handIndex);
-                IngredientCardData newIngredientCard = activePlayer.hand.GetCard(handIndex);
-                _setupIngredientView(handIndex, newIngredientCard);
+            PlayFieldViewUtils.ZoomSlamTween(
+            _draggedIngredient,
+            _droppedCustomer,
+            _onCardSlam,
+            _onCardDropFinished);
+        }
+    }
+    
+    private void _onCardSlam()
+    {
+        _draggedIngredient.gameObject.SetActive(false);
+        _droppedCustomer.invalidateFlag = UIView.InvalidationFlag.DYNAMIC_DATA;
+        _slamFX.transform.position = _draggedIngredient.transform.position;
+        _slamFX.Play();
+    }
 
-                //_droppedCustomer.invalidateFlag |= UIView.InvalidationFlag.DYNAMIC_DATA;
-                int customerIndex = _droppedCustomer.cardState.slotIndex;
-                
-                Assert.IsNotNull(onResolveScore);
+    private void _onCardDropFinished()
+    {
+        int handIndex       = _draggedIngredient.handIndex;
+        int customerIndex   = _droppedCustomer.cardState.slotIndex;
 
-                bool customerFinished = onResolveScore(customerIndex);
-                if (customerFinished)
-                {
-                    _playfieldView.SetPlayerScore(activePlayer.index, activePlayer.score);
-                    CustomerCardState newState = _matchState.activeCustomerSet.GetCustomerByIndex(customerIndex);
-                    _setupCustomerView(customerIndex, newState);                    
-                }
-           
-                _playerHandView.blockCardDrag = false;
+        _draggedIngredient = null;
 
-                if(_matchState.isGameOver)
-                {
-                    Assert.IsNotNull(onGameOver);
-                    onGameOver(true);
-                }
-            });
+        _playerHandView.RemoveCardByIndex(handIndex);
+
+        Assert.IsNotNull(onResolveScore);
+        bool customerFinished = onResolveScore(customerIndex);
+        if (customerFinished)
+        {
+            _playfieldView.SetPlayerScore(activePlayer.index, activePlayer.score);
+            CustomerCardState newState = _matchState.activeCustomerSet.GetCustomerByIndex(customerIndex);
+            _setupCustomerView(customerIndex, newState);
+        }
+
+        _playerHandView.blockCardDrag = false;
+
+        if (_matchState.isGameOver)
+        {
+            Assert.IsNotNull(onGameOver);
+            onGameOver(true);
         }
     }
 
@@ -323,15 +280,11 @@ public sealed class PlayFieldController : BaseController
 
     private void _onConfirmTurnButton()
     {
-        string instructionTextKey = "Pass device to " + _matchState.playerGroup.GetNextPlayer().name;
-        _passController.Start(instructionTextKey, () =>
-        {
-            Assert.IsNotNull(onEndTurn);
-            onEndTurn();
-            
-            _refreshHandView(activePlayer);
-            _playfieldView.SetActivePlayer(activePlayer.index);
-        });
+        Assert.IsNotNull(onEndTurn);
+        onEndTurn();
+        
+        _refreshHandView(localPlayer);
+        _playfieldView.SetActivePlayer(localPlayer.index);
     }
 
     private void _onUndoButton()
@@ -341,7 +294,7 @@ public sealed class PlayFieldController : BaseController
         bool didUndo = onUndoTurn();
         if (!didUndo) { return; }
         
-        _refreshHandView(activePlayer);
+        _refreshHandView(localPlayer);
 
         _activeCustomersView.invalidateFlag = UIView.InvalidationFlag.ALL;
         for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
@@ -349,7 +302,7 @@ public sealed class PlayFieldController : BaseController
             _setupCustomerView(i, _matchState.activeCustomerSet.GetCustomerByIndex(i));
         }
 
-        _playfieldView.SetActivePlayer(activePlayer.index);
+        _playfieldView.SetActivePlayer(localPlayer.index);
     }
 
     private void _onExitButton()
@@ -368,45 +321,5 @@ public sealed class PlayFieldController : BaseController
         {
             _setupIngredientView(i, player.hand.GetCard(i));
         }
-    }
-
-    private void _zoomSlamTween(
-        IngredientCardView ingredient, 
-        CustomerCardView customer, 
-        TweenCallback callback)
-    {
-        Vector3 originalScale = ingredient.transform.localScale;
-
-        Vector3 cardEyeVec = (Camera.main.transform.position - customer.transform.position).normalized;
-        Sequence sequence = DOTween.Sequence();
-        Tween moveToTween = ingredient.transform.DOMove(customer.transform.position + cardEyeVec, 0.27f);
-        moveToTween.SetEase(Ease.OutCubic);
-
-        Tween growTween = ingredient.transform.DOScale(originalScale * 1.3f, 0.31f);
-        moveToTween.SetEase(Ease.OutCubic);
-
-        Tween slamTween = ingredient.transform.DOScale(originalScale * 0.1f, 0.2f);
-        slamTween.SetEase(Ease.InCubic);
-
-        Sequence shakeSeq = DOTween.Sequence();
-        Tween shakePosTween = customer.transform.DOShakePosition(0.4f, 10.0f, 22);
-        shakePosTween.SetEase(Ease.OutCubic);
-        Tween shakeRotTween = customer.transform.DOShakeRotation(0.4f, 6.0f, 16);
-        shakeRotTween.SetEase(Ease.OutCubic);
-        shakeSeq.Insert(0.0f, shakePosTween);
-        shakeSeq.Insert(0.0f, shakeRotTween);
-
-        sequence.Insert(0.0f, moveToTween);
-        sequence.Insert(0.0f, growTween);
-        sequence.Append(slamTween);
-        sequence.AppendCallback(() =>
-        {
-            ingredient.gameObject.SetActive(false);
-            customer.invalidateFlag = UIView.InvalidationFlag.DYNAMIC_DATA;
-            _slamFX.transform.position = ingredient.transform.position;
-            _slamFX.Play();
-        });
-        sequence.Append(shakeSeq);
-        sequence.OnComplete(callback);
     }
 }

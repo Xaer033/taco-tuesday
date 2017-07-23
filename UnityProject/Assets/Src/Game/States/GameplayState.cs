@@ -7,7 +7,7 @@ using DG.Tweening;
 public class GameplayState : IGameState
 {
     private IGameModeController _gameModeController;
-    private GameStateMachine      _stateMachine;
+    private GameStateMachine    _stateMachine;
 
     public void Init( GameStateMachine stateMachine )
 	{       
@@ -47,7 +47,7 @@ public class GameplayState : IGameState
         switch(context.gameMode)
         {
             case GameMode.PASS_AND_PLAY:    return new PassPlayGameMode();
-            case GameMode.ONLINE:           return null;
+            case GameMode.ONLINE:           return new OnlineGameMode();
             case GameMode.SINGLE_PLAYER:    return null;
         }
         Debug.LogErrorFormat("Not supported gametype {0}", context.gameMode);
