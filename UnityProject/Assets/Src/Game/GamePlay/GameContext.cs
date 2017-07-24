@@ -10,15 +10,17 @@ public enum GameMode
 public class GameContext
 {
     public GameMode         gameMode        { get; private set; }
-    public List<string>     playerNameList  { get; private set; }
-    public bool             isMasterClient  { get; private set; }
+    public PlayerState[]    playerList      { get; private set; }
 
-    public static GameContext Create(GameMode type, List<string> playerList, bool isMasterClient)
+    public bool             isMasterClient  { get; set; }
+    public CardDeck         ingredientDeck  { get; set; }
+    public CardDeck         customerDeck    { get; set; }
+
+    public static GameContext Create(GameMode type, PlayerState[] playerList)
     {
         GameContext gc = new GameContext();
         gc.gameMode = type;
-        gc.playerNameList = playerList;
-        gc.isMasterClient = isMasterClient;
+        gc.playerList = playerList;
         return gc;
     }
 

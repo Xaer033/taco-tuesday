@@ -84,7 +84,7 @@ public class GameMatchCore
 
         if (!activeCustomerSet.IsSlotActive(customerIndex)) { return false; }
 
-        PlayerState playerState = playerGroup.GetPlayer(playerIndex);
+        PlayerState playerState = playerGroup.GetPlayerByIndex(playerIndex);
         IngredientCardData ingredientData = playerState.hand.GetCard(handIndex);
         CustomerCardState customerState = activeCustomerSet.GetCustomerByIndex(customerIndex);
 
@@ -98,7 +98,7 @@ public class GameMatchCore
 
     public bool ResolveCustomerCard(int customerSlotIndex, int playerIndex)
     {
-        PlayerState player = playerGroup.GetPlayer(playerIndex);
+        PlayerState player = playerGroup.GetPlayerByIndex(playerIndex);
         Assert.IsNotNull(player);
         CustomerCardState customerState = activeCustomerSet.GetCustomerByIndex(customerSlotIndex);
 
@@ -114,7 +114,7 @@ public class GameMatchCore
     public void EndPlayerTurn()
     {
         int playerIndex = playerGroup.activePlayer.index;
-        PlayerState playerState = playerGroup.GetPlayer(playerIndex);
+        PlayerState playerState = playerGroup.GetPlayerByIndex(playerIndex);
         _replaceIngredientCards(playerState.hand);
 
         ICommand command = ChangePlayerTurn.Create(playerGroup);
@@ -212,7 +212,7 @@ public class GameMatchCore
             for (int j = 0; j < PlayerState.kHandSize; ++j)
             {
                 IngredientCardData cardData = ingredientDeck.Pop() as IngredientCardData;
-                PlayerState playerState = group.GetPlayer(i);
+                PlayerState playerState = group.GetPlayerByIndex(i);
                 playerState.hand.SetCard(j, cardData);
             }
         }

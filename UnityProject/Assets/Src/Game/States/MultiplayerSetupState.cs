@@ -1,8 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GhostGen;
-using DG.Tweening;
+using System;
+
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System.Collections;
+using UnityEngine;
 
 public class MultiplayerSetupState : IGameState
 {
@@ -11,6 +13,7 @@ public class MultiplayerSetupState : IGameState
 
     private MultiplayerLobbyController _lobbyController;
     private MultiplayerRoomController _roomController;
+    private NetworkManager _networkManager;
 
     public void Init( GameStateMachine stateMachine )
 	{
@@ -19,7 +22,9 @@ public class MultiplayerSetupState : IGameState
         _fader = Singleton.instance.gui.screenFader;
         _fader.FadeIn(0.35f);
 
-        Singleton.instance.networkManager.Connect();
+        _networkManager = Singleton.instance.networkManager;
+        _networkManager.onCustomEvent += onCustomEvent;
+        _networkManager.Connect();
 
         _lobbyController = new MultiplayerLobbyController();
         _lobbyController.Start(onJoinRoom, onGoToMainMenu);
@@ -32,8 +37,17 @@ public class MultiplayerSetupState : IGameState
 
     public void Exit()
 	{
-        _lobbyController.RemoveView();
-        _roomController.RemoveView();
+        _networkManager.onCustomEvent -= onCustomEvent;
+
+        if (_lobbyController != null )
+        {
+            _lobbyController.RemoveView();
+        }
+
+        if(_roomController != null)
+        {
+            _roomController.RemoveView();
+        }
     }
 
     private void onGoToMainMenu()
@@ -56,17 +70,85 @@ public class MultiplayerSetupState : IGameState
 
     private void onStartGame()
     {
-        Debug.Log("Start game or somethin'");
+        sendGameInitEvent();
+    }
 
-        List<string> pNames = _roomController.GetNameList();
-        GameContext context = GameContext.Create(GameMode.ONLINE, pNames, PhotonNetwork.isMasterClient);
-        Singleton.instance.sessionFlags.gameContext = context;
+    private void sendGameInitEvent()
+    {
+        int randomSeed = Environment.TickCount;
 
+        CardDeck customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
+        customerDeck.Shuffle(randomSeed);
+        CardDeck ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
+        ingredientDeck.Shuffle(randomSeed);
 
-        _fader.FadeOut(0.35f, () =>
+        
+        Hashtable contents = new ExitGames.Client.Photon.Hashtable();
+        contents.Add("customerDeck",    CardDeck.ToJson(customerDeck, false));
+        contents.Add("ingredientDeck",  CardDeck.ToJson(ingredientDeck, false));
+        contents.Add("playerList", getSerializablePlayerList(_roomController.GetPlayerList()));
+
+        RaiseEventOptions options = new RaiseEventOptions();
+        options.Receivers = ReceiverGroup.All;
+        PhotonNetwork.RaiseEvent(NetworkOpCodes.INITIAL_GAME_STATE, contents, true, options);
+    }
+
+    private string getSerializablePlayerList(PlayerState[] playerStateList)
+    {
+        if(playerStateList == null)
         {
-            _stateMachine.ChangeState(TacoTuesdayState.GAMEPLAY);
-        });
+            Debug.LogError("Player State list is null!");
+            return null;
+        }
+
+        SerializedPlayerList list = new SerializedPlayerList();
+
+        for(int i = 0; i < playerStateList.Length; ++i)
+        {
+            if(playerStateList[i] != null)
+            {
+                list.list[i] = PlayerStateSerializable.Create(playerStateList[i]);
+            }
+            else
+            {
+                list.list[i] = null;
+            }
+        }
+        return JsonUtility.ToJson(list);
+    }
+
+    private PlayerState[] getPlayerList(string serialList)
+    {
+        if (string.IsNullOrEmpty(serialList))
+        {
+            Debug.LogError("Serial State list is null!");
+            return null;
+        }
+
+        SerializedPlayerList serialPlayerList = JsonUtility.FromJson<SerializedPlayerList>(serialList);
+        PlayerState[] list = new PlayerState[serialPlayerList.list.Length];
+        for (int i = 0; i < serialPlayerList.list.Length; ++i)
+        {
+            if(serialPlayerList.list[i] != null)
+            {
+                PlayerStateSerializable serial = serialPlayerList.list[i];
+                list[i] = PlayerState.Create(serial);
+            }
+            else
+            {
+                list[i] = null;
+            }
+        }
+        return list;
+    }
+
+    private GameContext _createGameContext(CardDeck customerDeck, CardDeck ingredientDeck, PlayerState[] playerList)
+    {
+        GameContext context = GameContext.Create(GameMode.ONLINE, playerList);
+        context.isMasterClient = PhotonNetwork.isMasterClient;
+        context.ingredientDeck = ingredientDeck;
+        context.customerDeck = customerDeck;
+        return context;
     }
 
     private void onLeaveRoom()
@@ -75,5 +157,38 @@ public class MultiplayerSetupState : IGameState
 
         _lobbyController = new MultiplayerLobbyController();
         _lobbyController.Start(onJoinRoom, onGoToMainMenu);
+    }
+
+    private void serverSetupGame()
+    {
+
+    }
+
+    private void clientSetupGame()
+    {
+
+    }
+
+    private void onCustomEvent(byte eventCode, object content, int senderId)
+    {
+        if (eventCode == NetworkOpCodes.INITIAL_GAME_STATE)
+        {
+            Hashtable gameInfo = content as Hashtable;
+            string  ingredientDeckJson  = gameInfo["ingredientDeck"] as string;
+            string  customerDeckJson    = gameInfo["customerDeck"] as string;
+            var     playerSerialList    = gameInfo["playerList"] as string;
+
+            CardDeck ingredientDeck     = CardDeck.FromJson(ingredientDeckJson);
+            CardDeck customerDeck       = CardDeck.FromJson(customerDeckJson);
+            PlayerState[] playerList    = getPlayerList(playerSerialList);
+
+            GameContext context = _createGameContext(customerDeck, ingredientDeck, playerList);
+            Singleton.instance.sessionFlags.gameContext = context;
+            
+            _fader.FadeOut(0.35f, () =>
+            {
+                _stateMachine.ChangeState(TacoTuesdayState.GAMEPLAY);
+            });
+        }
     }
 }

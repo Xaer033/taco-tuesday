@@ -18,20 +18,15 @@ public class PassPlayGameMode : IGameModeController
     {
         _onGameOverCallback = gameOverCallback;
 
-        _setupPlayerList();
-        
-        int randomSeed = Environment.TickCount;
-
-        CardDeck customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
-        customerDeck.Shuffle(randomSeed);
-        CardDeck ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
-        ingredientDeck.Shuffle(randomSeed);
+        GameContext context = Singleton.instance.sessionFlags.gameContext;
+        _playerList.Clear();
+        _playerList.AddRange(context.playerList);
 
         _gameMatchCore = GameMatchCore.Create(
             _playerList, 
             true, 
-            customerDeck, 
-            ingredientDeck);
+            context.customerDeck, 
+            context.ingredientDeck);
 
         _playFieldController.Start(_gameMatchCore.matchState);
         _setupCallbacks();
@@ -57,17 +52,6 @@ public class PassPlayGameMode : IGameModeController
             {
                 if (_onGameOverCallback != null) { _onGameOverCallback(); }
             });
-        }
-    }
-    
-    private void _setupPlayerList()
-    {
-        GameContext context = Singleton.instance.sessionFlags.gameContext;
-        for (int i = 0; i < context.playerNameList.Count; ++i)
-        {
-            string pName = context.playerNameList[i];
-            string name = (string.IsNullOrEmpty(pName)) ? (i + 1).ToString() : pName;
-            _playerList.Add(PlayerState.Create(i, name));
         }
     }
 

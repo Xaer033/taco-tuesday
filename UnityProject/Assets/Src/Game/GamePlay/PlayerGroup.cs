@@ -36,12 +36,26 @@ public class PlayerGroup
         _activePlayerIndex = playerIndex;
     }
 
-    public PlayerState GetPlayer(int playerIndex)
+    public PlayerState GetPlayerByIndex(int playerIndex)
     {
         _boundsAssert(playerIndex);
         return _playerList[playerIndex];
     }
+    public PlayerState GetPlayerById(int playerId)
+    {
+        int count = playerCount;
+        for (int i = 0; i < count; ++i)
+        {
+            if(_playerList[i].id == PhotonNetwork.player.ID)
+            {
+                return _playerList[i];
+            }
+        }
 
+        Debug.LogError("Player id not found: " + playerId);
+        return null;
+    }
+    
     public void SetNextActivePlayer()
     {
         int newIndex = (_activePlayerIndex + 1) % playerCount;
@@ -51,7 +65,7 @@ public class PlayerGroup
     public PlayerState GetNextPlayer()
     {
         int newIndex = (_activePlayerIndex + 1) % playerCount;
-        return GetPlayer(newIndex);
+        return GetPlayerByIndex(newIndex);
     }
 
     private void _boundsAssert(int index)

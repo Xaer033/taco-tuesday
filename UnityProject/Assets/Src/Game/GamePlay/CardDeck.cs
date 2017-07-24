@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
+[System.Serializable]
 public class CardDeck : System.Object
 {
     private List<BaseCardData> _cardList = new List<BaseCardData>();
@@ -35,8 +36,17 @@ public class CardDeck : System.Object
             }
         }
 
+        //string scrambledDeck = CardDeck.ToJson(deck, true);
+        //Debug.Log(scrambledDeck);
         return deck;
     }
+    public static string ToJson(CardDeck deck, bool prettyPrint)
+    {
+        JArray token = JArray.FromObject(deck._cardList);
+        Formatting format = (prettyPrint) ? Formatting.Indented : Formatting.None;
+        return token.ToString(format);
+    }
+
 
     public BaseCardData Pop()
     {

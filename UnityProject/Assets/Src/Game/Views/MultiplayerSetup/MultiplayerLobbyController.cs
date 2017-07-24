@@ -46,11 +46,17 @@ public class MultiplayerLobbyController : BaseController
 
     public override void RemoveView(bool immediately = false)
     {
-        _lobbyView._joinButton.onClick.RemoveListener(onJoinButton);
-        _lobbyView._backButton.onClick.RemoveListener(onBackButton);
-        _lobbyView._createButton.onClick.RemoveListener(onCreateButton);
+        if(_lobbyView != null)
+        {
+            _lobbyView._joinButton.onClick.RemoveListener(onJoinButton);
+            _lobbyView._backButton.onClick.RemoveListener(onBackButton);
+            _lobbyView._createButton.onClick.RemoveListener(onCreateButton);
+        }
 
-        _roomListView.onSelectedItem -= onRoomClicked;
+        if(_roomListView != null)
+        {
+            _roomListView.onSelectedItem -= onRoomClicked;
+        }
 
         _networkManager.onReceivedRoomListUpdate -= onReceivedRoomListUpdate;
         _networkManager.onJoinedRoom -= onJoinedRoom;

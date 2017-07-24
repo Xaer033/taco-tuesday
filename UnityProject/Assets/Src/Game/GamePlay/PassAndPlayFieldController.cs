@@ -58,7 +58,7 @@ public sealed class PassAndPlayFieldController : BaseController
 
             for(int i = 0; i < _matchState.playerGroup.playerCount; ++i)
             {
-                PlayerState player = _matchState.playerGroup.GetPlayer(i);
+                PlayerState player = _matchState.playerGroup.GetPlayerByIndex(i);
                 _playfieldView.SetPlayerName(i, player.name);
                 _playfieldView.SetPlayerScore(i, player.score);
             }
@@ -236,7 +236,7 @@ public sealed class PassAndPlayFieldController : BaseController
 
     private PlayerState localPlayer
     {
-        get { return _matchState.playerGroup.GetPlayer(kLocalPlayerIndex); }
+        get { return _matchState.playerGroup.GetPlayerByIndex(kLocalPlayerIndex); }
     }
 
     private PlayerState activePlayer
@@ -272,7 +272,7 @@ public sealed class PassAndPlayFieldController : BaseController
 
     private void _setupHandViewFromPlayer(int playerIndex)
     {
-        PlayerState player = _matchState.playerGroup.GetPlayer(playerIndex);
+        PlayerState player = _matchState.playerGroup.GetPlayerByIndex(playerIndex);
         for (int i = 0; i < PlayerState.kHandSize; ++i)
         {
             IngredientCardData ingredientCard = player.hand.GetCard(i);

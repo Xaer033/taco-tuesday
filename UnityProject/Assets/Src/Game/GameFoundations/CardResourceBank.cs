@@ -46,26 +46,26 @@ public class CardResourceBank : ScriptableObject, IPostInit
         return icon;
     }
 
-    public Sprite GetIngredientTypeIcon(CardType type)
+    public Sprite GetIngredientTypeIcon(string type)
     {
         switch(type)
         {
-            case CardType.Meat:      return meatSprites.icon;
-            case CardType.Veggie:    return veggieSprites.icon;
-            case CardType.Topping:   return toppingSprites.icon;
+            case CardType.MEAT:      return meatSprites.icon;
+            case CardType.VEGGIE:    return veggieSprites.icon;
+            case CardType.TOPPING:   return toppingSprites.icon;
         }
 
         Debug.LogError(string.Format("Can't find Icon for type: {0}", type));
         return null;
     }
 
-    public Sprite GetIngredientBG(CardType type)
+    public Sprite GetIngredientBG(string type)
     {
         switch (type)
         {
-            case CardType.Meat:      return meatSprites.background;
-            case CardType.Veggie:    return veggieSprites.background;
-            case CardType.Topping:   return toppingSprites.background;
+            case CardType.MEAT:      return meatSprites.background;
+            case CardType.VEGGIE:    return veggieSprites.background;
+            case CardType.TOPPING:   return toppingSprites.background;
         }
 
         Debug.LogError(string.Format("Can't find background for type: {0}", type));
@@ -74,7 +74,7 @@ public class CardResourceBank : ScriptableObject, IPostInit
 
     public BaseCardView CreateCardView(BaseCardData cardData, Transform cParent)
     {
-        BaseCardView prefab = (cardData.cardType == CardType.Customer) ?
+        BaseCardView prefab = (cardData.cardType == CardType.CUSTOMER) ?
                            customerCardView : ingredientCardView;
 
         BaseCardView view = Instantiate<BaseCardView>(prefab, cParent, false);

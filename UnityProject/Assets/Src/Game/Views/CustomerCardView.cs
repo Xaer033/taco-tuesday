@@ -71,9 +71,9 @@ public sealed class CustomerCardView : BaseCardView
         }
 
         _setCustomerCard(
-            cardState.GetIngredientReqLeft(CardType.Meat),
-            cardState.GetIngredientReqLeft(CardType.Veggie),
-            cardState.GetIngredientReqLeft(CardType.Topping));
+            cardState.GetIngredientReqLeft(CardType.MEAT),
+            cardState.GetIngredientReqLeft(CardType.VEGGIE),
+            cardState.GetIngredientReqLeft(CardType.TOPPING));
 
     }
 

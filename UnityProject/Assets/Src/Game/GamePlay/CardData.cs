@@ -1,81 +1,76 @@
 ﻿
 using UnityEngine;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
-public enum CardType
+public class PointModifier
 {
-    None = -1,
-    Meat,
-    Veggie,
-    Topping,
-    Customer
+    public const string NONE = "";
+    public const string X2 = "x2";
 }
 
-public enum PointModifier
+public class CardType
 {
-    None = 0,
-    x2
+    public const string NONE        = "";
+    public const string MEAT        = "meat";
+    public const string VEGGIE      = "veggie";
+    public const string TOPPING     = "topping";
+    public const string CUSTOMER    = "customer";
 }
 
 public class CardUtility
 {
-    public static CardType TypeFromString(string cardType)
-    {
-        switch(cardType.ToLower())
-        {
-            case "meat": return CardType.Meat;
-            case "veggie": return CardType.Veggie;
-            case "topping": return CardType.Topping;
-            case "customer": return CardType.Customer;
-        }
+    
+    //public static CardType TypeFromString(string cardType)
+    //{
+    //    switch(cardType.ToLower())
+    //    {
+    //        case "meat": return CardType.Meat;
+    //        case "veggie": return CardType.Veggie;
+    //        case "topping": return CardType.Topping;
+    //        case "customer": return CardType.Customer;
+    //    }
 
-        Debug.LogError(string.Format("We don't handle card type: {0}!", cardType));
-        return CardType.None;
-    }
+    //    Debug.LogError(string.Format("We don't handle card type: {0}!", cardType));
+    //    return CardType.None;
+    //}
 
-    public static PointModifier ModifierFromString(string modifier)
+    public static int ApplyModifier(string modifier, int originalScore)
     {
         if(string.IsNullOrEmpty(modifier))
         {
-            return PointModifier.None;
+            return originalScore;
         }
 
-        switch(modifier.ToLower())
+        switch(modifier)
         {
-            case "x2": return PointModifier.x2;
+            case PointModifier.X2: return originalScore * 2;
         }
-        return PointModifier.None;
-    }
-
-    public static int ApplyModifier(PointModifier mod, int originalScore)
-    {
-        switch(mod)
-        {
-            case PointModifier.x2: return originalScore * 2;
-        }
-
+        
         return originalScore;
     }
 }
 
-public abstract class BaseCardData
+[System.Serializable]
+public abstract class BaseCardData : System.Object
 {
     public string      id;
     public string      titleKey;
     public string      iconName;
-    public CardType    cardType;
+    public string      cardType;
 }
 
+[System.Serializable]
 public class CustomerCardData : BaseCardData
 {
     public int      meatRequirement;     
     public int      veggieRequirement;   
     public int      toppingRequirement;  
     public int      baseReward;
-    public PointModifier modifier;
-            
+    public string   modifier;
 }
 
+[System.Serializable]
 public class IngredientCardData : BaseCardData
 {
     public int      foodValue;
@@ -86,12 +81,12 @@ public class CardDataFactory
 {
     public static BaseCardData CreateFromJson(JToken cardToken)
     {
-        CardType type = CardUtility.TypeFromString(cardToken.Value<string>("cardType"));
+        string type = cardToken.Value<string>("cardType");
         string id = cardToken.Value<string>("id");
         string titleKey = cardToken.Value<string>("titleKey");
         string iconName = cardToken.Value<string>("iconName");
 
-        if (type == CardType.Customer)
+        if (type == CardType.CUSTOMER)
         {
             CustomerCardData cData = new CustomerCardData();
             cData.cardType = type;
@@ -102,7 +97,8 @@ public class CardDataFactory
             cData.meatRequirement = cardToken.Value<int>("meatRequirement");
             cData.veggieRequirement = cardToken.Value<int>("veggieRequirement");
             cData.toppingRequirement = cardToken.Value<int>("toppingRequirement");
-            cData.modifier = CardUtility.ModifierFromString(cardToken.Value<string>("modifier"));
+            string modifier = cardToken.Value<string>("modifier");
+            cData.modifier = (modifier == null) ? "" : modifier;
             return cData;
         }
         else
@@ -116,4 +112,11 @@ public class CardDataFactory
             return iData;
         }
     }
+
+    public static string ToJson(BaseCardData cData, bool prettyPrint)
+    {
+        JToken token = JToken.FromObject(cData);
+        Formatting format = (prettyPrint) ? Formatting.Indented : Formatting.None;
+        return token.ToString(format);
+    }    
 }

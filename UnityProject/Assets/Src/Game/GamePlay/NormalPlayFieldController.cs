@@ -12,8 +12,6 @@ using DG.Tweening;
 
 public sealed class NormalPlayFieldController : BaseController
 {
-    const int kLocalPlayerIndex = 0; // TODO: Temporary until we have real multiplayer
-
     private GameMatchState _matchState;
 
     private PlayerHandView      _playerHandView;
@@ -55,13 +53,13 @@ public sealed class NormalPlayFieldController : BaseController
 
             for(int i = 0; i < _matchState.playerGroup.playerCount; ++i)
             {
-                PlayerState player = _matchState.playerGroup.GetPlayer(i);
+                PlayerState player = _matchState.playerGroup.GetPlayerByIndex(i);
                 _playfieldView.SetPlayerName(i, player.name);
                 _playfieldView.SetPlayerScore(i, player.score);
             }
 
             _setupActiveCustomersView(_playfieldView.staticCardLayer);
-            _createPlayerHandView(kLocalPlayerIndex, _playfieldView.staticCardLayer);
+            _createPlayerHandView(localPlayer.index, _playfieldView.staticCardLayer);
         });
     }
 
@@ -234,7 +232,10 @@ public sealed class NormalPlayFieldController : BaseController
 
     private PlayerState localPlayer
     {
-        get { return _matchState.playerGroup.GetPlayer(kLocalPlayerIndex); }
+        get
+        {
+            return _matchState.playerGroup.GetPlayerById(PhotonNetwork.player.ID);
+        }
     }
 
     private PlayerState activePlayer
@@ -270,7 +271,7 @@ public sealed class NormalPlayFieldController : BaseController
 
     private void _setupHandViewFromPlayer(int playerIndex)
     {
-        PlayerState player = _matchState.playerGroup.GetPlayer(playerIndex);
+        PlayerState player = _matchState.playerGroup.GetPlayerByIndex(playerIndex);
         for (int i = 0; i < PlayerState.kHandSize; ++i)
         {
             IngredientCardData ingredientCard = player.hand.GetCard(i);
@@ -284,7 +285,7 @@ public sealed class NormalPlayFieldController : BaseController
         onEndTurn();
         
         _refreshHandView(localPlayer);
-        _playfieldView.SetActivePlayer(localPlayer.index);
+        _playfieldView.SetActivePlayer(activePlayer.index);
     }
 
     private void _onUndoButton()

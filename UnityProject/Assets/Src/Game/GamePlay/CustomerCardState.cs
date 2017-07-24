@@ -14,9 +14,9 @@ public class CustomerCardState
     {
         get
         {
-            return GetIngredientReqLeft(CardType.Meat) == 0 &&
-                    GetIngredientReqLeft(CardType.Veggie) == 0 &&
-                    GetIngredientReqLeft(CardType.Topping) == 0;
+            return GetIngredientReqLeft(CardType.MEAT) == 0 &&
+                    GetIngredientReqLeft(CardType.VEGGIE) == 0 &&
+                    GetIngredientReqLeft(CardType.TOPPING) == 0;
         }
     }
 
@@ -45,7 +45,7 @@ public class CustomerCardState
         return state;
     }
 
-    public int GetIngredientReqLeft(CardType type)
+    public int GetIngredientReqLeft(string type)
     {
         int value = 0;
         foreach(IngredientCardData cardData in _ingredientList)
@@ -84,13 +84,13 @@ public class CustomerCardState
     private List<IngredientCardData> _ingredientList = new List<IngredientCardData>();
 
 
-    private int _getIngredientReq(CardType type)
+    private int _getIngredientReq(string type)
     {
         switch(type)
         {
-            case CardType.Meat:     return cardData.meatRequirement;
-            case CardType.Veggie:   return cardData.veggieRequirement;
-            case CardType.Topping:  return cardData.toppingRequirement;
+            case CardType.MEAT:     return cardData.meatRequirement;
+            case CardType.VEGGIE:   return cardData.veggieRequirement;
+            case CardType.TOPPING:  return cardData.toppingRequirement;
         }
         Debug.LogError("Card Type shouldn't request requirements: " + type);
         return 0;

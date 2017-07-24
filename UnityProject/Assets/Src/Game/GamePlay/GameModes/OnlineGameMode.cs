@@ -10,40 +10,57 @@ public class OnlineGameMode : IGameModeController
     private NormalPlayFieldController   _playFieldController        = new NormalPlayFieldController();
     private GameOverPopupController     _gameOverPopupController    = new GameOverPopupController();
 
-    private List<PlayerState>           _playerList                 = new List<PlayerState>(4);
+    private List<PlayerState>           _playerList                 = new List<PlayerState>(PlayerGroup.kMaxPlayerCount);
 
     private GameMatchCore   _gameMatchCore;
     private Action          _onGameOverCallback;
-    
-    private bool            _isMasterClient;
 
-    public bool isMasterClient { get; set; }
+    private NetworkManager  _networkManager;
 
     public void Start( Action gameOverCallback)
     {
+        _networkManager = Singleton.instance.networkManager;
+        _networkManager.onCustomEvent += onCustomEvent;
+
         _onGameOverCallback = gameOverCallback;
 
-        _setupPlayerList();
-
-        CardDeck customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
-        customerDeck.Shuffle(kRandomSeed);
-        CardDeck ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
-        ingredientDeck.Shuffle(kRandomSeed);
-
+        GameContext context = Singleton.instance.sessionFlags.gameContext;
+        _playerList.Clear();
+        _playerList.AddRange(context.playerList);
+        
         _gameMatchCore = GameMatchCore.Create(
             _playerList,
-            isMasterClient, 
-            customerDeck, 
-            ingredientDeck);
+            context.isMasterClient, 
+            context.customerDeck, 
+            context.ingredientDeck);
 
         _playFieldController.Start(_gameMatchCore.matchState);
-        _setupCallbacks();
+        _setupPlayFieldCallbacks();
     }
 
     public void CleanUp()
     {
         _playFieldController.RemoveView();
-        Singleton.instance.networkManager.Disconnect();
+        _networkManager.onCustomEvent -= onCustomEvent;
+        _networkManager.Disconnect();
+    }
+
+    private void onCustomEvent(byte eventCode, object content, int senderId)
+    {
+        if(eventCode == NetworkOpCodes.PLAYER_TURN_COMPLETED)
+        {
+            EndTurnRequestEvent endTurn = JsonUtility.FromJson<EndTurnRequestEvent>(content as string);
+            for(int i = 0; i < endTurn.moveRequestList.Length; ++i)
+            {
+                MoveRequest move = endTurn.moveRequestList[i];
+                Debug.Log(string.Format("End turn event: {0}, {1}, {2}", move.playerIndex, move.handSlot, move.customerSlot));
+            }
+        }
+        else if(eventCode == NetworkOpCodes.BEGIN_NEXT_PLAYER_TURN)
+        {
+            ChangeTurnEvent changeTurn = JsonUtility.FromJson<ChangeTurnEvent>(content as string);
+            Debug.Log("Active Player: " + changeTurn.activePlayerIndex);
+        }
     }
 
     private void onGameOver(bool gameOverPopup = true)
@@ -61,17 +78,6 @@ public class OnlineGameMode : IGameModeController
             {
                 if (_onGameOverCallback != null) { _onGameOverCallback(); }
             });
-        }
-    }
-    
-    private void _setupPlayerList()
-    {
-        GameContext context = Singleton.instance.sessionFlags.gameContext;
-        for (int i = 0; i < context.playerNameList.Count; ++i)
-        {
-            string pName = context.playerNameList[i];
-            string name = (string.IsNullOrEmpty(pName)) ? (i + 1).ToString() : pName;
-            _playerList.Add(PlayerState.Create(i, name));
         }
     }
 
@@ -92,6 +98,15 @@ public class OnlineGameMode : IGameModeController
 
     private void onEndTurn()
     {
+        MoveRequest move1 = MoveRequest.Create(_gameMatchCore.playerGroup.activePlayer.index, 2, 3);
+        MoveRequest move2 = MoveRequest.Create(_gameMatchCore.playerGroup.activePlayer.index, 4, 1);
+        EndTurnRequestEvent endTurnRequest = EndTurnRequestEvent.Create(move1, move2);
+
+        RaiseEventOptions options = new RaiseEventOptions();
+        options.Receivers = ReceiverGroup.MasterClient;
+
+        string requestJson = JsonUtility.ToJson(endTurnRequest);
+        PhotonNetwork.RaiseEvent(NetworkOpCodes.PLAYER_TURN_COMPLETED, requestJson, true, options);
         _gameMatchCore.EndPlayerTurn();
     }
 
@@ -100,7 +115,7 @@ public class OnlineGameMode : IGameModeController
         return _gameMatchCore.UndoLastAction();
     }
 
-    private void _setupCallbacks()
+    private void _setupPlayFieldCallbacks()
     {
         _playFieldController.onPlayOnCustomer   = onPlayCard;
         _playFieldController.onResolveScore     = onResolveScore;

@@ -6,8 +6,6 @@ using GhostGen;
 
 public class MultiplayerRoomController : BaseController 
 {
-    const byte EVENT_READY_TOGGLE = 1;
-
     private MultiplayerRoomView _roomView;
     private NetworkManager _networkManager;
     private Action _onBackCallback;
@@ -43,18 +41,30 @@ public class MultiplayerRoomController : BaseController
         base.RemoveView(immediately);
     }
 
-    public List<string> GetNameList()
+    public PlayerState[] GetPlayerList()
     {
-        List<string> nameList = new List<string>(4);
-
-        PhotonPlayer[] playerList = PhotonNetwork.playerList;
-        int count = playerList.Length;
-        for(int i = 0; i < count; ++i)
+        if(!PhotonNetwork.isMasterClient)
         {
-            nameList.Add(playerList[i].NickName + " " + i.ToString());
+            Debug.LogError("Trying To call get player List when you are not the master client, thats a paddlin'");
+            return null;
         }
 
-        return nameList;
+        PlayerState[] playerStateList = new PlayerState[PlayerGroup.kMaxPlayerCount];
+
+        PhotonPlayer[] playerList = PhotonNetwork.playerList;
+        for (int i = 0; i < PlayerGroup.kMaxPlayerCount; ++i)
+        {
+            if(i < playerList.Length)
+            {
+                playerStateList[i] = PlayerState.Create(i, playerList[i].NickName, playerList[i].ID);
+            }
+            else
+            {
+                playerStateList[i] = null;
+            }
+        }
+
+        return playerStateList;
     }
 
     private void _addButtonCallbacks(bool isMaster)
@@ -96,7 +106,7 @@ public class MultiplayerRoomController : BaseController
     {
         RaiseEventOptions options = new RaiseEventOptions();
         options.Receivers = ReceiverGroup.All;
-        PhotonNetwork.RaiseEvent(EVENT_READY_TOGGLE, isSelected, true, options);
+        PhotonNetwork.RaiseEvent(NetworkOpCodes.READY_TOGGLE, isSelected, true, options);
     }
 
     private void _onLeftRoom()
@@ -117,7 +127,7 @@ public class MultiplayerRoomController : BaseController
 
     private void _onCustomEvent(byte eventCode, object content, int senderId)
     {
-        if(eventCode == EVENT_READY_TOGGLE)
+        if(eventCode == NetworkOpCodes.READY_TOGGLE)
         {
             int index = _roomView.GetIndexForPlayerId(senderId);
             if(index >= 0)
@@ -138,8 +148,13 @@ public class MultiplayerRoomController : BaseController
 
     private void _setupPlayers()
     {
-        PhotonPlayer[] playerList = PhotonNetwork.playerList;
-        int count = playerList.Length;
+        List<PhotonPlayer> playerList = new List<PhotonPlayer>(PhotonNetwork.playerList);
+        playerList.Sort((a, b) =>
+        {
+            return a.NickName.CompareTo(b.NickName);
+        });
+
+        int count = playerList.Count;
         for(int i = 0; i < PlayerGroup.kMaxPlayerCount; ++i)
         {
             if(i < count)

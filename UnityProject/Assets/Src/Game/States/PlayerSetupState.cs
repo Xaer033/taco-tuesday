@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using GhostGen;
 using DG.Tweening;
+using System;
 
 public class PlayerSetupState : IGameState
 {
@@ -15,7 +16,7 @@ public class PlayerSetupState : IGameState
         _stateMachine = stateMachine;
 
         _passPlaySetupController = new PassPlaySetupController();
-        _passPlaySetupController.Start(onPassSetupStart, onPassSetupCancel);
+        _passPlaySetupController.Start(onStartGame, onPassSetupCancel);
 
         _fader = Singleton.instance.gui.screenFader;
         _fader.FadeIn(0.35f);       
@@ -31,16 +32,31 @@ public class PlayerSetupState : IGameState
         _passPlaySetupController.RemoveView();
 	}
 
-    private void onPassSetupStart()
+    private void onStartGame()
     {
-        List<string> pNames = _passPlaySetupController.GetNameList();
-        GameContext context = GameContext.Create(GameMode.PASS_AND_PLAY, pNames, true);
-        Singleton.instance.sessionFlags.gameContext = context;
+        Singleton.instance.sessionFlags.gameContext = _createGameContext();
 
         _fader.FadeOut(0.35f, () =>
         {
             _stateMachine.ChangeState(TacoTuesdayState.GAMEPLAY);
         });
+    }
+
+    private GameContext _createGameContext()
+    {
+        int randomSeed = Environment.TickCount;
+
+        CardDeck customerDeck = CardDeck.FromFile("Decks/CustomerDeck");
+        customerDeck.Shuffle(randomSeed);
+        CardDeck ingredientDeck = CardDeck.FromFile("Decks/IngredientDeck");
+        ingredientDeck.Shuffle(randomSeed);
+
+        PlayerState[] playerStateList = _passPlaySetupController.GetPlayerList();
+        GameContext context = GameContext.Create(GameMode.PASS_AND_PLAY, playerStateList);
+        context.isMasterClient = true;
+        context.ingredientDeck = ingredientDeck;
+        context.customerDeck = customerDeck;
+        return context;
     }
 
     private void onPassSetupCancel()
