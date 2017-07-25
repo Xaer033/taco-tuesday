@@ -32,4 +32,9 @@ public class CommandFactory
         //Maybe save this command into another stack for re-do's
         return true;
     }
+
+    public void Clear()
+    {
+        _undoStack.Clear();
+    }
 }

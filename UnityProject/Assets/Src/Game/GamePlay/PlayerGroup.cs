@@ -46,7 +46,7 @@ public class PlayerGroup
         int count = playerCount;
         for (int i = 0; i < count; ++i)
         {
-            if(_playerList[i].id == PhotonNetwork.player.ID)
+            if(_playerList[i].id == playerId)
             {
                 return _playerList[i];
             }

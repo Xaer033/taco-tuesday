@@ -22,6 +22,7 @@ public class PlayFieldView : UIView
     public Button undoButton;
     public Button exitButton;
 
+    public TextMeshProUGUI thisPlayer;
     public PlayerInfo[] playerInfoList;
 
 
@@ -32,6 +33,7 @@ public class PlayFieldView : UIView
     void Awake()
     {
         canvasGroup.alpha = 0.0f;
+        thisPlayer.gameObject.SetActive(false);
     }
 
     void Start()
@@ -62,6 +64,13 @@ public class PlayFieldView : UIView
             _playerNames[playerIndex] = value;
             invalidateFlag = InvalidationFlag.DYNAMIC_DATA;
         }
+    }
+
+    public void SetThisPlayer(string value)
+    {
+        thisPlayer.text = value;
+        thisPlayer.gameObject.SetActive(true);
+        invalidateFlag = InvalidationFlag.ALL;
     }
 
     public void SetActivePlayer(int playerIndex)

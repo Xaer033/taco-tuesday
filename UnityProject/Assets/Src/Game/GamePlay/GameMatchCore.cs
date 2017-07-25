@@ -10,23 +10,18 @@ public class GameMatchCore
 
     private CommandFactory  _commandFactory = new CommandFactory();
     
-    private bool            _isMasterClient;
-
     // Broadcast events
     private Action _onPlayOnCustomer;
     private Action<bool> _onResolveScore;
     private Action _onEndTurn;
 
-
-
+    
     public static GameMatchCore Create(
         List<PlayerState> playerList,
-        bool isMasterClient, 
         CardDeck customerDeck, 
         CardDeck ingredientDeck)
     {
         GameMatchCore core = new GameMatchCore();
-        core._isMasterClient = isMasterClient;
 
         // Also no commands for starting player hands
         ActiveCustomerSet   customerGroup   = core._createCustomerCards(customerDeck);
@@ -71,10 +66,7 @@ public class GameMatchCore
         remove { _onEndTurn -= value; }
     }
 
-    public bool PlayCardOnCustomer(
-       int playerIndex,
-       int handIndex,
-       int customerIndex)
+    public bool PlayCardOnCustomer(MoveRequest move)
     {
         if (isGameOver)
         {
@@ -82,16 +74,16 @@ public class GameMatchCore
             return false;
         }
 
-        if (!activeCustomerSet.IsSlotActive(customerIndex)) { return false; }
+        if (!activeCustomerSet.IsSlotActive(move.customerSlot)) { return false; }
 
-        PlayerState playerState = playerGroup.GetPlayerByIndex(playerIndex);
-        IngredientCardData ingredientData = playerState.hand.GetCard(handIndex);
-        CustomerCardState customerState = activeCustomerSet.GetCustomerByIndex(customerIndex);
+        PlayerState playerState = playerGroup.GetPlayerByIndex(move.playerIndex);
+        IngredientCardData ingredientData = playerState.hand.GetCard(move.handSlot);
+        CustomerCardState customerState = activeCustomerSet.GetCustomerByIndex(move.customerSlot);
 
         if (playerState.cardsPlayed >= PlayerState.kMaxCardsPerTurn) { return false; }
         if (!customerState.CanAcceptCard(ingredientData)) { return false; }
 
-        _playCard(handIndex, playerState, customerState, ingredientData);
+        _playCard(move.handSlot, playerState, customerState, ingredientData);
         _playCardEvent();
         return true;
     }
@@ -122,6 +114,10 @@ public class GameMatchCore
         _endTurnEvent();
     }
 
+    public void ClearCommandBuffer()
+    {
+        _commandFactory.Clear();
+    }
     public bool UndoLastAction()
     {
         return _commandFactory.Undo();

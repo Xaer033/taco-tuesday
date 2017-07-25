@@ -29,7 +29,7 @@ public sealed class PassAndPlayFieldController : BaseController
     private PassInterludeController _passController;
     
 // Broadcast events
-    public Func<int, int, bool> onPlayOnCustomer    { set; get; }
+    public Func<MoveRequest, bool> onPlayOnCustomer    { set; get; }
     public Func<int, bool>      onResolveScore      { set; get; }
     public Action               onEndTurn           { set; get; }
     public Func<bool>           onUndoTurn          { set; get; }
@@ -144,11 +144,14 @@ public sealed class PassAndPlayFieldController : BaseController
 
         if (!customerState.CanAcceptCard(ingredientData)) { return; }
         
-        int customerIndex = customerState.slotIndex;
-        int handIndex = _draggedIngredient.handIndex;
+    
+        MoveRequest move = MoveRequest.Create(
+            activePlayer.index, 
+            _draggedIngredient.handIndex, 
+            customerState.slotIndex);
 
         Assert.IsNotNull(onPlayOnCustomer);
-        _draggedIngredient.isDropSuccessfull = onPlayOnCustomer(handIndex, customerIndex);
+        _draggedIngredient.isDropSuccessfull = onPlayOnCustomer(move);
         
         if(_draggedIngredient.isDropSuccessfull)
         {       

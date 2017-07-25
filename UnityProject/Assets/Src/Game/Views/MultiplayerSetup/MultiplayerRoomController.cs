@@ -151,7 +151,7 @@ public class MultiplayerRoomController : BaseController
         List<PhotonPlayer> playerList = new List<PhotonPlayer>(PhotonNetwork.playerList);
         playerList.Sort((a, b) =>
         {
-            return a.NickName.CompareTo(b.NickName);
+            return a.ID.CompareTo(b.ID);
         });
 
         int count = playerList.Count;

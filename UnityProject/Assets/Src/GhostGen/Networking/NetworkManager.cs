@@ -66,6 +66,21 @@ public class NetworkManager : Photon.PunBehaviour, IPostInit
         get { return PhotonNetwork.connected; }
     }
 
+    public PhotonPlayer GetPlayerById(int playerId)
+    {
+        PhotonPlayer[] playerList = PhotonNetwork.playerList;
+
+        int count = playerList.Length;
+        for(int i = 0; i < count; ++i)
+        {
+            if(playerId == playerList[i].ID)
+            {
+                return playerList[i];
+            }
+        }
+        return null;
+    }
+
     /// PUN Callbacks
     public override void OnCreatedRoom()
     {

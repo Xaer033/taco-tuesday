@@ -23,8 +23,7 @@ public class PassPlayGameMode : IGameModeController
         _playerList.AddRange(context.playerList);
 
         _gameMatchCore = GameMatchCore.Create(
-            _playerList, 
-            true, 
+            _playerList,
             context.customerDeck, 
             context.ingredientDeck);
 
@@ -55,12 +54,9 @@ public class PassPlayGameMode : IGameModeController
         }
     }
 
-    private bool onPlayCard(int playerHandIndex, int customerIndex)
+    private bool onPlayCard(MoveRequest move)
     {
-        return _gameMatchCore.PlayCardOnCustomer(
-                    _gameMatchCore.playerGroup.activePlayer.index,
-                    playerHandIndex,
-                    customerIndex);
+        return _gameMatchCore.PlayCardOnCustomer(move);
     }
 
     private bool onResolveScore(int customerIndex)

@@ -158,16 +158,7 @@ public class MultiplayerSetupState : IGameState
         _lobbyController = new MultiplayerLobbyController();
         _lobbyController.Start(onJoinRoom, onGoToMainMenu);
     }
-
-    private void serverSetupGame()
-    {
-
-    }
-
-    private void clientSetupGame()
-    {
-
-    }
+    
 
     private void onCustomEvent(byte eventCode, object content, int senderId)
     {

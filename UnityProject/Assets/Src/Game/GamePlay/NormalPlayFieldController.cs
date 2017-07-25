@@ -22,15 +22,18 @@ public sealed class NormalPlayFieldController : BaseController
     private ParticleSystem  _hoverFX;
     private ParticleSystem  _slamFX;
 
-    private IngredientCardView      _draggedIngredient = null;
-    private CustomerCardView        _droppedCustomer = null;
+    private IngredientCardView      _draggedIngredient  = null;
+    private CustomerCardView        _droppedCustomer    = null;
+
+    private NetworkManager  _networkManager = Singleton.instance.networkManager;
+    private MoveRequest[]    _moveRequests = new MoveRequest[PlayerState.kMaxCardsPerTurn];
     
 // Broadcast events
-    public Func<int, int, bool> onPlayOnCustomer    { set; get; }
-    public Func<int, bool>      onResolveScore      { set; get; }
-    public Action               onEndTurn           { set; get; }
-    public Func<bool>           onUndoTurn          { set; get; }
-    public Action<bool>         onGameOver          { set; get; }
+    public Func<MoveRequest, bool>          onPlayOnCustomer    { set; get; }
+    public Func<int, bool>                  onResolveScore      { set; get; }
+    public Action<MoveRequest[]>            onEndTurn           { set; get; }
+    public Func<bool>                       onUndoTurn          { set; get; }
+    public Action<bool>                     onGameOver          { set; get; }
     
 
     public void Start(GameMatchState matchState)
@@ -51,6 +54,11 @@ public sealed class NormalPlayFieldController : BaseController
 
             _playfieldView.SetActivePlayer(activePlayer.index);
 
+            if(_networkManager.isConnected)
+            {
+                _playfieldView.SetThisPlayer(PhotonNetwork.player.NickName);
+            }
+
             for(int i = 0; i < _matchState.playerGroup.playerCount; ++i)
             {
                 PlayerState player = _matchState.playerGroup.GetPlayerByIndex(i);
@@ -70,9 +78,18 @@ public sealed class NormalPlayFieldController : BaseController
 
         if (_slamFX)
             GameObject.Destroy(_slamFX.gameObject);
-
-
+        
         base.RemoveView(immediately);
+    }
+
+
+    public void RefreshCustomersView()
+    {
+        _refreshCustomersView();
+    }
+    public void RefreshHandView()
+    {
+        _refreshHandView(localPlayer);
     }
 
     private void _playfieldView_OnIntroTransitionEvent(UIView p_view)
@@ -140,15 +157,18 @@ public sealed class NormalPlayFieldController : BaseController
 
         if (!customerState.CanAcceptCard(ingredientData)) { return; }
         
-        int customerIndex = customerState.slotIndex;
-        int handIndex = _draggedIngredient.handIndex;
+        MoveRequest move = MoveRequest.Create(
+            localPlayer.index,
+            _draggedIngredient.handIndex,
+            customerState.slotIndex);
 
         Assert.IsNotNull(onPlayOnCustomer);
-        _draggedIngredient.isDropSuccessfull = onPlayOnCustomer(handIndex, customerIndex);
+        _draggedIngredient.isDropSuccessfull = onPlayOnCustomer(move);
         
         if(_draggedIngredient.isDropSuccessfull)
         {       
-            _droppedCustomer = customerView; 
+            _droppedCustomer = customerView;
+            _moveRequests[localPlayer.cardsPlayed - 1] = move;
         }
     }
 
@@ -230,11 +250,24 @@ public sealed class NormalPlayFieldController : BaseController
         }
     }
 
+    public void SetPlayerScoreView(int playerIndex, int score)
+    {
+        _playfieldView.SetPlayerScore(playerIndex, score);
+    }
     private PlayerState localPlayer
     {
         get
         {
-            return _matchState.playerGroup.GetPlayerById(PhotonNetwork.player.ID);
+            PlayerGroup playerGroup = _matchState.playerGroup;
+            if (_networkManager.isConnected)
+            {
+
+                return playerGroup.GetPlayerById(PhotonNetwork.player.ID);
+            }
+            else
+            {
+                return playerGroup.GetPlayerByIndex(0);
+            }
         }
     }
 
@@ -281,9 +314,19 @@ public sealed class NormalPlayFieldController : BaseController
 
     private void _onConfirmTurnButton()
     {
+        if(localPlayer.id != activePlayer.id)
+        {
+            return;
+        }
+
         Assert.IsNotNull(onEndTurn);
-        onEndTurn();
-        
+        onEndTurn(_moveRequests);
+
+        for(int i = 0; i < _moveRequests.Length; ++i)
+        {
+            _moveRequests[i] = MoveRequest.Invalid();
+        }
+
         _refreshHandView(localPlayer);
         _playfieldView.SetActivePlayer(activePlayer.index);
     }
@@ -296,14 +339,7 @@ public sealed class NormalPlayFieldController : BaseController
         if (!didUndo) { return; }
         
         _refreshHandView(localPlayer);
-
-        _activeCustomersView.invalidateFlag = UIView.InvalidationFlag.ALL;
-        for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
-        {
-            _setupCustomerView(i, _matchState.activeCustomerSet.GetCustomerByIndex(i));
-        }
-
-        _playfieldView.SetActivePlayer(localPlayer.index);
+        _refreshCustomersView();
     }
 
     private void _onExitButton()
@@ -311,6 +347,15 @@ public sealed class NormalPlayFieldController : BaseController
         _playfieldView.exitButton.onClick.RemoveListener(_onExitButton);
         Assert.IsNotNull(onGameOver);
         onGameOver(false);
+    }
+
+    private void _refreshCustomersView()
+    {
+        _activeCustomersView.invalidateFlag = UIView.InvalidationFlag.ALL;
+        for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
+        {
+            _setupCustomerView(i, _matchState.activeCustomerSet.GetCustomerByIndex(i));
+        }
     }
 
     private void _refreshHandView(PlayerState player)
@@ -322,5 +367,7 @@ public sealed class NormalPlayFieldController : BaseController
         {
             _setupIngredientView(i, player.hand.GetCard(i));
         }
+        
+        _playfieldView.SetActivePlayer(activePlayer.index);
     }
 }
