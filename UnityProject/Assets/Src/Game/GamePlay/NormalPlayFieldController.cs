@@ -243,11 +243,11 @@ public sealed class NormalPlayFieldController : BaseController
 
         _playerHandView.blockCardDrag = false;
 
-        if (_matchState.isGameOver)
-        {
-            Assert.IsNotNull(onGameOver);
-            onGameOver(true);
-        }
+        //if (_matchState.isGameOver)
+        //{
+        //    Assert.IsNotNull(onGameOver);
+        //    onGameOver(true);
+        //}
     }
 
     public void SetPlayerScoreView(int playerIndex, int score)

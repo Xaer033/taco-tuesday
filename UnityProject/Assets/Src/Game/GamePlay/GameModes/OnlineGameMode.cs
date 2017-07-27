@@ -60,6 +60,11 @@ public class OnlineGameMode : IGameModeController
             {
                 sendTurnOverEvent(endTurn.moveRequestList);
             }
+
+            if(_gameMatchCore.isGameOver)
+            {
+                sendGameOverEvent();
+            }
         }
         else if(eventCode == NetworkOpCodes.BEGIN_NEXT_PLAYER_TURN)
         {
@@ -84,6 +89,15 @@ public class OnlineGameMode : IGameModeController
                 _playFieldController.SetPlayerScoreView(
                     changeTurn.previousPlayerIndex, 
                     changeTurn.prevPlayerScore);
+            });
+        }
+        else if(eventCode == NetworkOpCodes.MATCH_OVER)
+        {
+            MatchOverEvent matchOver = JsonUtility.FromJson<MatchOverEvent>(content as string);
+           
+            _gameOverPopupController.Start(matchOver.playerRanking, () =>
+            {
+                if (_onGameOverCallback != null) { _onGameOverCallback(); }
             });
         }
     }
@@ -113,7 +127,6 @@ public class OnlineGameMode : IGameModeController
             bool result = onPlayCard(move);
             if(!result)
             {
-
                 PhotonPlayer badGuy = _networkManager.GetPlayerById(playerId);
                 Debug.LogErrorFormat("Player: {0}:{1} tried to make illegal move! {2}:{3}:{4}",
                     playerId, 
@@ -128,7 +141,7 @@ public class OnlineGameMode : IGameModeController
                 onResolveScore(move.customerSlot);
             }
         }
-
+        
         return true;
     }
 
@@ -147,6 +160,19 @@ public class OnlineGameMode : IGameModeController
         PhotonNetwork.RaiseEvent(NetworkOpCodes.BEGIN_NEXT_PLAYER_TURN, eventJson, true, options);
     }
 
+    private void sendGameOverEvent()
+    {
+        List<PlayerState>   playerList = _gameMatchCore.matchState.playerGroup.getPlayerList();
+        MatchOverEvent      matchEvent = MatchOverEvent.Create(playerList);
+
+        string eventJson = JsonUtility.ToJson(matchEvent);
+
+        RaiseEventOptions options = new RaiseEventOptions();
+        options.Receivers = ReceiverGroup.All;
+
+        PhotonNetwork.RaiseEvent(NetworkOpCodes.MATCH_OVER, eventJson, true, options);
+    }
+
     private void onGameOver(bool gameOverPopup = true)
     {
         if (!gameOverPopup)
@@ -158,10 +184,7 @@ public class OnlineGameMode : IGameModeController
         }
         else
         {
-            _gameOverPopupController.Start(_playerList, () =>
-            {
-                if (_onGameOverCallback != null) { _onGameOverCallback(); }
-            });
+
         }
     }
 

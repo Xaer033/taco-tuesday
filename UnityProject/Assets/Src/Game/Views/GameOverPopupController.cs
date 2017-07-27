@@ -7,26 +7,34 @@ public class GameOverPopupController : BaseController
     private GameOverPopup _gameOverPopup;
     private Action _onConfirm;
 
-	public void Start(List<PlayerState> playerList, Action onConfirm)
+	public void Start(List<PlayerMatchRank> playerList, Action onConfirm)
     {
         _onConfirm = onConfirm;
 
         viewFactory.CreateAsync<GameOverPopup>("GameOverPopup", (view) =>
         {
             _gameOverPopup = view as GameOverPopup;
-            List<PlayerState> sortedList = _getSortedList(playerList);
+            List<PlayerMatchRank> sortedList = _getSortedList(playerList);
             
             _gameOverPopup.SetPlayerStates(sortedList);
             _gameOverPopup._confirmButton.onClick.AddListener(OnConfirm);            
         });
     }
     
-    private List<PlayerState> _getSortedList(List<PlayerState> playerList)
+    private List<PlayerMatchRank> _getSortedList(List<PlayerMatchRank> playerList)
     {
-        List<PlayerState> sortedList = new List<PlayerState>(playerList);
+        List<PlayerMatchRank> sortedList = new List<PlayerMatchRank>(playerList);
         sortedList.Sort((a, b) =>
         {
-            return b.score.CompareTo(a.score);
+            if(a.score == b.score)
+            {
+                if(a.cardCount == b.cardCount)
+                {
+                    return b.positiveCardCount.CompareTo(a.positiveCardCount);
+                }
+                return b.cardCount.CompareTo(a.cardCount);
+            }
+            return b.score.CompareTo(a.score);        
         });
         return sortedList;
     }

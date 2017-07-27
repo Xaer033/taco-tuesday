@@ -20,6 +20,11 @@ public class PlayerGroup
 
     private PlayerGroup() { }
 
+    public List<PlayerState> getPlayerList()
+    {
+        return _playerList;
+    }
+
     public PlayerState activePlayer
     {
         get { return _playerList[_activePlayerIndex]; }

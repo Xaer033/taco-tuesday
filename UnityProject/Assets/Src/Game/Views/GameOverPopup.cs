@@ -14,7 +14,7 @@ public class GameOverPopup : UIView
     public Button _confirmButton;
     public PlacingUI[] _placingUI;
 
-    private List<PlayerState> _playerStateList;
+    private List<PlayerMatchRank> _playerStateList;
 
     void Awake()
     {
@@ -27,7 +27,7 @@ public class GameOverPopup : UIView
     }
 
     // Assumes the player states have been sorted from first to last
-    public void SetPlayerStates(List<PlayerState> playerStateList)
+    public void SetPlayerStates(List<PlayerMatchRank> playerStateList)
     {
         Assert.IsTrue(playerStateList.Count <= PlayerGroup.kMaxPlayerCount);
         if(playerStateList != _playerStateList)
@@ -47,7 +47,7 @@ public class GameOverPopup : UIView
             {
                 if (i < _playerStateList.Count)
                 {
-                    PlayerState state = _playerStateList[i];
+                    PlayerMatchRank state = _playerStateList[i];
                     _placingUI[i].playerName.text = state.name;
                     _placingUI[i].finalScore.text = string.Format("Score: {0}", state.score);
                 }

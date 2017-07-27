@@ -47,7 +47,8 @@ public class PassPlayGameMode : IGameModeController
         }
         else
         {
-            _gameOverPopupController.Start(_playerList, () =>
+            MatchOverEvent matchOver = MatchOverEvent.Create(_playerList);
+            _gameOverPopupController.Start(matchOver.playerRanking, () =>
             {
                 if (_onGameOverCallback != null) { _onGameOverCallback(); }
             });

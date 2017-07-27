@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
-
+[Serializable]
 public class ActiveCustomerSet
 {
     public const int kMaxActiveCustomers = 4;

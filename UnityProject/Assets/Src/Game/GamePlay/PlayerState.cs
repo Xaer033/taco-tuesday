@@ -48,6 +48,22 @@ public class PlayerState
     public PlayerHand   hand        { get; private set; }
     public Stack<CustomerCardData> deadCustomerStack { get; private set; }
 
+    public int  positiveCustomerCount
+    {
+        get
+        {
+            int sum = 0;
+            foreach (var card in deadCustomerStack)
+            {
+                if (card.baseReward > 0)
+                {
+                    sum++;
+                }
+            }
+            return sum;
+        }
+    }
+
     public static PlayerState Create(int playerIndex, string name, int id = - 1)
     {
         PlayerState player = new PlayerState();
