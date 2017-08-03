@@ -21,6 +21,7 @@ public class PlayFieldView : UIView
     public Button confirmButton;
     public Button undoButton;
     public Button exitButton;
+    public Transform otherPlayerRoot;
 
     public TextMeshProUGUI thisPlayer;
     public PlayerInfo[] playerInfoList;

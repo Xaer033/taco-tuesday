@@ -4,6 +4,15 @@ using UnityEngine;
 
 
 [System.Serializable]
+public struct MoveResult
+{
+    public MoveRequest request;
+    public string usedIngredient;
+    public int addedScore;
+}
+
+
+[System.Serializable]
 public struct MoveRequest
 {
     public int playerIndex;

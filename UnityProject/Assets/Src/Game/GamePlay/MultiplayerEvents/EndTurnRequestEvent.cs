@@ -8,9 +8,9 @@ using UnityEngine;
 public class EndTurnRequestEvent : System.Object
 {
     public int playerId;
-    public MoveRequest[] moveRequestList;
+    public List<MoveRequest> moveRequestList;
     
-    public static EndTurnRequestEvent Create(int playerId, MoveRequest[] moveList)
+    public static EndTurnRequestEvent Create(int playerId, List<MoveRequest> moveList)
     {
         var request = new EndTurnRequestEvent();
         request.playerId = playerId;

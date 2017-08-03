@@ -10,15 +10,22 @@ public class ChangeTurnEvent : System.Object
 
     public int prevPlayerScore;
 
-    public MoveRequest[] moveRequestList;
+    public List<MoveRequest>    moveRequestList;
+    public List<MoveResult>     moveResultList;
 
-    public static ChangeTurnEvent Create(int prevPlayerIndex, int activePlayerIndex, int prevPlayerScore, MoveRequest[] movesList)
+    public static ChangeTurnEvent Create(
+        int prevPlayerIndex, 
+        int activePlayerIndex,
+        int prevPlayerScore,
+        List<MoveRequest> requestList,
+        List<MoveResult> resultList)
     {
         ChangeTurnEvent turn = new ChangeTurnEvent();
         turn.previousPlayerIndex = prevPlayerIndex;
         turn.activePlayerIndex = activePlayerIndex;
         turn.prevPlayerScore = prevPlayerScore;
-        turn.moveRequestList = movesList;
+        turn.moveRequestList = requestList;
+        turn.moveResultList = resultList;
         return turn;
     }
 }

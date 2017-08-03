@@ -26,12 +26,12 @@ public sealed class NormalPlayFieldController : BaseController
     private CustomerCardView        _droppedCustomer    = null;
 
     private NetworkManager  _networkManager = Singleton.instance.networkManager;
-    private MoveRequest[]    _moveRequests = new MoveRequest[PlayerState.kMaxCardsPerTurn];
+    private List<MoveRequest> _moveRequests = new List<MoveRequest>(PlayerState.kMaxCardsPerTurn);
     
 // Broadcast events
     public Func<MoveRequest, bool>          onPlayOnCustomer    { set; get; }
     public Func<int, bool>                  onResolveScore      { set; get; }
-    public Action<MoveRequest[]>            onEndTurn           { set; get; }
+    public Action<List<MoveRequest>>        onEndTurn           { set; get; }
     public Func<bool>                       onUndoTurn          { set; get; }
     public Action<bool>                     onGameOver          { set; get; }
     
@@ -168,7 +168,7 @@ public sealed class NormalPlayFieldController : BaseController
         if(_draggedIngredient.isDropSuccessfull)
         {       
             _droppedCustomer = customerView;
-            _moveRequests[localPlayer.cardsPlayed - 1] = move;
+            _moveRequests.Add(move);
         }
     }
 
@@ -210,6 +210,7 @@ public sealed class NormalPlayFieldController : BaseController
             PlayFieldViewUtils.ZoomSlamTween(
             _draggedIngredient,
             _droppedCustomer,
+            true,
             _onCardSlam,
             _onCardDropFinished);
         }
@@ -242,17 +243,28 @@ public sealed class NormalPlayFieldController : BaseController
         }
 
         _playerHandView.blockCardDrag = false;
-
-        //if (_matchState.isGameOver)
-        //{
-        //    Assert.IsNotNull(onGameOver);
-        //    onGameOver(true);
-        //}
     }
 
     public void SetPlayerScoreView(int playerIndex, int score)
     {
         _playfieldView.SetPlayerScore(playerIndex, score);
+    }
+
+    public void AnimateOtherPlayerMoves(List<MoveResult> moveList, TweenCallback callback)
+    {
+        PlayFieldViewUtils.AnimateOtherPlayerMoves(
+            moveList, 
+            _matchState, 
+            _activeCustomersView, 
+            _playfieldView.otherPlayerRoot,
+            _playSlamFX,
+            callback);
+    }
+
+    private void _playSlamFX(Vector3 position)
+    {
+        _slamFX.transform.position = position;
+        _slamFX.Play();
     }
     private PlayerState localPlayer
     {
@@ -322,10 +334,11 @@ public sealed class NormalPlayFieldController : BaseController
         Assert.IsNotNull(onEndTurn);
         onEndTurn(_moveRequests);
 
-        for(int i = 0; i < _moveRequests.Length; ++i)
-        {
-            _moveRequests[i] = MoveRequest.Invalid();
-        }
+        _moveRequests.Clear();
+        //for(int i = 0; i < _moveRequests.Count; ++i)
+        //{
+        //    _moveRequests[i] = MoveRequest.Invalid();
+        //}
 
         _refreshHandView(localPlayer);
         _playfieldView.SetActivePlayer(activePlayer.index);

@@ -13,13 +13,15 @@ public class OnlineGameMode : IGameModeController
     private GameOverPopupController     _gameOverPopupController    = new GameOverPopupController();
 
     private List<PlayerState>           _playerList                 = new List<PlayerState>(PlayerGroup.kMaxPlayerCount);
+    private List<MoveResult>            _moveResultList             = new List<MoveResult>();
+    private List<MoveRequest>           _recycleRequest             = new List<MoveRequest>();
 
     private GameMatchCore   _gameMatchCore;
     private Action          _onGameOverCallback;
 
     private NetworkManager  _networkManager;
 
-    public void Start( Action gameOverCallback)
+    public void Start(Action gameOverCallback)
     {
         _networkManager = Singleton.instance.networkManager;
         _networkManager.onCustomEvent += onCustomEvent;
@@ -52,16 +54,17 @@ public class OnlineGameMode : IGameModeController
         if (PhotonNetwork.isMasterClient && eventCode == NetworkOpCodes.PLAYER_TURN_COMPLETED)
         {
             EndTurnRequestEvent endTurn = JsonUtility.FromJson<EndTurnRequestEvent>(content as string);
-            if(isSenderThisPlayer)
+            
+            if (isSenderThisPlayer)
             {
                 sendTurnOverEvent(endTurn.moveRequestList);
             }
-            else if(attemptMoves(senderId, endTurn.moveRequestList))
+            else if(attemptMoves(senderId, endTurn.moveRequestList, true))
             {
                 sendTurnOverEvent(endTurn.moveRequestList);
             }
 
-            if(_gameMatchCore.isGameOver)
+            if (_gameMatchCore.isGameOver)
             {
                 sendGameOverEvent();
             }
@@ -72,24 +75,22 @@ public class OnlineGameMode : IGameModeController
             Debug.Log("Active Player: " + changeTurn.activePlayerIndex);
 
             int previousPlayerId = _gameMatchCore.playerGroup.GetPlayerByIndex(changeTurn.previousPlayerIndex).id;
-            if (!PhotonNetwork.isMasterClient && previousPlayerId != PhotonNetwork.player.ID)
+
+            bool isSamePlayer = previousPlayerId == PhotonNetwork.player.ID;
+            if (!PhotonNetwork.isMasterClient && !isSamePlayer)
             {
-                attemptMoves(previousPlayerId, changeTurn.moveRequestList);
+                attemptMoves(previousPlayerId, changeTurn.moveRequestList, true);
+                simulateOtherPlayerMakingMoves(changeTurn.moveResultList, () => onCompleteOtherPlayerAnimation(changeTurn));
             }
-
-            simulateOtherPlayerMakingMoves(() =>
+            else if(!isSamePlayer)
             {
-                _gameMatchCore.EndPlayerTurn();
-                _gameMatchCore.playerGroup.SetActivePlayer(changeTurn.activePlayerIndex);
-                _gameMatchCore.ClearCommandBuffer();
-
-                _playFieldController.RefreshHandView();
-                _playFieldController.RefreshCustomersView();
-
-                _playFieldController.SetPlayerScoreView(
-                    changeTurn.previousPlayerIndex, 
-                    changeTurn.prevPlayerScore);
-            });
+                simulateOtherPlayerMakingMoves(changeTurn.moveResultList, () => onCompleteOtherPlayerAnimation(changeTurn));
+            }
+            else
+            {
+                onCompleteOtherPlayerAnimation(changeTurn);
+            }
+            _moveResultList.Clear();
         }
         else if(eventCode == NetworkOpCodes.MATCH_OVER)
         {
@@ -102,62 +103,95 @@ public class OnlineGameMode : IGameModeController
         }
     }
 
-    private void simulateOtherPlayerMakingMoves(Action onComplete)
+    private void simulateOtherPlayerMakingMoves(List<MoveResult> resultList, Action onComplete)
     {
-        //Totally do more shit here with playField in the future
-        if(onComplete != null)
+        _playFieldController.AnimateOtherPlayerMoves(resultList, ()=>
         {
-            onComplete();
-        }
+            if(onComplete != null)
+            {
+                onComplete();
+            }
+        }); 
     }
 
-    private bool attemptMoves(int playerId, MoveRequest[] moveRequests)
+    private void onCompleteOtherPlayerAnimation(ChangeTurnEvent changeTurnEvent)
+    {
+        _gameMatchCore.EndPlayerTurn();
+        _gameMatchCore.playerGroup.SetActivePlayer(changeTurnEvent.activePlayerIndex);
+        _gameMatchCore.ClearCommandBuffer();
+
+        _playFieldController.RefreshHandView();
+        _playFieldController.RefreshCustomersView();
+
+        _playFieldController.SetPlayerScoreView(
+            changeTurnEvent.previousPlayerIndex,
+            changeTurnEvent.prevPlayerScore);
+    }
+
+    private bool attemptMoves(int playerId, List<MoveRequest> moveRequests, bool shouldResolveScore)
     {
         Assert.IsNotNull(moveRequests);
 
-        int count = moveRequests.Length;
+        int count = moveRequests.Count;
         for(int i = 0; i < count; ++i)
         {
-            MoveRequest move = moveRequests[i];
-            if (move == MoveRequest.Invalid())
+            MoveRequest request = moveRequests[i];
+            if (request == MoveRequest.Invalid())
             {
                 continue;
             }
 
-            bool result = onPlayCard(move);
+            PlayerState player = _gameMatchCore.matchState.playerGroup.GetPlayerByIndex(request.playerIndex);
+
+            int scoreDelta = 0;
+            int oldScore = player.score;
+
+            MoveResult moveResult = new MoveResult();
+            moveResult.usedIngredient = player.hand.GetCard(request.handSlot).id;
+            Debug.LogError("Setting Ingredient: " + moveResult.usedIngredient);
+
+            bool result = _gameMatchCore.PlayCardOnCustomer(request);
             if(!result)
             {
                 PhotonPlayer badGuy = _networkManager.GetPlayerById(playerId);
                 Debug.LogErrorFormat("Player: {0}:{1} tried to make illegal move! {2}:{3}:{4}",
                     playerId, 
                     badGuy.NickName,
-                    move.playerIndex,
-                    move.handSlot,
-                    move.customerSlot);
+                    request.playerIndex,
+                    request.handSlot,
+                    request.customerSlot);
                 return false;
             }
-            else
+            
+            if(shouldResolveScore)
             {
-                onResolveScore(move.customerSlot);
+                onResolveScore(request.customerSlot);
+                scoreDelta = player.score - oldScore;
             }
+
+            moveResult.request = request;
+            moveResult.addedScore = scoreDelta;
+
+            _moveResultList.Add(moveResult);
         }
         
         return true;
     }
 
-    private void sendTurnOverEvent(MoveRequest[] moveList)
+    private void sendTurnOverEvent(List<MoveRequest> requestList)
     {
         int currentPl = _gameMatchCore.playerGroup.activePlayer.index;
         int nextPl = _gameMatchCore.playerGroup.GetNextPlayer().index;
         int score = _gameMatchCore.playerGroup.activePlayer.score;
 
-        ChangeTurnEvent changeTurn = ChangeTurnEvent.Create(currentPl, nextPl, score, moveList );
+        ChangeTurnEvent changeTurn = ChangeTurnEvent.Create(currentPl, nextPl, score, requestList, _moveResultList);
         string eventJson = JsonUtility.ToJson(changeTurn);
         
         RaiseEventOptions options = new RaiseEventOptions();
         options.Receivers = ReceiverGroup.All;
 
         PhotonNetwork.RaiseEvent(NetworkOpCodes.BEGIN_NEXT_PLAYER_TURN, eventJson, true, options);
+
     }
 
     private void sendGameOverEvent()
@@ -190,7 +224,10 @@ public class OnlineGameMode : IGameModeController
 
     private bool onPlayCard(MoveRequest move)
     {
-        return _gameMatchCore.PlayCardOnCustomer(move);
+        _recycleRequest.Clear();
+        _recycleRequest.Add(move);
+        int playerIndex = _gameMatchCore.playerGroup.activePlayer.index;
+        return attemptMoves(playerIndex, _recycleRequest, false);
     }
 
     private bool onResolveScore(int customerIndex)
@@ -200,7 +237,7 @@ public class OnlineGameMode : IGameModeController
                     _gameMatchCore.playerGroup.activePlayer.index);
     }
 
-    private void onEndTurn(MoveRequest[] moveList)
+    private void onEndTurn(List<MoveRequest> moveList)
     {
         EndTurnRequestEvent endTurnRequest = EndTurnRequestEvent.Create(PhotonNetwork.player.ID, moveList);
 

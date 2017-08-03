@@ -24,12 +24,8 @@ public class GameMatchCore
         GameMatchCore core = new GameMatchCore();
 
         // Also no commands for starting player hands
-        ActiveCustomerSet   customerGroup   = core._createCustomerCards(customerDeck);
-        PlayerGroup         playerGroup     = core._createPlayerHands(playerList, ingredientDeck);
-
         core.matchState = GameMatchState.Create(
-            playerGroup, 
-            customerGroup, 
+            playerList, 
             customerDeck, 
             ingredientDeck);
 
@@ -199,34 +195,4 @@ public class GameMatchCore
             _onEndTurn();
         }
     }
-
-    private PlayerGroup _createPlayerHands(List<PlayerState> playerList, CardDeck ingredientDeck)
-    {
-        PlayerGroup group =PlayerGroup.Create(playerList);
-        for (int i = 0; i < group.playerCount; ++i)
-        {
-            for (int j = 0; j < PlayerState.kHandSize; ++j)
-            {
-                IngredientCardData cardData = ingredientDeck.Pop() as IngredientCardData;
-                PlayerState playerState = group.GetPlayerByIndex(i);
-                playerState.hand.SetCard(j, cardData);
-            }
-        }
-        return group;
-    }
-
-    private ActiveCustomerSet _createCustomerCards(CardDeck customerDeck)
-    {
-        ActiveCustomerSet customers = ActiveCustomerSet.Create();
-        // Intentionally not using commands here, as we don't want to be able to 
-        // undo the first set of customers
-        for (int i = 0; i < ActiveCustomerSet.kMaxActiveCustomers; ++i)
-        {
-            CustomerCardData cardData = customerDeck.Pop() as CustomerCardData;
-            CustomerCardState cardState = CustomerCardState.Create(cardData);
-            customers.SetCustomerAtIndex(i, cardState);
-        }
-        return customers;
-    }
-
 }

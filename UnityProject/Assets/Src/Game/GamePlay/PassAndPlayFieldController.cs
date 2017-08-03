@@ -197,6 +197,7 @@ public sealed class PassAndPlayFieldController : BaseController
             PlayFieldViewUtils.ZoomSlamTween(
             _draggedIngredient,
             _droppedCustomer,
+            true,
             _onCardSlam,
             _onCardDropFinished);
         }
