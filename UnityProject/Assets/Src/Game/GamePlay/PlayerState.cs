@@ -17,8 +17,8 @@ public class SerializedPlayerList : System.Object
 [System.Serializable]
 public class PlayerStateSerializable : System.Object
 {
-    public int index;
-    public int id;
+    public int index = -1;
+    public int id = -1;
     public string name;
 
     static public PlayerStateSerializable Create(PlayerState state)
@@ -64,7 +64,7 @@ public class PlayerState
         }
     }
 
-    public static PlayerState Create(int playerIndex, string name, int id = - 1)
+    public static PlayerState Create(int playerIndex, string name, int id = -1)
     {
         PlayerState player = new PlayerState();
         player.hand = PlayerHand.Create(kHandSize);

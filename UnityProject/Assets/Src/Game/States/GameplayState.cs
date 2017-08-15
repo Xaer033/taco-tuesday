@@ -25,7 +25,7 @@ public class GameplayState : IGameState
     
     public void Step( float p_deltaTime )
 	{
-
+        _gameModeController.Step(p_deltaTime);
     }
 
     public void Exit()
@@ -46,9 +46,9 @@ public class GameplayState : IGameState
         GameContext context = Singleton.instance.sessionFlags.gameContext;
         switch(context.gameMode)
         {
+            case GameMode.SINGLE_PLAYER:    return null;
             case GameMode.PASS_AND_PLAY:    return new PassPlayGameMode();
             case GameMode.ONLINE:           return new OnlineGameMode();
-            case GameMode.SINGLE_PLAYER:    return null;
         }
         Debug.LogErrorFormat("Not supported gametype {0}", context.gameMode);
         return null;

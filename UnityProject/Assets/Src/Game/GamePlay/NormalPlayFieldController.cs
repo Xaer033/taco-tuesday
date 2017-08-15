@@ -25,9 +25,15 @@ public sealed class NormalPlayFieldController : BaseController
     private IngredientCardView      _draggedIngredient  = null;
     private CustomerCardView        _droppedCustomer    = null;
 
+    //private ShockClockController _shockClockController;
+    private ShockClockView _shockClockView;
+
     private NetworkManager  _networkManager = Singleton.instance.networkManager;
     private List<MoveRequest> _moveRequests = new List<MoveRequest>(PlayerState.kMaxCardsPerTurn);
-    
+
+    private bool _isAnimating = false;
+    private bool _timerEndedTurn = false;
+
 // Broadcast events
     public Func<MoveRequest, bool>          onPlayOnCustomer    { set; get; }
     public Func<int, bool>                  onResolveScore      { set; get; }
@@ -68,7 +74,33 @@ public sealed class NormalPlayFieldController : BaseController
 
             _setupActiveCustomersView(_playfieldView.staticCardLayer);
             _createPlayerHandView(localPlayer.index, _playfieldView.staticCardLayer);
+
+            //_shockClockController = new ShockClockController();
+            //_shockClockController.Start(10.0, PhotonNetwork.time, onTimerCallback);
+            viewFactory.CreateAsync<ShockClockView>("ShockClockView", (clock) =>
+            {
+                _shockClockView = clock as ShockClockView;
+                _shockClockView.timerText = "10";
+            }, _playfieldView.staticCardLayer);
         });
+    }
+
+    public ShockClockView shockClockView
+    {
+        get
+        {
+            return _shockClockView;
+        }
+    }
+
+    public void Step(double time)
+    {
+        
+    }
+
+    private void onTimerCallback()
+    {
+        _onConfirmTurnButton();
     }
 
     override public void RemoveView(bool immediately = false)
@@ -79,6 +111,7 @@ public sealed class NormalPlayFieldController : BaseController
         if (_slamFX)
             GameObject.Destroy(_slamFX.gameObject);
         
+
         base.RemoveView(immediately);
     }
 
@@ -87,6 +120,7 @@ public sealed class NormalPlayFieldController : BaseController
     {
         _refreshCustomersView();
     }
+
     public void RefreshHandView()
     {
         _refreshHandView(localPlayer);
@@ -166,7 +200,8 @@ public sealed class NormalPlayFieldController : BaseController
         _draggedIngredient.isDropSuccessfull = onPlayOnCustomer(move);
         
         if(_draggedIngredient.isDropSuccessfull)
-        {       
+        {
+            _isAnimating = true;
             _droppedCustomer = customerView;
             _moveRequests.Add(move);
         }
@@ -243,6 +278,13 @@ public sealed class NormalPlayFieldController : BaseController
         }
 
         _playerHandView.blockCardDrag = false;
+        _isAnimating = false;
+
+        if(_timerEndedTurn)
+        {
+            _endPlayerTurn(true);
+            _timerEndedTurn = false;
+        }
     }
 
     public void SetPlayerScoreView(int playerIndex, int score)
@@ -266,6 +308,7 @@ public sealed class NormalPlayFieldController : BaseController
         _slamFX.transform.position = position;
         _slamFX.Play();
     }
+
     private PlayerState localPlayer
     {
         get
@@ -293,6 +336,7 @@ public sealed class NormalPlayFieldController : BaseController
         _hoverFX.gameObject.SetActive(true);
         _hoverFX.transform.position = position;
     }
+
     private void _deactiveHoverFX()
     {
         _hoverFX.gameObject.SetActive(false);
@@ -324,9 +368,31 @@ public sealed class NormalPlayFieldController : BaseController
         }
     }
 
-    private void _onConfirmTurnButton()
+    //public void RestartTimer()
+    //{
+    //    _shockClockController.Start(10, PhotonNetwork.time, onTimerCallback);
+    //}
+
+    public void ForceEndTurn()
     {
-        if(localPlayer.id != activePlayer.id)
+        if(_isAnimating)
+        {
+            _timerEndedTurn = true;
+        }
+        else
+        {
+            _endPlayerTurn(true);
+        }
+    }
+
+    public void EndPlayerTurn(bool serverOverride)
+    {
+        _endPlayerTurn(serverOverride);
+    }
+
+    private void _endPlayerTurn(bool serverOverride)
+    {
+        if (!serverOverride && localPlayer.id != activePlayer.id)
         {
             return;
         }
@@ -335,13 +401,14 @@ public sealed class NormalPlayFieldController : BaseController
         onEndTurn(_moveRequests);
 
         _moveRequests.Clear();
-        //for(int i = 0; i < _moveRequests.Count; ++i)
-        //{
-        //    _moveRequests[i] = MoveRequest.Invalid();
-        //}
 
         _refreshHandView(localPlayer);
         _playfieldView.SetActivePlayer(activePlayer.index);
+    }
+
+    private void _onConfirmTurnButton()
+    {
+        _endPlayerTurn(false);
     }
 
     private void _onUndoButton()
@@ -351,6 +418,12 @@ public sealed class NormalPlayFieldController : BaseController
         bool didUndo = onUndoTurn();
         if (!didUndo) { return; }
         
+        // TODO: THIS NEEDS TO BE ADDED TO COMMANDS!
+        if(_moveRequests.Count >= 0)
+        {
+            _moveRequests.RemoveAt(_moveRequests.Count - 1);
+        }
+
         _refreshHandView(localPlayer);
         _refreshCustomersView();
     }

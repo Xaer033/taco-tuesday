@@ -9,6 +9,9 @@ public class OnlineGameMode : IGameModeController
 {
     private const int kRandomSeed = 100;
 
+    private const int kShockClockTurnTime = 25000; // In Milliseconds
+    private const int kShockClockInterval = 1000; // In Milliseconds
+
     private NormalPlayFieldController   _playFieldController        = new NormalPlayFieldController();
     private GameOverPopupController     _gameOverPopupController    = new GameOverPopupController();
 
@@ -16,10 +19,14 @@ public class OnlineGameMode : IGameModeController
     private List<MoveResult>            _moveResultList             = new List<MoveResult>();
     private List<MoveRequest>           _recycleRequest             = new List<MoveRequest>();
 
+    private ShockClock _shockClock = new NetworkShockClock();
+
     private GameMatchCore   _gameMatchCore;
     private Action          _onGameOverCallback;
 
     private NetworkManager  _networkManager;
+
+    private Stack<int> _playbackConfirm = new Stack<int>(PlayerGroup.kMaxPlayerCount);
 
     public void Start(Action gameOverCallback)
     {
@@ -30,7 +37,13 @@ public class OnlineGameMode : IGameModeController
 
         GameContext context = Singleton.instance.sessionFlags.gameContext;
         _playerList.Clear();
-        _playerList.AddRange(context.playerList);
+        for(int i = 0; i < context.playerList.Length; ++i)
+        {
+            if(context.playerList[i].id >= 0)
+            {
+                _playerList.Add(context.playerList[i]);
+            }
+        }
         
         _gameMatchCore = GameMatchCore.Create(
             _playerList, 
@@ -39,6 +52,24 @@ public class OnlineGameMode : IGameModeController
 
         _playFieldController.Start(_gameMatchCore.matchState);
         _setupPlayFieldCallbacks();
+
+        if(PhotonNetwork.isMasterClient)
+        {
+            _shockClock.Start(
+                kShockClockTurnTime, 
+                kShockClockInterval, 
+                onShockClockInterval, 
+                onShockClockFinished);        
+        }
+
+    }
+
+    public void Step(double time)
+    {
+        if(_playFieldController != null)
+        {
+            _playFieldController.Step(PhotonNetwork.time);
+        }
     }
 
     public void CleanUp()
@@ -51,10 +82,12 @@ public class OnlineGameMode : IGameModeController
     private void onCustomEvent(byte eventCode, object content, int senderId)
     {
         bool isSenderThisPlayer = senderId == PhotonNetwork.player.ID;
-        if (PhotonNetwork.isMasterClient && eventCode == NetworkOpCodes.PLAYER_TURN_COMPLETED)
+        if (eventCode == NetworkOpCodes.PLAYER_TURN_COMPLETED)
         {
+            Assert.IsTrue(PhotonNetwork.isMasterClient);
+            _shockClock.Stop();
+
             EndTurnRequestEvent endTurn = JsonUtility.FromJson<EndTurnRequestEvent>(content as string);
-            
             if (isSenderThisPlayer)
             {
                 sendTurnOverEvent(endTurn.moveRequestList);
@@ -90,7 +123,9 @@ public class OnlineGameMode : IGameModeController
             {
                 onCompleteOtherPlayerAnimation(changeTurn);
             }
+
             _moveResultList.Clear();
+           
         }
         else if(eventCode == NetworkOpCodes.MATCH_OVER)
         {
@@ -101,6 +136,47 @@ public class OnlineGameMode : IGameModeController
                 if (_onGameOverCallback != null) { _onGameOverCallback(); }
             });
         }
+        else if(eventCode == NetworkOpCodes.PLAYBACK_CONFIRMED)
+        {
+            _playbackConfirm.Push(senderId);
+            Debug.LogErrorFormat("Confirmed Count: {0}/{1}", _playbackConfirm.Count, _playerList.Count);
+            //All players confirmed
+            if(_playbackConfirm.Count >= _playerList.Count)
+            {
+                Debug.LogError("Engage Timer!");
+
+                _playbackConfirm.Clear();
+                _shockClock.Start(
+                   kShockClockTurnTime,
+                   kShockClockInterval,
+                   onShockClockInterval,
+                   onShockClockFinished);
+            }
+        }
+        else if(eventCode == NetworkOpCodes.TIMER_UPDATE)
+        {
+            double time = (double)content;
+            Debug.Log("Time: " + time);
+
+            if (_playFieldController != null)
+            {
+                double timeLeft = (kShockClockTurnTime - time) / 1000.0;
+                if (_playFieldController.shockClockView != null)
+                {
+                    _playFieldController.shockClockView.timerText = ((int)timeLeft).ToString();
+                }
+
+                if ((int)timeLeft <= 0 && isLocalPlayerActive)
+                {
+                    _playFieldController.ForceEndTurn();
+                }
+            }
+        }
+    }
+
+    private bool isLocalPlayerActive
+    {
+        get { return _gameMatchCore.playerGroup.activePlayer.id == PhotonNetwork.player.ID; }
     }
 
     private void simulateOtherPlayerMakingMoves(List<MoveResult> resultList, Action onComplete)
@@ -126,6 +202,10 @@ public class OnlineGameMode : IGameModeController
         _playFieldController.SetPlayerScoreView(
             changeTurnEvent.previousPlayerIndex,
             changeTurnEvent.prevPlayerScore);
+
+        RaiseEventOptions options = new RaiseEventOptions();
+        options.Receivers = ReceiverGroup.MasterClient;
+        PhotonNetwork.RaiseEvent(NetworkOpCodes.PLAYBACK_CONFIRMED, null, true, options);      
     }
 
     private bool attemptMoves(int playerId, List<MoveRequest> moveRequests, bool shouldResolveScore)
@@ -191,7 +271,6 @@ public class OnlineGameMode : IGameModeController
         options.Receivers = ReceiverGroup.All;
 
         PhotonNetwork.RaiseEvent(NetworkOpCodes.BEGIN_NEXT_PLAYER_TURN, eventJson, true, options);
-
     }
 
     private void sendGameOverEvent()
@@ -260,5 +339,19 @@ public class OnlineGameMode : IGameModeController
         _playFieldController.onEndTurn          = onEndTurn;
         _playFieldController.onUndoTurn         = onUndoTurn;
         _playFieldController.onGameOver         = onGameOver;
+    }
+
+    private void onShockClockInterval(double currentTime)
+    {
+        RaiseEventOptions options = new RaiseEventOptions();
+        options.Receivers = ReceiverGroup.All;
+        PhotonNetwork.RaiseEvent(NetworkOpCodes.TIMER_UPDATE, currentTime, true, options);
+    }
+
+    private void onShockClockFinished()
+    {
+        RaiseEventOptions options = new RaiseEventOptions();
+        options.Receivers = ReceiverGroup.All;
+        PhotonNetwork.RaiseEvent(NetworkOpCodes.FORCE_TURN_END, null, true, options);
     }
 }

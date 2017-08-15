@@ -150,7 +150,7 @@ public class PlayFieldViewUtils
     public static void AnimateOtherPlayerMoves(List<MoveResult> moveList, GameMatchState state, ActiveCustomersView customersView, Transform parent, Action<Vector3> slamCallback, TweenCallback callback)
     {
         Assert.IsNotNull(moveList);
-        Assert.IsTrue(moveList.Count > 0);
+        //Assert.IsTrue(moveList.Count > 0);
 
         Sequence allPlayedCards = DOTween.Sequence();
         //MoveResult[] moveResults = new MoveResult[PlayerGroup.kMaxPlayerCount];

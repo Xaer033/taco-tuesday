@@ -31,6 +31,11 @@ public class PassPlayGameMode : IGameModeController
         _setupCallbacks();
     }
 
+    public void Step(double time)
+    {
+
+    }
+
     public void CleanUp()
     {
         _playFieldController.RemoveView();
