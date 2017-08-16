@@ -75,6 +75,8 @@ public class OnlineGameMode : IGameModeController
     public void CleanUp()
     {
         _playFieldController.RemoveView();
+        _gameOverPopupController.RemoveView();
+
         _networkManager.onCustomEvent -= onCustomEvent;
         _networkManager.Disconnect();
     }
