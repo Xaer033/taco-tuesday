@@ -79,8 +79,10 @@ public class GameMatchCore
         if (playerState.cardsPlayed >= PlayerState.kMaxCardsPerTurn) { return false; }
         if (!customerState.CanAcceptCard(ingredientData)) { return false; }
 
-        _playCard(move.handSlot, playerState, customerState, ingredientData);
+        _playCard(move, playerState, customerState, ingredientData);
+        
         _playCardEvent();
+        
         return true;
     }
 
@@ -157,13 +159,13 @@ public class GameMatchCore
     }
 
     private void _playCard(
-        int handSlot,
+        MoveRequest moveRequest,
         PlayerState playerState,
         CustomerCardState customer,
         IngredientCardData ingredient)
     {
         ICommand command = PlayCardCommand.Create(
-            handSlot,
+            moveRequest,
             playerState,
             customer,
             ingredient);
