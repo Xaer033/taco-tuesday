@@ -14,23 +14,22 @@ MonoBehaviour:
   AppID: 7da654af-b822-4b5c-b6b2-56d531e74f17
   VoiceAppID: 
   ChatAppID: 
-  HostType: 4
-  PreferredRegion: 7
+  HostType: 1
+  PreferredRegion: 0
   EnabledRegions: -1
   Protocol: 0
   ServerAddress: 
   ServerPort: 5055
   VoiceServerPort: 5055
-  JoinLobby: 1
-  EnableLobbyStatistics: 1
-  PunLogging: 2
-  NetworkLogging: 5
+  JoinLobby: 0
+  EnableLobbyStatistics: 0
+  PunLogging: 0
+  NetworkLogging: 1
   RunInBackground: 1
   RpcList:
   - Chat
   - DestroyRpc
   - InstantiateRpc
-  - OnAwakeRPC
   - PickupItemInit
   - PunPickup
   - PunPickupSimple
